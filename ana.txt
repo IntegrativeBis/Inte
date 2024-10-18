@@ -1,0 +1,9 @@
+en el form necesito que la clase sea form-signin y action="/login" method="POST"
+
+PARA JOSHUA
+que la contrasena sea char de 102 porque usaremos contraseias hasheadas
+
+boton para logout
+
+en el form se agrega el token csrf
+imput type hidden name csrf_token value {{ csrf_token() }}
