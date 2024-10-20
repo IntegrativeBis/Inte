@@ -1,0 +1,32 @@
+@app.route ('/IniciarSesion', la variable (como se va a llamar la accion en el HTML)
+method= ["GET","POST"]) usamos estos metodos para obtener y publicar los datos recolectados
+def IniciarS(): inicializamos la funcion
+    if request.method == 'POST' and 'txtCorreo' in request.form and 'txtPassword': estamos recogiendo los datos que fueron ingresados en las entradas de texto TXT(nombre del campo)
+        correo = request.form['txtCorreo'] aqui se almacena la informacion que agarramos en una variable
+        Password = request.form['txtPassword']
+
+        #cursor=db.cursor() definimos el cursor como objeto que utilizaremos
+        #cursor.execute('SELECT * FROM usuarios WHERE correo = %s AND password %s' (correo, password)) ejecutamos la setencia SQL para seleccionar los usuarios los cuales el correo y la contrasenia sean iguales
+        (correo, password) esto son nuestras variables que en la setencia SQL son %s
+        
+        
+        #account = cursor.fetchone()  la infromacion se guardara en account
+        
+        if account: si la informacion es correcta
+            session['loggeado'] = True  estas logeado 
+            session['id'] = account['id'] rescatamos un inicio de sesion con la id de la cuenta
+            return render_template("logged.html") #aqui puse un ejemplo de redireccion cuando Ana lo coloque lo cambio
+        else: #AQUI SE SUPONE QUE TE SALTA EL ERROR YA DEFINIDO DEBAJO que significa que no estas registrado
+            return status_401 
+
+REQUERIMIENTOS
+en el form action="/IniciarSesion" method="POST"
+en los ipmut el name debe ser txtCorreo y txtPassword
+
+{% if mensaje %}
+{{ mensaje }}
+{% endif %}
+colocar esto arriba del foomulario
+{% if mensajito %}
+{{ mensajito }}
+{% endif %} esto es de registrar funcion
