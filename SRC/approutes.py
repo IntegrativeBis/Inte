@@ -22,7 +22,7 @@ login_manager_app=LoginManager(app)
 
 @app.route ('/')
 def Inicio():
-    return render_template('Inicio_CS')
+    return render_template('Inicio_CS') #Inicio_SS
 
 
 #FUNCION PARA INICIAR SESION
@@ -39,7 +39,7 @@ def IniciarSesion():
             IdUsuario= cursor.fetchone()
             session['loggeado'] = True
             session['id'] = IdUsuario['id'] # IdUsuario[0] si da error
-            return redirect(url_for("logged")) #aqui puse un ejemplo de redireccion cuando Ana lo coloque lo cambio
+            return redirect(url_for("Inicio_CS")) #aqui puse un ejemplo de redireccion cuando Ana lo coloque lo cambio
         
     else:
         # La contraseña es incorrecta
@@ -57,7 +57,7 @@ def IniciarSesion():
         
         
 #ya estamos iniciados
-@app.route('/logged') #hicimos una ruta donde te llevara a la pagina protegida solo si estas registrado
+@app.route('/InicioSesion_CS') #hicimos una ruta donde te llevara a la pagina protegida solo si estas registrado
 @login_required
 def logged():
     return "<h1> esta es una vista protegida solo para usuarios </h1>"
@@ -68,22 +68,23 @@ def logged():
 def registro(): 
     if request.method == 'POST':    
         Nombre = request.form['txtNombre']
-        Correo = request.form['txtCorreo']
+        Celular = request.form['txtNumeroCel'] #obligatorio
+        Correo = request.form['txtCorreo'] #puede ser nulo
         Password = generate_password_hash(request.form['txtPassword'])
-        App = request.form['txtApellidoP']
-        Apm = request.form['txtApellidoM']
-        Ubi = request.form['txtUbicacion']
+        Apellido = request.form['txtApellido']
+        #Apm = request.form['txtApellidoM']
+        #Ubi = request.form['txtUbicacion']
 
         # Verificar si el correo ya está registrado
-        cursor.execute("SELECT * FROM usuarios WHERE correo = ?", (Correo,))
+        cursor.execute("SELECT * FROM usuario WHERE Celular = ?", (Celular,))
         usuario_existente = cursor.fetchone()  # Si hay un resultado, significa que el correo ya está registrado
 
         if usuario_existente:
             # Si ya existe, devolver al formulario con un mensaje de error
-            return render_template('Registrar.html', error="Este correo ya está registrado.")
+            return render_template('Registrar.html', error="Este Celular ya está registrado.")
         
         # Si no existe, insertar el nuevo usuario
-        cursor.execute("INSERT INTO usuarios (Nombre, correo, password, apm, app, ciudad) VALUES (?, ?, ?, ?, ?, ?)", (Nombre, Correo, Password, Apm, App, Ubi))
+        cursor.execute("INSERT INTO usuario (Nombre, correo, password, apm, app, ciudad) VALUES (?, ?, ?, ?, ?, ?)", (Nombre, Correo, Password, Apm, App, Ubi))
         db.commit()
         
     return redirect(url_for('IniciarSesion', mensajito="usuario correctamente registrado"))
