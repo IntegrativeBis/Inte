@@ -1,20 +1,20 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, Response, session
-from database.DevelopmentConfig import config, DevelopmentConfig #ME DA UN ERROR NO SE PORQUEEEEE
-import pyodbc
+import database.dbconnection as db 
 from flask_login import LoginManager, login_user, logout_user, login_required
 from flask_wtf.csrf import CSRFProtect 
 import secrets
 from werkzeug.security import check_password_hash, generate_password_hash
-app=Flask(__name__) #template_folder=("templates") no es necesario pq la carpeta se llama asi y jinja busca esa por defecto
+app=Flask('__name__') #template_folder=("templates") no es necesario pq la carpeta se llama asi y jinja busca esa por defecto
+
 #INVENTAMOS UNA LLAVE SECRETA ALEATORIA
 secret_key = secrets.token_hex(16)
 #ASIGNAMOS LA LLAVE SECRETA A LA APP
 app.secret_key = secret_key
 csrf=CSRFProtect()
 
-API_KEY = 'AIzaSyBpT4O929acaKiKmxevg9hl8sjanWnnOW0'
+API_KEY = 'AIzaSyBpT4O929acaKiKmxevg9hl8sjanWnnOW0' #App de gogke maps
+
 # Inicializa la conexión y el cursor
-db=pyodbc.connect(DevelopmentConfig.connection) 
 cursor=db.cursor()
 
 #dentro de esto la viene la conexion con la base
@@ -22,11 +22,10 @@ login_manager_app=LoginManager(app)
 
 @app.route ('/')
 def Inicio():
-    return render_template('Inicio_CS') #Inicio_SS
-
+    return render_template('Inicio_CS.html') #Inicio_SS
 
 #FUNCION PARA INICIAR SESION
-@app.route ('/IniciarSesion', method= ["GET","POST"])
+@app.route ('/IniciarSesion', methods= ["GET","POST"])
 def IniciarSesion():
     if request.method == 'POST' and 'txtCorreo' in request.form and 'txtPassword' in request.form: 
         correo = request.form['txtCorreo']
@@ -35,7 +34,7 @@ def IniciarSesion():
         usuario = cursor.fetchone() #loq ue arroje el sql sera la variable usuario
         #comprobamos si las contrasenias son correctas con el check hacemos que la revise 
         if usuario and check_password_hash(usuario.password, password): #usuario[0] en lugar de usaurio.pass si hay error
-            cursor.execute('SELECT id FROM usuarios WHERE correo = ?' (correo,))
+            cursor.execute('SELECT id FROM usuarios WHERE correo = ?', (correo,))
             IdUsuario= cursor.fetchone()
             session['loggeado'] = True
             session['id'] = IdUsuario['id'] # IdUsuario[0] si da error
@@ -96,6 +95,5 @@ def logout():
     return redirect(url_for('login'))
 
 if (__name__)=='__main__':
-    app.config.from_object(config['development'])
     csrf.init_app(app)
     app.run(debug=True) #aqui podrias agregar el host y el puerto al que se quiere conectar y no se que threaded
