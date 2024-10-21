@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, Response, session
-import database.dbconnection as db 
+from database.dbconnection import cursor
 from flask_login import LoginManager, login_user, logout_user, login_required
 from flask_wtf.csrf import CSRFProtect 
 import secrets
@@ -15,7 +15,6 @@ csrf=CSRFProtect()
 API_KEY = 'AIzaSyBpT4O929acaKiKmxevg9hl8sjanWnnOW0' #App de gogke maps
 
 # Inicializa la conexión y el cursor
-cursor=db.cursor()
 
 #dentro de esto la viene la conexion con la base
 login_manager_app=LoginManager(app)
@@ -83,8 +82,8 @@ def registro():
             return render_template('Registrar.html', error="Este Celular ya está registrado.")
         
         # Si no existe, insertar el nuevo usuario
-        cursor.execute("INSERT INTO usuario (Nombre, correo, password, apm, app, ciudad) VALUES (?, ?, ?, ?, ?, ?)", (Nombre, Correo, Password, Apm, App, Ubi))
-        db.commit()
+        cursor.execute("INSERT INTO usuario (Nombre, correo, password, apm, app, ciudad) VALUES (?, ?, ?, ?, ?, ?)", (Nombre, Celular, Correo, Password, Apellido))
+ 
         
     return redirect(url_for('IniciarSesion', mensajito="usuario correctamente registrado"))
 
