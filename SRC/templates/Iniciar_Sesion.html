@@ -1,3 +1,4 @@
+<<<<<<< HEAD:SRC/templates/Iniciar_Sesion.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,4 +75,96 @@
     </footer>
 
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesion|PriceSeeker</title>
+    <style>                                                                 /*Imagen como fondo del sitio web*/
+        body {
+            background-image: url(Img/BG\ 1.jpeg);                          /*Seleccionar la imagen*/
+            background-size: cover;                                         /*Espacio a ocupar*/          
+            background-repeat: no-repeat;                                   /*Para que no se repita*/          
+            height: 100vh;                                                            
+            margin: 0;                                                      /*Distancia entre el margen y el contenido*/
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <h1 style="color: white; background-color: #6CCB20; padding-top: 15px; padding-bottom: 15px; text-align: center; font-family: Italina, serif; font-size: 40px;"> 
+        PriceSeeker
+    </h1>                          
+    <br><br>               
+
+    <!--Div para el cuadro donde contiene lo necesario para que le usuario inicie sesion-->
+    <div class="container" style= "width: 450px; height: 500px; background-color: white; border-radius: 30px;">             
+        <div class="card-body">
+            <h2 class="card-title" style="color: #8B8B8B; text-align: center; font-family: Jacques Francois-Regular; font-size: 35px; padding-top: 15px;">Iniciar sesión</h2>
+            <br>                                   
+
+            {% if mensaje %}                <!--Correccion para meter esta madre-->
+            {{ mensaje }}
+            {% endif %}
+
+            {% if mensajito %}
+            {{mensajito}}
+            {% endif %}
+
+            <form class="form-group" action="/IniciarSesion" method="POST">   
+                <!--El usuario pueda poner su correo electrónico-->                
+                <div class="IniS">                      
+                    <label for="exampleInputEmail" style="font-family: Jacques Francois-Regular; color: #8B8B8B; font-size: 20px;">
+                        Correo
+                    </label>          
+                    <input name="txtCorreo" style="border-radius: 15px;" type="email" class="form-control" id="exampleInputEmail">
+                </div>
+                <br><br>
+                <!--El usuario pueda ingresar su contraseña-->
+                <div class="IniS">                          
+                    <label for="exampleInputPassword" style="font-family: Jacques Francois-Regular; color: #8B8B8B; font-size: 20px;">
+                        Contraseña
+                    </label>
+                    <input name="txtPassword" style="border-radius: 15px;" type="password" class="form-control" id="exampleInputPassword">
+                    <br>
+                    <!--Si el usuario desea crear una cuenta, podra ingresar desde este enlace-->
+                    <small id="" class="form-text text-muted" style="text-align: center; font-family: Jacques Francois-Regular;">
+                        ¿Aun no tienes una cuenta?
+                        <a style="font-family: Jacques Francois-Regular;" href="Registrar.html">
+                            <u>
+                                Registrate
+                            </u>
+                        </a>
+                    </small> 
+                </div>
+            </form>
+            <br>
+
+            <!--Boton para que el usuario, despues de haber ingresado los requerimientos, pueda iniciar sesion y ser direccionado a la pagina de inicio-->
+            <div style="text-align: center;">
+                <button style="background-color: #6CCB20; padding: 5px 100px; border-radius: 15px; border-color: #6CCB20; cursor: pointer;" type="submit" class="btn btn-primary">
+                    <a style="color: white; font-size: 20px; font-family: Jacques Francois-Regular;" href="Inicio_CS.html">
+                        Continuar
+                    </a>
+                </button>
+            </div> 
+        </div>
+    </div>
+
+    <br><br><br>
+
+    <!--Informacion de la empresa y el sitio web-->
+    <footer>
+        <p style="padding-top: 20px; padding-bottom: 20px; background-color: #357600; color: white; text-align: center;">
+            @PriceSeeker
+            Todos los derechos reservados 2024 
+        </p>   
+    </footer>
+
+</body>
+>>>>>>> main:templates/Iniciar_Sesion.html
 </html>
