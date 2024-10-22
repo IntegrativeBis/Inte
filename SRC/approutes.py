@@ -4,7 +4,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required
 from flask_wtf.csrf import CSRFProtect 
 import secrets
 from werkzeug.security import check_password_hash, generate_password_hash
-app=Flask('__name__') #template_folder=("templates") no es necesario pq la carpeta se llama asi y jinja busca esa por defecto
+app = Flask('__name__', template_folder="template") #template_folder=("templates") no es necesario pq la carpeta se llama asi y jinja busca esa por defecto
 
 #INVENTAMOS UNA LLAVE SECRETA ALEATORIA
 secret_key = secrets.token_hex(16)
@@ -21,7 +21,7 @@ login_manager_app=LoginManager(app)
 
 @app.route ('/')
 def Inicio():
-    return render_template('Inicio_CS.html') #Inicio_SS
+    return render_template('Inicio_CS.html',) #Inicio_SS
 
 #FUNCION PARA INICIAR SESION
 @app.route ('/IniciarSesion', methods= ["GET","POST"])
