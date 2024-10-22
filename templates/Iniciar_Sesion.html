@@ -30,11 +30,15 @@
             <br>                                   
 
             {% if mensaje %}                <!--Correccion para meter esta madre-->
-            {{ mensaje }}
+            <div class="alert alert-danger" role="alert">
+               {{mensaje}} 
+            </div>
             {% endif %}
 
             {% if mensajito %}
-            {{mensajito}}
+            <div class="alert alert-success" role="alert">
+                {{mensajito}}
+            </div>
             {% endif %}
 
             <form class="form-group" action="/IniciarSesion" method="POST">   
