@@ -4,49 +4,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inicio|PriceSeeker</title>
-  <style>
-      body{
-        margin: 0;
-      }
-      .banner {
-        background-image: url('Img/BG 2.jpeg');
-        background-size: cover;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-      }
-
-      .logo {
-        display: flex;
-        align-items: center;
-        }
-
-      .logo img {
-        padding-top: 7px;
-        padding-bottom: 7px;
-        padding-left: 20px;
-        padding-right: 12px;
-        width: 90px;
-        height: 61px;
-        margin-right: 10px;
-      }
-
-      .nombre_sitio {
-        font-size: 40px;                    /*Buscar otra fuente*/
-        color: white;
-        font-family: 'Italiana, serif';
-      }
-
-      .perfil {
-        padding: 10px;
-        display: flex;
-        align-items: center;
-        padding-right: 40px;
-      }
-  </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style-ads.css">
+  <style>
+    body{
+    margin: 0;
+  }
+  .banner {
+    background-image: url('Img/BG 2.jpeg');
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    }
+
+  .logo img {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 20px;
+    padding-right: 12px;
+    width: 90px;
+    height: 61px;
+    margin-right: 10px;
+  }
+
+  .nombre_sitio {
+    font-size: 40px;                    /*Buscar otra fuente*/
+    color: white;
+    font-family: 'Italiana, serif';
+  }
+
+  .perfil {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    padding-right: 40px;
+  }
+  </style>
 </head>
 
 <body>
@@ -60,7 +60,7 @@
         </div>
         <div class="lista">                             
             <a href="Listas.html" style="padding-left: 1005px; font-size: 25px; color: white; font-family: Jacques Francois-Regular; text-decoration: none;">
-                    Mis listas
+              Mis listas  <!--corregir padding-->
             </a>
         </div>
 
@@ -70,22 +70,17 @@
           </a>
         </div>
     </div> 
+    <br><br><br>
 <!----------------------------------------------------------------------------------------------------------------------------------------------> 
-    <div id="carouselAds" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active" data-interval="500">
-          <img src="Img/ND.jpeg" class="d-block w-100" alt="Ad 1">
-        </div>
-
-        <div class="carousel-item" data-interval="2000">
-          <img src="Img/ex.jpg" class="d-block w-100" alt="Ad 2">
-        </div>
-
-        <div class="carousel-item">
-          <img src="Img/ND.jpeg" class="d-block w-100" alt="Ad 3">
-        </div>
-      </div>
-    </div>  
+   <div class="ads">
+    <ul>
+      <li><img src="Img/ND.jpeg" alt=""></li>
+      <li><img src="Img/ND.jpeg" alt=""></li>
+      <li><img src="Img/ND.jpeg" alt=""></li>
+      <li><img src="Img/ND.jpeg" alt=""></li>
+      <li><img src="Img/ND.jpeg" alt=""></li>
+    </ul>
+   </div>
     <br><br>
 
     <footer>

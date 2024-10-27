@@ -1,0 +1,39 @@
+  .ads{
+   width: 700px;
+   height: auto;
+   margin: 50px auto 0;
+   overflow: hidden;
+  }
+
+  .ads ul{
+    display: flex;
+    padding: 0;
+    width: 500%;
+    animation: slide 25s infinite alternate ease-in-out;
+  }
+
+  .ads li{
+    list-style: none;
+    width: 100%;
+  }
+
+  .ads img{
+    width: 100%;
+  }
+
+  @keyframes slide{
+    0%{margin-left: 0%;}
+    15%{margin-left: 0%;}
+
+    20%{margin-left: -100%;}
+    35%{margin-left: -100%;}
+
+    40%{margin-left: -200%;}
+    55%{margin-left: -200%;}
+
+    60%{margin-left: -300%;}
+    75%{margin-left: -300%;}
+
+    80%{margin-left: -400%;}
+    95%{margin-left: -400%;}
+  }
