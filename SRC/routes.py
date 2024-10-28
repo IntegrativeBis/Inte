@@ -23,7 +23,7 @@ def Inicio():
 #FUNCION PARA INICIAR SESION
 @app.route ('/IniciarSesion', methods= ["GET","POST"])
 def IniciarSesion():
-"""
+    """
         account = cursor.fetchone()
         if account:
             session['loggeado'] = True
