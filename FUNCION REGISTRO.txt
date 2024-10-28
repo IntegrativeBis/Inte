@@ -1,0 +1,3 @@
+como action sera: Registrarse %s son entrada de texto
+
+       # Inserta en la base de datos usando el símbolo '?' en lugar de '%s'
