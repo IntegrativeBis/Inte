@@ -4,6 +4,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required
 from flask_wtf.csrf import CSRFProtect 
 import secrets
 from werkzeug.security import check_password_hash, generate_password_hash
+from auth import IniciarSesion
 app = Flask('__name__', template_folder="SRC/templates") #template_folder=("templates") no es necesario pq la carpeta se llama asi y jinja busca esa por defecto
 
 #INVENTAMOS UNA LLAVE SECRETA ALEATORIA
@@ -17,30 +18,12 @@ API_KEYMaps = 'AIzaSyBpT4O929acaKiKmxevg9hl8sjanWnnOW0' #App de gogke maps
 
 @app.route ('/')
 def Inicio():
-    return render_template("Busqueda.html")
+    return render_template("Inicio_SS.html")
 
 #FUNCION PARA INICIAR SESION
 @app.route ('/IniciarSesion', methods= ["GET","POST"])
 def IniciarSesion():
-    if request.method == 'POST' and 'txtCorreo' in request.form and 'txtPassword' in request.form: 
-        correo = request.form['txtCorreo']
-        password = request.form['txtPassword']
-        cursor.execute('SELECT password FROM usuarios WHERE correo = ?', (correo,))
-        usuario = cursor.fetchone() #loq ue arroje el sql sera la variable usuario
-        #comprobamos si las contrasenias son correctas con el check hacemos que la revise 
-        if usuario and check_password_hash(usuario.password, password): #usuario[0] en lugar de usaurio.pass si hay error
-            cursor.execute('SELECT id FROM usuarios WHERE correo = ?', (correo,))
-            IdUsuario= cursor.fetchone()
-            session['loggeado'] = True
-            session['id'] = IdUsuario['id'] # IdUsuario[0] si da error
-            return redirect(url_for("Inicio_CS")) #aqui puse un ejemplo de redireccion cuando Ana lo coloque lo cambio
-        
-    else:
-        # La contraseña es incorrecta
-        return render_template('Iniciar_Sesion.html', mensaje="Correo o contraseña incorrecta")#lo regresamos al login y le decimos el mensaje si ANA hace lo que le pedi
-    return render_template('Iniciar_Sesion.html')
-        
-    """
+"""
         account = cursor.fetchone()
         if account:
             session['loggeado'] = True
