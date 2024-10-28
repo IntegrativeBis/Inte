@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, Response, session
-from Database.db import cursor
+from db import cursor
 from flask_login import LoginManager, login_user, logout_user, login_required
 from flask_wtf.csrf import CSRFProtect 
 import secrets
 from werkzeug.security import check_password_hash, generate_password_hash
-app = Flask('__name__', template_folder="static/templates") #template_folder=("templates") no es necesario pq la carpeta se llama asi y jinja busca esa por defecto
+app = Flask('__name__', template_folder="SRC/templates") #template_folder=("templates") no es necesario pq la carpeta se llama asi y jinja busca esa por defecto
 
 #INVENTAMOS UNA LLAVE SECRETA ALEATORIA
 secret_key = secrets.token_hex(16)
@@ -15,12 +15,9 @@ csrf=CSRFProtect()
 API_KEYMaps = 'AIzaSyBpT4O929acaKiKmxevg9hl8sjanWnnOW0' #App de gogke maps
 
 
-#dentro de esto la viene la conexion con la base
-login_manager_app=LoginManager(app)
-
 @app.route ('/')
 def Inicio():
-    return render_template(".html")
+    return render_template("Busqueda.html")
 
 #FUNCION PARA INICIAR SESION
 @app.route ('/IniciarSesion', methods= ["GET","POST"])
