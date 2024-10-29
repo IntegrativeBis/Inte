@@ -13,7 +13,7 @@ class User(UserMixin):
         self.correo = correo
         self.password = password
 #creamos un usuaraio de ejemplo  
-user = User(id=1, nombre="Juan", apellido="si", telefono=623, correo="juancho@gmail.com")
+user = User(id=1, nombre="Juan", apellido="si", telefono=623, correo="juancho@gmail.com", password="tilin")
 
 @login_manager.user_loader
 def load_user(user_id):
