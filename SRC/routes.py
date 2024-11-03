@@ -1,11 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, Response, session
-from db import cursor, dbconnection
+from flask import Flask, render_template, request, redirect, url_for, flash, Response, session, jsonify
+from db import dbconnection
 from flask_login import LoginManager, login_user, logout_user, login_required
 from flask_wtf.csrf import CSRFProtect 
 import secrets
 from werkzeug.security import check_password_hash, generate_password_hash
-from auth import IniciarSesion
-import Models, User
+from Models import login, get_by_id
+from User import User
 app = Flask('__name__', template_folder="SRC/templates") #template_folder=("templates") no es necesario pq la carpeta se llama asi y jinja busca esa por defecto
 login_manager = LoginManager()
 login_manager.init_app(app) #enlazamos con la app
@@ -21,55 +21,54 @@ app.secret_key = secret_key
 
 @app.route ('/')
 def Inicio():
-    #return render_template("Inicio_SS.html")
-    return redirect(url_for('IniciarSesion'))
+    return render_template("Inicio_SS.html")
+    #return redirect(url_for('IniciarSesion'))
 
 #FUNCION PARA INICIAR SESION
-@app.route ('/IniciarSesion', methods= ["GET","POST"])
+"""@app.route ('/IniciarSesion', methods= ["GET","POST"])
 def IniciarSesion():
-    user = User(0, 0, 0, request.form['telefono'], request.form['password']) #da un error por el telefono
-    logged_user=Models.login(user)
-    if logged_user != None:
-       if logged_user.password:
-           return redirect(url_for('Inicio_CS'))
-       else:
-           flash("contrasenia invalida")
-    else:
-        flash("Usuario no encontrado...")
-        return render_template('IniciarSesion.html')
-    
-    """if request.method == 'POST' and 'email' in request.form and 'password' in request.form: 
-        correo = request.form['email']
-        password = generate_password_hash(request.form['password'])
-        print(correo)
-        print(password)
-        cursor.execute('SELECT password FROM usuarios WHERE correo = ?', (correo,))
-        usuario = cursor.fetchone() #loq ue arroje el sql sera la variable usuario
-        #comprobamos si las contrasenias son correctas con el check hacemos que la revise 
-        if usuario and check_password_hash(usuario.password, password): #usuario[0] en lugar de usaurio.pass si hay error
-            cursor.execute('SELECT id FROM usuarios WHERE correo = ?', (correo,))
-            IdUsuario= cursor.fetchone()
-            session['loggeado'] = True
-            session['id'] = IdUsuario['id'] # IdUsuario[0] si da error
-            return redirect(url_for("Inicio_CS")) #aqui puse un ejemplo de redireccion cuando Ana lo coloque lo cambio  
-    else:
-        # La contraseña es incorrecta
-        return render_template('Iniciar_Sesion.html', mensaje="Correo o contraseña incorrecta")#lo regresamos al login y le decimos el mensaje si ANA hace lo que le pedi
-    return render_template('Iniciar_Sesion.html')
-   """
-    
-    """
-        account = cursor.fetchone()
-        if account:
-            session['loggeado'] = True
-            session['id'] = account['id']
-            return render_template("logged.html") #aqui puse un ejemplo de redireccion cuando Ana lo coloque lo cambio
-        else: #AQUI SE SUPONE QUE TE SALTA EL ERROR YA DEFINIDO DEBAJO que significa que no estas registrado
-            return render_template('Iniciar_Sesion.html', mensaje="usuario no encontrado") #lo regresamos al login y le decimos el mensaje si ANA hace lo que le pedi"""
+    if request.method == "POST":
+        telefono = request.form.get('telefono')
+        password = request.form.get('password')
+        if telefono and password:
+            user = User(0, 0, 0, 0, request.form['telefono'], request.form['password']) #da un error por el telefono
+            logged_user = login(user)
+            if logged_user:
+                if logged_user.password == password:
+                    return redirect(url_for('Inicio_CS'))
+                else:
+                    flash("contrasenia invalida")
+            else:
+                flash("Usuario no encontrado...")
+        else: 
+            flash("Porfavor ingresa tu telefono y contrasenia")
+    return render_template('Iniciar_Sesion.html')"""
 
+@app.route ('/IniciarSesion')
+def IniciarSesion():
+    user=request.args.get ("telefono")
+    password=request.args.get ("password")
+    estado = "Introduce data"
+    data={} #quien ba a recopilar la info
+    if user and password:
+        try:
+            cursor = dbconnection.cursor()
+            if cursor.execute("SELECT * FROM users WHERE name= '"+ user +"' AND password = '"+ password):
+                data = cursor.fetchall()
+                estado = "Correct"
+                return render_template('/Inicio_CS.html')
+            else:
+                estado = "Incorrect"
+        except Exception as e:
+            print(e)
+    #print ([0][1]) #se imprpimira el telefono
+    return render_template('Inicio_CS.html')#, data = data, estado = estado)
+        
+            
+    
 @login_manager.user_loader 
 def load_user(id):
-    return Models.get_by_id(id)
+    return get_by_id(id)
         
 #ya estamos iniciados
 @app.route('/Inicio_CS') #hicimos una ruta donde te llevara a la pagina protegida solo si estas registrado
