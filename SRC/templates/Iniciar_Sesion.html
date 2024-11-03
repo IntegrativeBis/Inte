@@ -6,7 +6,7 @@
     <title>Iniciar Sesion|PriceSeeker</title>
     <style>                                                                 /*Imagen como fondo del sitio web*/
         body {
-            background-image: url(Img/BG\ 1.jpeg);                          /*Seleccionar la imagen*/
+            background-image: url("{{ url_for('static', filename='Img/BG1.jpeg') }}");                          /*Seleccionar la imagen*/
             background-size: cover;                                         /*Espacio a ocupar*/          
             background-repeat: no-repeat;                                   /*Para que no se repita*/          
             height: 100vh;                                                            
@@ -29,7 +29,7 @@
             <h2 class="card-title" style="color: #8B8B8B; text-align: center; font-family: Jacques Francois-Regular; font-size: 35px; padding-top: 15px;">Iniciar sesión</h2>
             <form class="form-group" action="/IniciarSesion" method="POST" >   
                                 
-                {% with messages = get_flashed_messages() %}
+                <!--{% with messages = get_flashed_messages() %}
                 {% if messages %}
                 <br />
                 {% for message in messages %}
@@ -40,7 +40,7 @@
                 {% endfor %}
                 {% endif %}
 
-                {% endwith %}
+                {% endwith %}-->
                 <!--El usuario pueda poner su correo electrónico-->
                 <div class="IniS">                      
                     <label for="exampleInputEmail" style="font-family: Jacques Francois-Regular; color: #8B8B8B; font-size: 20px;">
