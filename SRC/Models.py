@@ -1,7 +1,7 @@
 #donde realizaremos todos los querys de db
 import User
-@classmethod
-def login(self, db, user):
+#@classmethod
+def login(db, user):
     try:
         cursor = db.connection.cursor()
         
