@@ -1,13 +1,12 @@
-.menu button{
-    background-color: #69b62c;
+  .perfil button{
+    background-color: transparent;
     border: none;
     cursor: pointer;
     padding: 10px;
 }
 
-.menu a{
+.perfil a{
     display: block;
-    text-align: left !important;
     font-family: 'Jaques Francois, regular';
     font-size: 25px;
     color: #8B8B8B;
@@ -17,25 +16,25 @@
     padding-bottom: 5px;
 }
 
-.menu .content{
-    
+.perfil .content{
     display: none;
     position: absolute;
     background-color: #d9d9d9;
     min-width: 100px;
     box-shadow: 2px 2px 5px #000;
+    right: 10px;
 }
 
-.menu:hover .content{
+.perfil:hover .content{
     display:block;
 }
 
-.cat {
+.options {
     outline: none;
     color: inherit;
     user-select: none;
  }
  
- .cat:hover{
+ .options:hover{
     color: #8B8B8B;
  }
