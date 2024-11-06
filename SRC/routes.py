@@ -5,7 +5,7 @@ from flask_wtf.csrf import CSRFProtect
 import secrets
 from werkzeug.security import generate_password_hash
 from DbModels import login, user_register
-from User import User
+#from User import User
 app = Flask('__name__', template_folder="SRC/templates") # no es necesario pq la carpeta se llama asi y jinja busca esa por defecto
 #login_manager = LoginManager()
 #login_manager.init_app(app) #enlazamos con la app
@@ -21,10 +21,10 @@ app.secret_key = secret_key
 @app.route ('/')
 def Inicio():
     return render_template("Inicio_SS.html")
-    #return redirect(url_for('IniciarSesion'))
+    
 #INICIARSESION RUTA
-@app.route ('/iniciar_sesion', methods=['GET', 'POST'])
-def iniciar_sesion():
+@app.route ('/Iniciar_Sesion', methods=['GET', 'POST'])
+def Iniciar_Sesion():
     estado = "Introduce data"
     data={} #quien ba a recopilar la info
     telefono=request.args.get ("telefono")
@@ -42,18 +42,11 @@ def iniciar_sesion():
         except Exception as e:
             print(e)
     #print ([0][1]) #se imprpimira el telefono
-    return render_template('Inicio_CS.html', data = data, estado = estado)
+    return render_template('Iniciar_Sesion.html', data = data, estado = estado)
         
 @app.errorhandler(404)
 def err_handler(e):
     return render_template('error_404.html')
-    
-      
-"""#@login_manager.user_loader 
-def load_user(id):
-    return get_by_id(id)
-    """    
-
         
 #ya estamos iniciados
 @app.route('/Inicio_CS') #hicimos una ruta donde te llevara a la pagina protegida solo si estas registrado
@@ -65,10 +58,10 @@ def Inicio_CS():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('IniciarSesion'))
+    return redirect(url_for('Iniciar_Sesion'))
 
 @app.route ('/Registrar', methods=['GET', 'POST'])
-def registrar():
+def Registrar():
     user ={ #idk si esto debe estar dentro del IF
         'nombre': '',
         'apellido':'',
