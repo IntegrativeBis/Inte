@@ -6,7 +6,7 @@
     <title>Iniciar Sesion|PriceSeeker</title>
     <style>                                                                 /*Imagen como fondo del sitio web*/
         body {
-            background-image: url('/static/Img/BG1.jpeg');                         /*Seleccionar la imagen*/
+            background-image: url('/static/images/BG1.jpeg');                         /*Seleccionar la imagen*/
             background-size: cover;                                         /*Espacio a ocupar*/          
             background-repeat: no-repeat;                                   /*Para que no se repita*/          
             height: 100vh;                                                            
@@ -58,7 +58,7 @@
                     <!--Si el usuario desea crear una cuenta, podra ingresar desde este enlace-->
                     <small id="" class="form-text text-muted" style="text-align: center; font-family: Jacques Francois-Regular;">
                         ¿Aun no tienes una cuenta?
-                        <a style="font-family: Jacques Francois-Regular;" href="Registrar.html">
+                        <a style="font-family: Jacques Francois-Regular;" href="{{url_for('Registrar')}}">
                             <u>
                                 Registrate
                             </u>
