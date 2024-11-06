@@ -1,9 +1,12 @@
 import pyodbc
 def dbconnection(): #esto es pa conectarse a la base datos
     try:
-        conecction = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=OR0510; DATABASE=INTEGRADOR; UID=sa; PWD=Omar2805!;')
+        print ("CONECTANDO ESTA CHINGADERA")
+        connection = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=priceseekerbis.ddns.net; DATABASE=PriceSeeker; UID=SA; PWD=1234;')
+        print ("CANCEROIDE")
+        return connection
     except Exception as ex:
-        print(ex)        
-    return conecction
+        print(f"ERRORCITO {ex} ") 
+        
 
 

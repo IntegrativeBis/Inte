@@ -1,20 +1,21 @@
 #donde realizaremos todos los querys de db
 #import User
 from db import dbconnection
-#@classmethod
+from werkzeug.security import check_password_hash, generate_password_hash
 def login(telefono, password):
     try:
+        
         with dbconnection.cursor() as cursor: #para que el cursor se cierre automaticamente
-            cursor.execute("EXEC sp_ConsultarUsuario ?, ?", (telefono, password))
+            cursor.execute("EXEC sp_ConsultarUsuario ?, ?", (telefono, check_password_hash(password)))
             row_login = cursor.fetchall()
         print(row_login) #intente meter los datos arrojados a un string para poder utilizarlos mas tarde e imprimirlos
     except Exception as ex:
         raise Exception(f"Error al ejecutar Login para el usuario {telefono}: {str(ex)}") #f es para poder colocar variables dentro del string mas facil
 
-def user_register(nombre, apellido, telefono, correo):
+def user_register(nombre, apellido, telefono, hashed_password):
     try:
         with dbconnection.cursor() as cursor:
-            cursor.execute("EXEC sp_CrearUsuario ?, ?, ?, ?", (nombre, apellido, telefono, correo))
+            cursor.execute("EXEC sp_CrearUsuario ?, ?, ?, ?", (nombre, apellido, telefono, hashed_password))
         print("Registro completado con éxito")
         return True  # Indica que el registro fue exitoso
     except Exception as ex:
@@ -39,27 +40,13 @@ def modifyUser (nombre, apellido, telefono, correo):
         print (f"Error al modificar el usuario: {str(ex)}")
     
 
+connection = dbconnection()
+if connection:
+    print("La conexión fue establecida correctamente.")
+    # Cierra la conexión cuando termines
+    connection.close()
+    print("Conexión cerrada correctamente.")
+else:
+    print("No se pudo establecer la conexión a la base de datos.")    
     
     
-    
-    
-    
-"""if row != None: #esto es la segunda parte del login que salio del video
-            user = User(row[0], row[1], row[2], User.Confirm_Password(row[3], user.password), row[4])
-            return user
-        else:
-            return None"""    
-    
-    
-@classmethod
-def get_by_id(self, db, id):
-    try:
-        cursor = db.connection.cursor()
-        cursor.execute("EXEC sp ConsultarUsuario ?", (id))
-        row = cursor.fetchone()
-        if row != None:
-            return User(row[0], row[1], None, row[2])
-        else:
-            return None
-    except Exception as ex:
-        raise Exception(ex)
