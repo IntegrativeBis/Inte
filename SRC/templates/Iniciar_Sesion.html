@@ -14,7 +14,6 @@
         }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-
 </head>
 
 <body>
@@ -29,18 +28,18 @@
             <h2 class="card-title" style="color: #8B8B8B; text-align: center; font-family: Jacques Francois-Regular; font-size: 35px; padding-top: 15px;">Iniciar sesión</h2>
             <form class="form-group" action="/IniciarSesion" method="POST" >   
                                 
-                <!--{% with messages = get_flashed_messages() %}
-                {% if messages %}
-                <br />
-                {% for message in messages %}
-                <div class="alert alert-primary alert-dismissible" role="alert">
-                    <strong>{{ message }}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                {% endfor %}
-                {% endif %}
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <br/>
+                        {% for message in messages %}
+                            <div class="alert alert-primary alert-dismissible" role="alert">
+                                <strong>{{ message }}</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
 
-                {% endwith %}-->
                 <!--El usuario pueda poner su correo electrónico-->
                 <div class="IniS">                      
                     <label for="exampleInputEmail" style="font-family: Jacques Francois-Regular; color: #8B8B8B; font-size: 20px;">
@@ -69,9 +68,7 @@
                 <br>
                 <div style="text-align: center;">
                 <button style="background-color: #69b62c; padding: 5px 100px; border-radius: 15px; border-color: #69b62c; cursor: pointer;" type="submit" class="btn btn-primary">
-                    <a href="Inicio_SS.html" style="color: white; font-size: 20px; font-family: Jacques Francois-Regular;">
                         Continuar
-                    </a>
                 </button>
             </div> 
             </form>
