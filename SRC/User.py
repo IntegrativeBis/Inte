@@ -1,6 +1,6 @@
 from flask_login import UserMixin, LoginManager
 from werkzeug.security import check_password_hash
-import Models
+import DbModels
 
 login_manager = LoginManager()
 # Definir la clase User
@@ -21,7 +21,7 @@ user_example = User(id=1, nombre="Juan", apellido="si", telefono="623", correo="
 
 @login_manager.user_loader
 def load_user(user_id):
-    return Models.get_by_id(id)
+    return DbModels.get_by_id(id)
 
 @classmethod
 def Confirm_Password(self, hashed_password, password):
