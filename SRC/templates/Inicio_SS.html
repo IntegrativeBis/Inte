@@ -65,12 +65,12 @@
                 PriceSeeker
             </span>
         </div>
+
         <div class="lista" style="display: flex; width:65%">
           <a href="{{url_for('listas')}}" style="margin-left: auto; font-size: 25px; color: white; font-family: Jacques Francois-Regular; text-decoration: none;">
               Mis listas
           </a>
-      </div>
-      
+        </div>
 
         <div class="perfil" style="display: flex;"> 
           <a href= "{{ url_for('iniciar_sesion')}}" style="padding-right:15px;">                                                      
@@ -99,7 +99,7 @@
 
   <!--Buscador-->
     <div class="buscador" style="text-align: center;">
-      <input type="text" placeholder="Buscar producto..."><button><a href="Producto.html" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
+      <input type="text" placeholder="Buscar producto..."><button><a href="{{url_for('busqueda_ss')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
     </div>
     <br><br>
 
@@ -119,6 +119,5 @@
     <footer style="padding-top: 20px; padding-bottom: 10px; background-color: #357600; color: white; text-align: center; margin-bottom: 0;">
       <p>@PriceSeeker <br> Todos los derechos reservados 2024</p>
     </footer>
-  
 </body>
 </html>
