@@ -70,8 +70,8 @@
           </button>
           <!--Menu desplegable de la cuenta-->
           <div class="content">
-            <a href="Cuenta.html" class="options" style="padding-right: 10px;">Cuenta</a>
-            <a href="Inicio_SS.html" class="options" style="padding-right: 10px;">Cerrar Sesión</a>
+            <a href="{{url_for('cuenta')}}" class="options" style="padding-right: 10px;">Cuenta</a>
+            <a href="{{url_for('inicio_ss')}}" class="options" style="padding-right: 10px;">Cerrar Sesión</a>
           </div>
         </div>
     </div> 
@@ -82,13 +82,13 @@
         <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>  
       </button>
       <div class="content">
-        <a href="Producto.html"class="cat">Categoria 1<i class="fa-solid fa-question fa-lg" style="padding-left: 50px; padding-right: 10px;"></i></a>
-        <a href="Producto.html"class="cat">Categoria 2<i class="fa-solid fa-question fa-lg" style="padding-left: 50px; padding-right: 10px;"></i></a>
-        <a href="Producto.html"class="cat">Categoria 3<i class="fa-solid fa-question fa-lg" style="padding-left: 50px; padding-right: 10px;"></i></a>
-        <a href="Producto.html"class="cat">Categoria 4<i class="fa-solid fa-question fa-lg" style="padding-left: 50px; padding-right: 10px;"></i></a>
-        <a href="Producto.html"class="cat">Categoria 5<i class="fa-solid fa-question fa-lg" style="padding-left: 50px; padding-right: 10px;"></i></a>
-        <a href="Producto.html"class="cat">Categoria 6<i class="fa-solid fa-question fa-lg" style="padding-left: 50px; padding-right: 10px;"></i></a>
-        <a href="Producto.html"class="cat">Categoria 7<i class="fa-solid fa-question fa-lg" style="padding-left: 50px; padding-right: 10px;"></i></a>
+        <a href="{{url_for('busqueda_ss')}}"class="cat">Frutas y verduras<i class="fa-solid fa-apple-whole fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda_ss')}}"class="cat">Lácteos<i class="fa-solid fa-cheese fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda_ss')}}"class="cat">Congelados<i class="fa-solid fa-ice-cream fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda_ss')}}"class="cat">Carnes Frías<i class="fa-solid fa-drumstick-bite fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda_ss')}}"class="cat">Artículos de limpieza<i class="fa-solid fa-broom fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda_ss')}}"class="cat">No percederos<i class="fa-solid fa-jar fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda_ss')}}"class="cat">Deli<i class="fa-solid fa-bacon fa-lg" style="padding-left: 50px;"></i></a>
       </div>
     </div>
 
@@ -96,18 +96,18 @@
 
   <!--Buscador-->
     <div class="buscador" style="text-align: center;">
-      <input type="text" placeholder="Buscar producto..."><button><a href="Producto.html" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
+      <input type="text" placeholder="Buscar producto..."><button><a href="{{url_for('busqueda_ss')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
     </div>
     <br><br>
 
 <!--Esta es la parte de los anuncios--> 
    <div class="ads">
     <ul>
-      <li><img src="Img/ND.jpeg" alt=""></li>
-      <li><img src="Img/ND.jpeg" alt=""></li>
-      <li><img src="Img/ND.jpeg" alt=""></li>
-      <li><img src="Img/ND.jpeg" alt=""></li>
-      <li><img src="Img/ND.jpeg" alt=""></li>
+      <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt=""></li>
+      <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt=""></li>
+      <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt=""></li>
+      <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}Img/ND.jpeg" alt=""></li>
+      <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt=""></li>
     </ul>
    </div>
     <br><br><br><br><br>

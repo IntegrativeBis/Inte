@@ -60,6 +60,13 @@
                 </div>
                 <br>
 
+                {% if mensaje %}                  
+                            <div class="alert alert-primary alert-dismissible" role="alert">
+                                <strong></strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="background-color: none; border: none;">{{ mensaje }}</button>
+                            </div>
+                {% endif %}
+
                 <div class="IniS">
                     <label for="exampleInputPassword" style="font-family: Jacques Francois-Regular; color: #8B8B8B; font-size: 15px;">
                         Confirmar contraseña
