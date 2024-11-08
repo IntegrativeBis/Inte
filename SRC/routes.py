@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
-from flask_login import LoginManager, login_user, logout_user, login_required
+#from flask_login import LoginManager, login_user, logout_user, login_required
 from flask_wtf.csrf import CSRFProtect 
 import secrets
 from werkzeug.security import generate_password_hash
-from DbModels import login, user_register
+from DbModels import login, register_user, modify_user, delete_user
 app = Flask('__name__', template_folder="SRC/templates", static_folder="SRC/static") # no es necesario pq la carpeta se llama asi y jinja busca esa por defecto
 #login_manager = LoginManager()
 #login_manager.init_app(app) #enlazamos con la app
@@ -24,32 +24,32 @@ def inicio():
 @app.route ('/iniciar_sesion', methods=['GET', 'POST'])
 def iniciar_sesion():
     estado = "Introduce data"
-    data={} #quien ba a recopilar la info
-    telefono=request.args.get ("telefono")
-    password=request.args.get ("password")
-    
-    if telefono and password:
-        try:
-            user = login(telefono, password)
-            if user:
-                usuario = session['user'] #hay que ver como guardar al usuario
-                estado = "Correct"
-                return render_template('/inicio_cs.html', usuario = usuario)
-            else:
-                estado = "Incorrect"
-        except Exception as e:
-            print(e)
+    #data={} #quien ba a recopilar la info
+    telefono=request.form.get ("telefono")
+    password=request.form.get ("password")
+    print(telefono, password)
+    #if telefono and password is not None:
+    try:
+            usuario = login(telefono, password)
+            session['tel'] = telefono #hay que ver como guardar al usuario
+            session['name'] = usuario[1]
+            session['apellido'] = usuario[2]
+            estado = "Correct"
+            return render_template('/inicio_cs.html')
+    except Exception as e:
+            print(f"sida: {e}" )
+            estado = "Incorrect"
     #print ([0][1]) #se imprpimira el telefono
-    return render_template('iniciar_sesion.html', data = data, estado = estado)
+    return render_template('iniciar_sesion.html', estado = estado)
         
 @app.errorhandler(404)
 def err_handler(e):
     return render_template('error_404.html')
-        
-#ya estamos iniciados
-@app.route('/inicio_cs') #hicimos una ruta donde te llevara a la pagina protegida solo si estas registrado
-def inicio_cs():
     
+
+#ya estamos iniciados
+@app.route('/inicio_cs') 
+def inicio_cs():
     return "<h1> esta es una vista protegida solo para usuarios </h1>"
 
 @app.route('/logout')
@@ -65,30 +65,26 @@ def registrar():
         'telefono':'',
         } #quien ba a recopilar la info
     mensaje = None
-    
+    print ("cancercisto")
     if request.method == 'POST':
-        user['nombre']=request.form.get ("nombre")
-        user['apellido']=request.form.get ("apellido")
-        user['telefono']=request.form.get ("telefono")
+        nombre=request.form.get ("nombre")
+        apellido=request.form.get ("apellido")
+        telefono=request.form.get ("telefono")
         password=request.form.get ("password")
-        session['user'] = user
- 
         hashed_password=generate_password_hash (password)
+        print(telefono, nombre, apellido, password)
         try:
-            user_register(user['nombre'], user['apellido'], user['telefono'], hashed_password)
+            register_user(nombre, apellido, telefono, hashed_password)
             mensaje = "REGISTRO EXITOSO"
             return render_template('iniciar_sesion.html', mensaje = mensaje)
         except Exception as e:
             print(e)
             mensaje = "ERROR AL REGISTRAR. POR FAVOR INTENTA DE NUEVO."
-            return render_template('registrar.html', mensaje = mensaje)
     return render_template('registrar.html', mensaje = mensaje)   
 
 @app.route ('/listas')
 def listas():
     return render_template("listas.html")
-
-
 
 
 """if "user" in session: """
