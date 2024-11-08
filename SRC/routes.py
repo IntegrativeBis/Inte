@@ -53,10 +53,9 @@ def inicio_cs():
     return "<h1> esta es una vista protegida solo para usuarios </h1>"
 
 @app.route('/logout')
-@login_required
 def logout():
-    logout_user()
-    return redirect(url_for('iniciar_sesion'))
+    session.clear()
+    return redirect(url_for('inicio'))
 
 @app.route ('/registrar', methods=['GET', 'POST'])
 def registrar():
@@ -84,6 +83,13 @@ def registrar():
             mensaje = "ERROR AL REGISTRAR. POR FAVOR INTENTA DE NUEVO."
             return render_template('registrar.html', mensaje = mensaje)
     return render_template('registrar.html', mensaje = mensaje)   
+
+@app.route ('/listas')
+def listas():
+    return render_template("listas.html")
+
+
+
 
 """if "user" in session: """
 

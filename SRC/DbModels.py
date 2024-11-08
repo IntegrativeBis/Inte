@@ -39,7 +39,7 @@ def modifyUser (nombre, apellido, telefono, correo):
     except Exception as ex:
         print (f"Error al modificar el usuario: {str(ex)}")
     
-
+"""
 connection = dbconnection()
 if connection:
     print("La conexión fue establecida correctamente.")
@@ -49,4 +49,4 @@ if connection:
 else:
     print("No se pudo establecer la conexión a la base de datos.")    
     
-    
+    """
