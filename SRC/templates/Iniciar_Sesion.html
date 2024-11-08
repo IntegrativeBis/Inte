@@ -34,7 +34,7 @@
                         {% for message in messages %}
                             <div class="alert alert-primary alert-dismissible" role="alert">
                                 <strong>{{ message }}</strong>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="background-color: none; border: none;">Teléfono y/o contraseña incorrecta</button>
                             </div>
                         {% endfor %}
                     {% endif %}
@@ -66,19 +66,17 @@
                     </small> 
                 </div>
                 <br>
+                
+                 <!--Boton para que el usuario, despues de haber ingresado los requerimientos, pueda iniciar sesion y ser direccionado a la pagina de inicio-->
                 <div style="text-align: center;">
                 <button style="background-color: #69b62c; padding: 5px 100px; border-radius: 15px; border-color: #69b62c; cursor: pointer;" type="submit" class="btn btn-primary">
                         Continuar
                 </button>
             </div> 
             </form>
-            <br>
-
-            <!--Boton para que el usuario, despues de haber ingresado los requerimientos, pueda iniciar sesion y ser direccionado a la pagina de inicio-->
-            
+            <br>          
         </div>
     </div>
-
     <br><br><br>
 
     <!--Informacion de la empresa y el sitio web-->
