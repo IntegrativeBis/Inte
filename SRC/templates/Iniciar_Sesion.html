@@ -28,17 +28,12 @@
             <h2 class="card-title" style="color: #8B8B8B; text-align: center; font-family: Jacques Francois-Regular; font-size: 35px; padding-top: 15px;">Iniciar sesión</h2>
             <form class="form-group" action="/iniciar_sesion" method="POST" >   
                                 
-                {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                    <br/>
-                        {% for message in messages %}
+                    {% if mensaje %}                  
                             <div class="alert alert-primary alert-dismissible" role="alert">
-                                <strong>{{ message }}</strong>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="background-color: none; border: none;">Teléfono y/o contraseña incorrecta</button>
+                                <strong></strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="background-color: none; border: none;">{{ mensaje }}</button>
                             </div>
-                        {% endfor %}
                     {% endif %}
-                {% endwith %}
 
                 <!--El usuario pueda poner su correo electrónico-->
                 <div class="IniS">                      
