@@ -1,14 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
-#from flask_login import LoginManager, login_user, logout_user, login_required
 from flask_wtf.csrf import CSRFProtect 
 import secrets
-from werkzeug.security import generate_password_hash
 from DbModels import login, register_user, modify_user, delete_user
 app = Flask('__name__', template_folder="SRC/templates", static_folder="SRC/static") # no es necesario pq la carpeta se llama asi y jinja busca esa por defecto
-#login_manager = LoginManager()
-#login_manager.init_app(app) #enlazamos con la app
-#login_manager.login_view = 'IniciarSesion' #si el usuario intenta entrar a una vista protegida te redirige a esto
-#login_manager.login_message = "Inicie sesion para acceder a este contenido"
+
 
 #INVENTAMOS UNA LLAVE SECRETA ALEATORIA
 secret_key = secrets.token_hex(16)
@@ -23,24 +18,24 @@ def inicio():
 #INICIARSESION RUTA
 @app.route ('/iniciar_sesion', methods=['GET', 'POST'])
 def iniciar_sesion():
-    estado = "Introduce data"
+    mensaje = "Introduce celular y contraseña"
     #data={} #quien ba a recopilar la info
-    telefono=request.form.get ("telefono")
-    password=request.form.get ("password")
-    print(telefono, password)
-    #if telefono and password is not None:
-    try:
-            usuario = login(telefono, password)
-            session['tel'] = telefono #hay que ver como guardar al usuario
+    celular=request.form.get ("celular")
+    contrasena=request.form.get ("contrasena")
+    print(celular, contrasena)
+    if celular and contrasena is not None:
+        try:
+            print("voy a usar la funcion LOGIN")
+            usuario = login(celular, contrasena)
+            session['cel'] = celular #hay que ver como guardar al usuario
             session['name'] = usuario[1]
             session['apellido'] = usuario[2]
-            estado = "Correct"
+            mensaje = "Correct"
             return render_template('/inicio_cs.html')
-    except Exception as e:
-            print(f"sida: {e}" )
-            estado = "Incorrect"
-    #print ([0][1]) #se imprpimira el telefono
-    return render_template('iniciar_sesion.html', estado = estado)
+        except Exception as e:
+                print(f"Error de login (routes): {e}" )
+                mensaje = "Celular o Contraseña incorrectas"
+    return render_template('iniciar_sesion.html', mensaje = mensaje)
         
 @app.errorhandler(404)
 def err_handler(e):
@@ -50,7 +45,7 @@ def err_handler(e):
 #ya estamos iniciados
 @app.route('/inicio_cs') 
 def inicio_cs():
-    return "<h1> esta es una vista protegida solo para usuarios </h1>"
+    return render_template('inicio_cs.html')
 
 @app.route('/logout')
 def logout():
@@ -69,12 +64,15 @@ def registrar():
     if request.method == 'POST':
         nombre=request.form.get ("nombre")
         apellido=request.form.get ("apellido")
-        telefono=request.form.get ("telefono")
-        password=request.form.get ("password")
-        hashed_password=generate_password_hash (password)
-        print(telefono, nombre, apellido, password)
+        celular=request.form.get ("celular")
+        contrasena=request.form.get ("contrasena")
+        confirmar_contrasena=request.form.get("confirmar_contrasena")
+        print(f"Nombre: {nombre} \nApellido: {apellido} \ncelular: {celular} \nPassword: {contrasena} \nConfirmed_Password: {confirmar_contrasena}")
+        if contrasena != confirmar_contrasena:
+            mensaje = "Las contraseñas no coinciden"
+            return render_template('registrar.html', mensaje = mensaje)   
         try:
-            register_user(nombre, apellido, telefono, hashed_password)
+            register_user(nombre, apellido, celular, contrasena)
             mensaje = "REGISTRO EXITOSO"
             return render_template('iniciar_sesion.html', mensaje = mensaje)
         except Exception as e:
@@ -86,6 +84,13 @@ def registrar():
 def listas():
     return render_template("listas.html")
 
+@app.route ('/busqueda_cs')
+def busqueda_cs():
+    return render_template('busqueda_cs.html')
+
+@app.route ('/busqueda_ss')
+def busqueda_ss():
+    return render_template('busqueda_ss.html')
 
 """if "user" in session: """
 
