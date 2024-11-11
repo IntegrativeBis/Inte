@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chocolate</title>
+  <title>PriceSeeker|Chocolate</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <link rel="stylesheet" href="style-menu.css">
   <link rel="stylesheet" href="style-ads.css">
   <link rel="stylesheet" href="style-searcher.css">
+  <link rel="stylesheet" href="style-perfil.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 
   <style>
@@ -41,7 +42,7 @@
     }
   
     .nombre_sitio {
-      font-size: 40px;                    /*Buscar otra fuente*/
+      font-size: 40px;                    
       color: white;
       font-family: 'Italiana, regular';
     }
@@ -68,41 +69,50 @@
     </div>
 
     <!--Buscador-->
-    <div class="buscador" style="text-align: center; ">
-      <input type="text" placeholder="Producto..."><button><a href="Producto.html" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
+    <div class="buscador" style="text-align: center; display: flex; padding-left: 14%;">
+      <input type="text" placeholder="Producto..."><button><a href="busqueda_cs.html" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
     </div>
 
-    <div class="lista">                             
-        <a href="Listas.html" style="padding-right: 0x; font-size: 25px; color: white; font-family: Jacques Francois-Regular; text-decoration: none;">
-          Mis listas  <!--corregir padding-->
-        </a>
+    <div class="lista" style="display: flex; width:65%">
+      <a href="listas.html" style="margin-left: auto; font-size: 25px; color: white; font-family: Jacques Francois-Regular; text-decoration: none;padding-right:10%">
+          Mis listas
+      </a>
     </div>
 
-    <div class="perfil">                                                      
-      <i class="fa-solid fa-user fa-2xl" style="color: #ffffff;"></i>
-    </div>
+    <div class="perfil">
+      <button>                                                          
+        <i class="fa-solid fa-user fa-2xl" style="color: #ffffff; padding-right:15px;"></i>
+      </button>
+
+      <!--Menu desplegable de la cuenta-->
+      <div class="content">
+        <a href="{{url_for('cuenta')}}" class="options" style="padding-right: 10px;">Cuenta</a>
+        <a href="{{url_for('logout')}}" class="options" style="padding-right: 10px;">Cerrar Sesión</a>
+      </div>
+    </div>  
 </div> 
 <!------------------------------------------------------------------------------------------------------------------------------------------------>
 
-    <div class="card" style="width: 18rem;">                      <!--Este sera una estrucura del formato para mostrar los productos -->
-        <img src="ex.jpg" class="card-img-top" height="100 px">   <!--Imagen del producto-->
-        <div class="card-body">                                   <!--Clase para tener el formato preformado-->
-          <h5 class="card-title">Chocolate Daf</h5>               <!--Nombre del producto-->
-          <p class="card-text">El mejor chocolate del mundo</p>   <!--Descripcion-->
-          <p class="card-text">$20.00</p>                         <!--Precio-->
-          <p class="card-text">Alsuper</p>                        <!--Supermercado-->
+    <div class="card" style="width: 18rem;">                      <
+        <img src="Img/ex.jpg" class="card-img-top" height="100 px">   
+        <div class="card-body">                                   
+          <h5 class="card-title">Chocolate Daf</h5>               
+          <p class="card-text">El mejor chocolate del mundo</p>   
+          <p class="card-text">$20.00</p>                         
+          <p class="card-text">Alsuper</p>                        
         </div>
       </div>
 
-    <div class="card" style="width: 18rem;">
-      <img src="ex.jpg" class="card-img-top" height="100 px">
-      <div class="card-body">
-        <h5 class="card-title">Chocolate Daf</h5>
-        <p class="card-text">El mejor chocolate del mundo</p>
-        <p class="card-text">$15.00</p>
-        <p class="card-text">Walmart</p>
-      </div>
+      <div class="card" style="display: flex; align-items: center; width: 100%; max-width: 500px; padding: 10px; border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+        <img src="Img/ex.jpg" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; margin-right: 15px;">
+        <div class="card-body">
+            <h5 class="card-title" style="font-weight: bold; color: #333;">Chocolate Daf</h5>
+            <p class="card-text" style="color: #555;">El mejor chocolate del mundo</p>
+            <p class="card-text" style="color: #ff6600; font-weight: bold;">$15.00</p>
+            <p class="card-text" style="color: #0073e6;">Walmart</p>
+        </div>
     </div>
+    
 
     <div class="card" style="width: 18rem;">
         <img src="ex.jpg" class="card-img-top" height="100 px">

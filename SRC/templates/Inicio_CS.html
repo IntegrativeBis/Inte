@@ -68,10 +68,11 @@
           <button>                                                          
             <i class="fa-solid fa-user fa-2xl" style="color: #ffffff; padding-right:15px;"></i>
           </button>
+          
           <!--Menu desplegable de la cuenta-->
           <div class="content">
             <a href="{{url_for('cuenta')}}" class="options" style="padding-right: 10px;">Cuenta</a>
-            <a href="{{url_for('inicio_ss')}}" class="options" style="padding-right: 10px;">Cerrar Sesión</a>
+            <a href="{{url_for('logout')}}" class="options" style="padding-right: 10px;">Cerrar Sesión</a>
           </div>
         </div>
     </div> 
@@ -82,13 +83,13 @@
         <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>  
       </button>
       <div class="content">
-        <a href="{{url_for('busqueda_ss')}}"class="cat">Frutas y verduras<i class="fa-solid fa-apple-whole fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="{{url_for('busqueda_ss')}}"class="cat">Lácteos<i class="fa-solid fa-cheese fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="{{url_for('busqueda_ss')}}"class="cat">Congelados<i class="fa-solid fa-ice-cream fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="{{url_for('busqueda_ss')}}"class="cat">Carnes Frías<i class="fa-solid fa-drumstick-bite fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="{{url_for('busqueda_ss')}}"class="cat">Artículos de limpieza<i class="fa-solid fa-broom fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="{{url_for('busqueda_ss')}}"class="cat">No percederos<i class="fa-solid fa-jar fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="{{url_for('busqueda_ss')}}"class="cat">Deli<i class="fa-solid fa-bacon fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda_cs')}}"class="cat">Frutas y verduras<i class="fa-solid fa-apple-whole fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda_cs')}}"class="cat">Lácteos<i class="fa-solid fa-cheese fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda_cs')}}"class="cat">Congelados<i class="fa-solid fa-ice-cream fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda_cs')}}"class="cat">Carnes Frías<i class="fa-solid fa-drumstick-bite fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda_cs')}}"class="cat">Artículos de limpieza<i class="fa-solid fa-broom fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda_cs')}}"class="cat">No percederos<i class="fa-solid fa-jar fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda_cs')}}"class="cat">Deli<i class="fa-solid fa-bacon fa-lg" style="padding-left: 50px;"></i></a>
       </div>
     </div>
 
@@ -96,7 +97,7 @@
 
   <!--Buscador-->
     <div class="buscador" style="text-align: center;">
-      <input type="text" placeholder="Buscar producto..."><button><a href="{{url_for('busqueda_ss')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
+      <input type="text" placeholder="Buscar producto..."><button><a href="{{url_for('busqueda_cs')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
     </div>
     <br><br>
 
@@ -106,7 +107,7 @@
       <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt=""></li>
       <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt=""></li>
       <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt=""></li>
-      <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}Img/ND.jpeg" alt=""></li>
+      <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt=""></li>
       <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt=""></li>
     </ul>
    </div>
