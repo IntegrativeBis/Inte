@@ -1,11 +1,11 @@
 import pyodbc
 def dbconnection(): #esto es pa conectarse a la base datos
     try:
-        print ("CONECTANDO BASE DE DATITOS")
-        connection = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=189.237.88.4; DATABASE=PriceSeeker; UID=sa; PWD=1234;')#tiene que ser por IP porque por dns no esta jalando
-        return connection
+        print ("CONECTANDO BASE DE DATITOS...")
+        pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=priceseekerbis.ddns.net; DATABASE=PriceSeeker; UID=readeruser; PWD=1234;')
+        print ("CONECTAMOS LA BSE")
     except Exception as ex:
-        print(f"CANCEROIDE NO PUDE CONECTARLA, ERRORCITO: {ex} ") 
+        print(f"CANCEROIDE NO PUDE CONECTARLA, EL ERRORCITO ES: {ex} ") 
         
 
 
