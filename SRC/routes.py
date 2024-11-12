@@ -28,8 +28,9 @@ def iniciar_sesion():
             print("voy a usar la funcion LOGIN")
             usuario = login(celular, contrasena)
             session['cel'] = celular #hay que ver como guardar al usuario
-            session['name'] = usuario[1]
-            session['apellido'] = usuario[2]
+            session['name'] = usuario[0]
+            session['apellido'] = usuario[1]
+            print(session)
             mensaje = "Correct"
             return render_template('/inicio_cs.html')
         except Exception as e:
@@ -47,6 +48,10 @@ def err_handler(e):
 def inicio_cs():
     return render_template('inicio_cs.html')
 
+@app.route('/cuenta')
+def cuenta():
+    return render_template('cuenta.html')
+
 @app.route('/logout')
 def logout():
     session.clear()
@@ -60,7 +65,7 @@ def registrar():
         'telefono':'',
         } #quien ba a recopilar la info
     mensaje = None
-    print ("cancercisto")
+    print ("voy a hacer el request POST")
     if request.method == 'POST':
         nombre=request.form.get ("nombre")
         apellido=request.form.get ("apellido")

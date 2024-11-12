@@ -1,8 +1,9 @@
 from db import dbconnection
+connection = dbconnection()  # Obtenemos la conexión
 def login(celular, contrasena):
     try:
         print("estoy realizando la confirmacion del login")
-        with dbconnection.cursor() as cursor: #para que el cursor se cierre automaticamente
+        with connection.cursor() as cursor: #para que el cursor se cierre automaticamente
             print("voy a usar el cursor")
             cursor.execute("EXEC sp_ReadUser ?, ?", (celular, contrasena))
             row_login = cursor.fetchone()
@@ -13,7 +14,7 @@ def login(celular, contrasena):
 
 def register_user(nombre, apellido, celular, contrasena):
     try:
-        with dbconnection.cursor() as cursor:
+        with connection.cursor() as cursor:
             cursor.execute("EXEC sp_CreateUser ?, ?, ?, ?, ?", (nombre, apellido, 1, celular, contrasena))
         print("Registro completado con éxito")
         return True  # Indica que el registro fue exitoso
@@ -23,7 +24,7 @@ def register_user(nombre, apellido, celular, contrasena):
 
 def delete_user (celular, contrasena):
     try:
-        with dbconnection.cursor() as cursor:
+        with connection.cursor() as cursor:
             cursor.execute("EXEC sp_DeleteUser ?, ?", (celular, contrasena))
         print("El usuario ha sido eliminado con exito")
     except Exception as ex:
@@ -31,7 +32,7 @@ def delete_user (celular, contrasena):
         
 def modify_user (celular, nombre, apellido):
     try:
-        with dbconnection.cursor() as cursor:
+        with connection.cursor() as cursor:
             cursor.execute("EXEC sp_UpdateUser ?, ?, ?", (celular, nombre, apellido))
         print("El usuario ha sido modificado con exito")
     except Exception as ex:
@@ -40,7 +41,7 @@ def modify_user (celular, nombre, apellido):
         
 def modify_password (celular, nuevacontrasena):
     try:
-        with dbconnection.cursor() as cursor:
+        with connection.cursor() as cursor:
             cursor.execute("EXEC sp_UpdatePassword ?, ?", (celular, nuevacontrasena))
         print("El usuario ha sido modificado con exito")
     except Exception as ex:
