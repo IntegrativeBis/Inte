@@ -45,11 +45,6 @@
       color: white;
       font-family: 'Italiana, regular';
     }
-    .options {
-      outline: none;
-      color: inherit;
-      user-select: none;
-   }
    
    .nombre_sitio:hover{
       color: #ffffff;
@@ -57,6 +52,7 @@
    }
   
     .perfil a{
+      white-space: nowrap;
       padding-right: 10px;
       color: #ffffff;
       user-select: none;
@@ -71,8 +67,8 @@
   <!--Banner/menu de arriba-->
 <div class="banner">
     <div class="logo">
-        <img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Logo">
-        <span class="nombre_sitio"><a href="{{url_for('inicio_cs')}}" class="nombre_sitio">
+      <img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Logo">
+      <span class="nombre_sitio"><a href="{{url_for('inicio_ss')}}" class="nombre_sitio">
             PriceSeeker
           </a>
         </span>
@@ -84,29 +80,23 @@
     </div>
 
     <div class="lista" style="display: flex; width:65%">
-      <a href="{{url_for('listas')}}" style="margin-left: auto; font-size: 25px; color: white; font-family: Jacques Francois-Regular; text-decoration: none;padding-right:10%">
+      <a href="{{url_for('listas')}}" style="margin-left: auto; font-size: 25px; color: white; font-family: Jacques Francois-Regular; text-decoration: none; padding-right:15%">
           Mis listas
       </a>
     </div>
 
-    <div class="perfil">
-      <button>                                                          
-        <i class="fa-solid fa-user fa-2xl" style="color: #ffffff; padding-right:15px;"></i>
-      </button>
-
-      <!--Menu desplegable de la cuenta-->
-      <div class="content">
-        <a href="{{url_for('cuenta')}}" class="options" style="padding-right: 10px;">Cuenta</a>
-        <a href="{{url_for('logout')}}" class="options" style="padding-right: 10px;">Cerrar Sesión</a>
-      </div>
-    </div>  
+    <div class="perfil" style="display: flex;"> 
+      <a href= "{{ url_for('iniciar_sesion')}}" style="padding-right:15px;">                                                      
+            Iniciar Sesion
+      </a>
+    </div>
 </div> 
 <br><br>
 
 <!--Grid para poner los productosd-->
 <div class="grid-container">
   <div class="product1">
-      <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+    <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
       <div class="content">
           <h5 class="title">Nombre producto</h5>
           <p class="desc">Descripción</p>
@@ -256,11 +246,12 @@
 </div>
 </div>  
     <br><br>
-<!--Cambiar entre paginas-->
+    
+<!--Cambiar de pagina-->
   <div style="text-align: center;">
-    <button style="background-color: #d9d9d9; border: none;"><a href=""><i class="fa-solid fa-arrow-left fa-lg" style="padding-right: 15px; color: #000000"></i></a></button>
+    <button style="background-color: #d9d9d9; border: none;"><i class="fa-solid fa-arrow-left fa-lg" style="padding-right: 15px; color: #000000"></i></button>
     1/10
-    <button style="background-color: #d9d9d9; border: none;"><a href=""><i class="fa-solid fa-arrow-right fa-lg" style="padding-left: 15px; color: #000000"></i></a></button>
+    <button style="background-color: #d9d9d9; border: none;"><i class="fa-solid fa-arrow-right fa-lg" style="padding-left: 15px; color: #000000"></i></button>
   </div>            
     <br><br>
 
