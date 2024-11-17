@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PriceSeeker|Chocolate</title>
+  <title>Busqueda|PriceSeeker</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-product.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-perfil.css')}}">
@@ -75,14 +75,8 @@
     </div>
 
     <!--Buscador-->
-    <div class="buscador" style="text-align: center; display: flex; padding-left: 12%;">
+    <div class="buscador" style="text-align: center; display: flex; padding-right: 5%;">
       <input type="text" placeholder="Producto..."><button><a href="{{url_for('busqueda_cs')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
-    </div>
-
-    <div class="lista" style="display: flex; width:65%">
-      <a href="{{url_for('listas')}}" style="margin-left: auto; font-size: 25px; color: white; font-family: Jacques Francois-Regular; text-decoration: none; padding-right:15%">
-          Mis listas
-      </a>
     </div>
 
     <div class="perfil" style="display: flex;"> 
@@ -96,7 +90,7 @@
 <!--Grid para poner los productosd-->
 <div class="grid-container">
   <div class="product1">
-    <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+    <a href="{{url_for('producto_ss')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
       <div class="content">
           <h5 class="title">Nombre producto</h5>
           <p class="desc">Descripción</p>
@@ -106,7 +100,7 @@
   </div>
 
   <div class="product2">
-    <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+    <a href="{{url_for('producto_ss')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
     <div class="content">
         <h5 class="title">Nombre producto</h5>
         <p class="desc">Descripción</p>
@@ -116,7 +110,7 @@
 </div>
 
 <div class="product3">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <a href="{{url_for('producto_ss')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
   <div class="content">
       <h5 class="title">Nombre producto</h5>
       <p class="desc">Descripción</p>
@@ -126,7 +120,7 @@
 </div>
 
 <div class="product1">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <a href="{{url_for('producto_ss')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
   <div class="content">
       <h5 class="title">Nombre producto</h5>
       <p class="desc">Descripción</p>
@@ -136,7 +130,7 @@
 </div>
 
 <div class="product2">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <a href="{{url_for('producto_ss')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
   <div class="content">
       <h5 class="title">Nombre producto</h5>
       <p class="desc">Descripción</p>
@@ -146,7 +140,7 @@
 </div>
 
 <div class="product3">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <a href="{{url_for('producto_ss')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
   <div class="content">
       <h5 class="title">Nombre producto</h5>
       <p class="desc">Descripción</p>
@@ -156,7 +150,7 @@
 </div>
 
 <div class="product1">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <a href="{{url_for('producto_ss')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
   <div class="content">
       <h5 class="title">Nombre producto</h5>
       <p class="desc">Descripción</p>
@@ -166,7 +160,7 @@
 </div>
 
 <div class="product2">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <a href="{{url_for('producto_ss')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
   <div class="content">
       <h5 class="title">Nombre producto</h5>
       <p class="desc">Descripción</p>
@@ -176,7 +170,7 @@
 </div>
 
 <div class="product3">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <a href="{{url_for('producto_ss')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
   <div class="content">
       <h5 class="title">Nombre producto</h5>
       <p class="desc">Descripción</p>
@@ -186,7 +180,7 @@
 </div>
 
 <div class="product1">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <a href="{{url_for('producto_ss')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
   <div class="content">
       <h5 class="title">Nombre producto</h5>
       <p class="desc">Descripción</p>
@@ -196,7 +190,7 @@
 </div>
 
 <div class="product2">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <a href="{{url_for('producto_ss')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
   <div class="content">
       <h5 class="title">Nombre producto</h5>
       <p class="desc">Descripción</p>
@@ -206,7 +200,7 @@
 </div>
 
 <div class="product3">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <a href="{{url_for('producto_ss')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
   <div class="content">
       <h5 class="title">Nombre producto</h5>
       <p class="desc">Descripción</p>
@@ -216,7 +210,7 @@
 </div>
 
 <div class="product1">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <a href="{{url_for('producto_ss')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
   <div class="content">
       <h5 class="title">Nombre producto</h5>
       <p class="desc">Descripción</p>
@@ -226,7 +220,7 @@
 </div>
 
 <div class="product2">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <a href="{{url_for('producto_ss')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
   <div class="content">
       <h5 class="title">Nombre producto</h5>
       <p class="desc">Descripción</p>
@@ -236,7 +230,7 @@
 </div>
 
 <div class="product3">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <a href="{{url_for('producto_ss')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
   <div class="content">
       <h5 class="title">Nombre producto</h5>
       <p class="desc">Descripción</p>
