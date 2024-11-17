@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from flask_wtf.csrf import CSRFProtect 
 import secrets
-from DbModels import login, register_user, modify_user, delete_user
+from DbModels import login, register_user, modify_user, delete_user, buscar_productos, modify_password
 app = Flask('__name__', template_folder="SRC/templates", static_folder="SRC/static") # no es necesario pq la carpeta se llama asi y jinja busca esa por defecto
 
 
@@ -11,10 +11,19 @@ secret_key = secrets.token_hex(16)
 app.secret_key = secret_key
 #csrf=CSRFProtect()
 
-@app.route ('/')
+@app.route('/')
+def index():
+    #return redirect(url_for('inicio_ss'))
+    return render_template('inicio_ss.html')
+
+@app.route ('/inicio_ss', methods = ['GET'])
 def inicio():
-    return render_template("inicio_ss.html")
+    termino = request.args.get('q', '')  # Toma el parámetro 'q' de la URL
     
+    buscar_productos(termino)
+    
+    return render_template('inicio_ss.html')
+ 
 #INICIARSESION RUTA
 @app.route ('/iniciar_sesion', methods=['GET', 'POST'])
 def iniciar_sesion():
@@ -30,9 +39,10 @@ def iniciar_sesion():
             session['cel'] = celular #hay que ver como guardar al usuario
             session['name'] = usuario[0]
             session['apellido'] = usuario[1]
-            print(session)
+            print(session, usuario[0], usuario[1])
             mensaje = "Correct"
-            return render_template('/inicio_cs.html')
+            return redirect(url_for('inicio_cs'))
+            return render_template('/inicio_cs.html', usuario = usuario)
         except Exception as e:
                 print(f"Error de login (routes): {e}" )
                 mensaje = "Celular o Contraseña incorrectas"
@@ -42,11 +52,13 @@ def iniciar_sesion():
 def err_handler(e):
     return render_template('error_404.html')
     
-
 #ya estamos iniciados
 @app.route('/inicio_cs') 
-def inicio_cs():
-    return render_template('inicio_cs.html')
+def inicio_cs(): 
+    if 'cel' in session: 
+        return render_template('inicio_cs.html')
+    return 404
+    
 
 @app.route('/cuenta')
 def cuenta():
@@ -59,11 +71,6 @@ def logout():
 
 @app.route ('/registrar', methods=['GET', 'POST'])
 def registrar():
-    user ={ #idk si esto debe estar dentro del IF
-        'nombre': '',
-        'apellido':'',
-        'telefono':'',
-        } #quien ba a recopilar la info
     mensaje = None
     print ("voy a hacer el request POST")
     if request.method == 'POST':
@@ -96,6 +103,10 @@ def busqueda_cs():
 @app.route ('/busqueda_ss')
 def busqueda_ss():
     return render_template('busqueda_ss.html')
+
+@app.route ('/producto')
+def producto():
+    return render_template('producto.html')
 
 """if "user" in session: """
 

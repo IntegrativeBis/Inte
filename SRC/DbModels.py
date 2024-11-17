@@ -1,4 +1,5 @@
 from db import dbconnection
+from flask import jsonify
 connection = dbconnection()  # Obtenemos la conexión
 def login(celular, contrasena):
     try:
@@ -47,3 +48,11 @@ def modify_password (celular, nuevacontrasena):
     except Exception as ex:
         print (f"Error al modificar el usuario: {str(ex)}")
         
+def buscar_productos(termino):
+    productos = []
+    with connection.cursor() as cursor:
+        # Consulta a la base de datos para obtener productos que coincidan parcialmente con el término
+        cursor.execute("SELECT Descripcion FROM TProducto WHERE Descripcion LIKE ?", (termino))
+        productos = [fila[0] for fila in cursor.fetchall()]  # Obtener todos los nombres de productos coincidentes
+    # Devuelve los resultados en formato JSON
+    return jsonify(productos)
