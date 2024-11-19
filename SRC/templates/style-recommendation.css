@@ -1,0 +1,67 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Tarjeta Principal */
+.card {
+    display: flex;
+    background-color: #d3d3d3;
+    padding: 20px;
+    border-radius: 8px;
+    width: 500px; /* Ajusta el ancho según sea necesario */
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.product-image {
+    width: 200px;
+    height: 200px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-name {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.prices {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 15px;
+}
+
+.current-price {
+    color: red;
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.original-price {
+    color: black;
+    font-size: 14px;
+    text-decoration: line-through;
+}
+
+.add-button {
+    padding: 8px 16px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    font-size: 14px;
+    cursor: pointer;
+}
