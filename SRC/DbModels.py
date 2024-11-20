@@ -47,12 +47,37 @@ def modify_password (celular, nuevacontrasena):
         print("El usuario ha sido modificado con exito")
     except Exception as ex:
         print (f"Error al modificar el usuario: {str(ex)}")
-        
+
+def buscar_productos(termino): #aqui solo queremos los nombres productos
+    productos = [
+        {"descripcion": "Leche", "precio": 20},
+        {"descripcion": "Pan", "precio": 15},
+        {"descripcion": "Azúcar", "precio": 10}
+    ]
+    """
+    try: 
+        with connection.cursor() as cursor:    
+            cursor.execute(f"SELECT Descripcion FROM TProducto WHERE LOWER(Descripcion) LIKE ?", (f"%{termino}%",)) # Consulta a la base de datos para obtener productos que coincidan parcialmente con el término
+        productos = [fila[0] for fila in cursor.fetchall()]  # Obtener todos los nombres de productos coincidentes 
+    except Exception as e:
+        print(f"error al buscar el producto: {e}")
+        productos = [] 
+    return productos
+    
+    # Ejemplo de cómo podría ser la estructura de los resultados de la búsqueda
 def buscar_productos(termino):
-    productos = []
-    with connection.cursor() as cursor:
-        # Consulta a la base de datos para obtener productos que coincidan parcialmente con el término
-        cursor.execute("SELECT Descripcion FROM TProducto WHERE Descripcion LIKE ?", (termino))
-        productos = [fila[0] for fila in cursor.fetchall()]  # Obtener todos los nombres de productos coincidentes
-    # Devuelve los resultados en formato JSON
-    return jsonify(productos)
+    cursor.execute(f"SELECT Descripcion, Precio FROM TProducto WHERE LOWER(Descripcion) LIKE ?", ('%' + termino + '%',))
+    productos = cursor.fetchall()
+    resultados = []
+    for producto in productos:
+        resultados.append({
+            'descripcion': producto[0],  # Asegúrate de que el nombre de la columna es correcto
+            'precio': producto[1]        # Asegúrate de que el precio se recupere correctamente
+        })
+    return resultados
+""" #cuando la base de datos tenga datros descomento eso
+    return [p for p in productos if termino.lower() in p['descripcion'].lower()]
+        
+  
+    
+    

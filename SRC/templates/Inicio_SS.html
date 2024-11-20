@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-menu.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-searcher.css')}}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-
+              
 </head>
 
 <body>
@@ -56,9 +56,16 @@
 
   <!--Buscador-->
     <div class="buscador" style="text-align: center;">
-      <input type="text" placeholder="Buscar producto..."><button><a href="{{url_for('busqueda_ss')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
+      <form method="get" action="/">
+        <input type="text" id="buscador" name="q" value="{{ termino }}" placeholder="Buscar productos" autocomplete="off">
+        <button type="submit">Buscar</button>
+      </form>
+
+      <!--has bonito este div que es para que se muestren los productos-->
+      <div id="resultados"></div>
     </div>
-    <br><br>
+    <br>
+    <br>
 
 <!--Esta es la parte de los anuncios--> 
    <div class="ads">
@@ -77,4 +84,6 @@
       <p>@PriceSeeker <br> Todos los derechos reservados 2024</p>
     </footer>
 </body>
+<!--esto es el script para que funcione el buscador -->
+<script src="{{ url_for('static', filename='js/busquedaRealTime.js') }}"></script>
 </html>
