@@ -23,18 +23,20 @@
             </span>
         </div>
 
+  <!--Listas-->
         <div class="lista" style="display: flex; width:65%">
           <a href="{{url_for('listas')}}" style="margin-left: auto; font-size: 25px; color: white; font-family: Jacques Francois-Regular; text-decoration: none;">
               Mis listas
           </a>
         </div>
 
+  <!--Perfil de usuario-->
         <div class="perfil">
           <button>                                                          
             <i class="fa-solid fa-user fa-2xl" style="color: #ffffff; padding-right:15px;"></i>
           </button>
           
-          <!--Menu desplegable de la cuenta-->
+  <!--Menu desplegable de la cuenta-->
           <div class="content">
             <a href="{{url_for('cuenta')}}" class="options" style="padding-right: 10px;">Cuenta</a>
             <a href="{{url_for('logout')}}" class="options" style="padding-right: 10px;">Cerrar Sesión</a>
@@ -62,11 +64,16 @@
 
   <!--Buscador-->
     <div class="buscador" style="text-align: center;">
-      <input type="text" placeholder="Buscar producto..."><button><a href="{{url_for('busqueda_cs')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
+      <input type="text" placeholder="Buscar producto...">
+      <button>
+        <a href="{{url_for('busqueda_cs')}}" class="icon">
+          <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+        </a>
+      </button>
     </div>
     <br><br>
 
-<!--Esta es la parte de los anuncios--> 
+<!--Carrusel de anuncios--> 
    <div class="ads">
     <ul>
       <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt=""></li>
