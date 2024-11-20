@@ -17,9 +17,8 @@ def index():
     return render_template('inicio_ss.html')
 
 @app.route ('/inicio_ss', methods = ['GET'])
-def inicio():
+def inicio_ss():
     termino = request.args.get('q', '')  # Toma el parámetro 'q' de la URL
-    
     buscar_productos(termino)
     
     return render_template('inicio_ss.html')
@@ -56,8 +55,8 @@ def err_handler(e):
 @app.route('/inicio_cs') 
 def inicio_cs(): 
     if 'cel' in session: 
-        return render_template('inicio_cs.html')
-    return 404
+        return render_template('inicio_cs.html', usuario=session)
+    return render_template('error_404.html')
     
 
 @app.route('/cuenta')
@@ -67,7 +66,7 @@ def cuenta():
 @app.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('inicio'))
+    return redirect(url_for('inicio_ss'))
 
 @app.route ('/registrar', methods=['GET', 'POST'])
 def registrar():
@@ -104,9 +103,13 @@ def busqueda_cs():
 def busqueda_ss():
     return render_template('busqueda_ss.html')
 
-@app.route ('/producto')
-def producto():
-    return render_template('producto.html')
+@app.route ('/producto_ss')
+def producto_ss():
+    return render_template('producto_ss.html')
+
+@app.route ('/producto_cs')
+def producto_cs():
+    return render_template('producto_cs.html')
 
 """if "user" in session: """
 
