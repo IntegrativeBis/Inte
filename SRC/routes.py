@@ -9,22 +9,22 @@ app.secret_key = secrets.token_hex(16) #ASIGNAMOS LA LLAVE SECRETA A LA APP E IN
 #csrf=CSRFProtect()
 
 #AQUI SE ENCONTRARAN LAS RUTAS PRINCIPALES-------------------------------------------------------------------------------------
-
+"""
 @app.route ('/') #, methods = ['GET']
 def inicio_ss():
-    """termino = request.args.get('q', '').lower()  # Toma el parámetro 'q' de la URL
+    termino = request.args.get('q', '').lower()  # Toma el parámetro 'q' de la URL
     print(termino)
     resultados = buscar_productos(termino)
-    print (resultados)"""
+    print (resultados)
     return render_template('inicio_ss.html')
-
+"""
 #ya estamos iniciados
-@app.route('/inicio_cs') 
-def inicio_cs(): 
+@app.route('/') 
+def inicio(): 
     if 'cel' in session :
         return render_template('inicio_cs.html', usuario=session)
-    return redirect(url_for('inicio_ss'))
-
+    #return redirect(url_for('inicio_ss'))
+    return render_template('inicio_ss.html')
 #AQUI EN ADELANTE SOLO SE VERA LO QUE TENGA QUE VER CON EL USUARIOOOOOO----------------------------------------------------------------
 
 @app.route ('/registrar', methods=['GET', 'POST'])
@@ -66,7 +66,7 @@ def iniciar_sesion():
             session['apellido'] = usuario[1]
             print(session, usuario[0], usuario[1])
             mensaje = "Correct"
-            return redirect(url_for('inicio_cs', usuario=usuario))
+            return redirect(url_for('inicio', usuario=usuario))
         except Exception as e:
                 print(f"Error de login (routes): {e}" )
                 mensaje = "Celular o Contraseña incorrectas"
@@ -79,7 +79,7 @@ def cuenta():
 @app.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('inicio_ss'))
+    return redirect(url_for('inicio'))
 
 
 #DE AQUI EN ADELANTE SE ENCUENTRA TODO LO RELACIONADO CON PRODUCTOSSS Y BUSQUEDA-------------------------------------------------------------
@@ -101,7 +101,7 @@ def busqueda(): #aqui a medida que la barra se rellene se va a modificar todos l
     return render_template('busqueda_ss.html')
 
 @app.route ('/producto') #va a tomar el argumento buscado (aqui debe tomar el argumento del producto seleccionado en busqueda NO SE ACERLO) para que te aparezca el producto 
-def producto_cs():
+def producto():
     termino = request.args.get('q', '').lower()
     print(termino)
     if 'cel' in session:
