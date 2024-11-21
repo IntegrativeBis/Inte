@@ -48,7 +48,7 @@ def modify_password (celular, nuevacontrasena):
     except Exception as ex:
         print (f"Error al modificar el usuario: {str(ex)}")
 
-def buscar_productos(termino): #aqui solo queremos los nombres productos
+def busqueda_productos(termino): #aqui solo queremos los nombres productos
     productos = [
         {"descripcion": "Leche", "precio": 20},
         {"descripcion": "Pan", "precio": 15},

@@ -42,13 +42,13 @@
         <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>  
       </button>
       <div class="content">
-        <a href="{{url_for('busqueda_ss')}}"class="cat">Frutas y verduras<i class="fa-solid fa-apple-whole fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="{{url_for('busqueda_ss')}}"class="cat">Lácteos<i class="fa-solid fa-cheese fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="{{url_for('busqueda_ss')}}"class="cat">Congelados<i class="fa-solid fa-ice-cream fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="{{url_for('busqueda_ss')}}"class="cat">Carnes Frías<i class="fa-solid fa-drumstick-bite fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="{{url_for('busqueda_ss')}}"class="cat">Artículos de limpieza<i class="fa-solid fa-broom fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="{{url_for('busqueda_ss')}}"class="cat">No percederos<i class="fa-solid fa-jar fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="{{url_for('busqueda_ss')}}"class="cat">Deli<i class="fa-solid fa-bacon fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda')}}"class="cat">Frutas y verduras<i class="fa-solid fa-apple-whole fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda')}}"class="cat">Lácteos<i class="fa-solid fa-cheese fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda')}}"class="cat">Congelados<i class="fa-solid fa-ice-cream fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda')}}"class="cat">Carnes Frías<i class="fa-solid fa-drumstick-bite fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda')}}"class="cat">Artículos de limpieza<i class="fa-solid fa-broom fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda')}}"class="cat">No percederos<i class="fa-solid fa-jar fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda')}}"class="cat">Deli<i class="fa-solid fa-bacon fa-lg" style="padding-left: 50px;"></i></a>
       </div>
     </div>
 
@@ -56,9 +56,9 @@
 
   <!--Buscador-->
     <div class="buscador" style="text-align: center;">
-      <form method="get" action="/">
+      <form method="get" action="/busqueda">
         <input type="text" id="buscador" name="q" value="{{ termino }}" placeholder="Buscar productos" autocomplete="off">
-        <button type="submit">Buscar</button>
+        <button type="submit">Buscar <a href="{{url_for('busqueda')}}"></a></button>
       </form>
 
       <!--has bonito este div que es para que se muestren los productos-->
