@@ -11,7 +11,7 @@
                         data.forEach(producto => {
                             const item = document.createElement('div');
                             item.classList.add('producto');
-                            item.textContent = `${producto.descripcion} - $${producto.precio || 'N/A'}`;
+                            item.textContent = `${producto.descripcion}`;
                             resultadosDiv.appendChild(item);
                         });
                     } else {
@@ -27,10 +27,3 @@
         }
     });
     
-let debounceTimeout;
-document.getElementById('buscador').addEventListener('input', function() {
-    clearTimeout(debounceTimeout);
-    debounceTimeout = setTimeout(() => {
-        // Aquí va el código para la búsqueda
-    }, 30); // Espera 300 ms antes de realizar la búsqueda
-});

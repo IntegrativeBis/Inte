@@ -1,6 +1,8 @@
 from db import dbconnection
 from flask import jsonify
 connection = dbconnection()  # Obtenemos la conexión
+
+#AQUI ESTAN TODOS LOS QUERYS QUE REFERENCIAN AL USUARIO
 def login(celular, contrasena):
     try:
         print("estoy realizando la confirmacion del login")
@@ -47,37 +49,57 @@ def modify_password (celular, nuevacontrasena):
         print("El usuario ha sido modificado con exito")
     except Exception as ex:
         print (f"Error al modificar el usuario: {str(ex)}")
-
-def busqueda_productos(termino): #aqui solo queremos los nombres productos
-    productos = [
-        {"descripcion": "Leche", "precio": 20},
-        {"descripcion": "Pan", "precio": 15},
-        {"descripcion": "Azúcar", "precio": 10}
-    ]
-    """
-    try: 
-        with connection.cursor() as cursor:    
-            cursor.execute(f"SELECT Descripcion FROM TProducto WHERE LOWER(Descripcion) LIKE ?", (f"%{termino}%",)) # Consulta a la base de datos para obtener productos que coincidan parcialmente con el término
-        productos = [fila[0] for fila in cursor.fetchall()]  # Obtener todos los nombres de productos coincidentes 
-    except Exception as e:
-        print(f"error al buscar el producto: {e}")
-        productos = [] 
-    return productos
-    
-    # Ejemplo de cómo podría ser la estructura de los resultados de la búsqueda
-def buscar_productos(termino):
-    cursor.execute(f"SELECT Descripcion, Precio FROM TProducto WHERE LOWER(Descripcion) LIKE ?", ('%' + termino + '%',))
-    productos = cursor.fetchall()
-    resultados = []
-    for producto in productos:
-        resultados.append({
-            'descripcion': producto[0],  # Asegúrate de que el nombre de la columna es correcto
-            'precio': producto[1]        # Asegúrate de que el precio se recupere correctamente
-        })
-    return resultados
-""" #cuando la base de datos tenga datros descomento eso
-    return [p for p in productos if termino.lower() in p['descripcion'].lower()]
         
+# A PARTIR DE AQUI COMIENZA TODO LO RELACIONADO CON LOS PRODUCTOS --------------------------------------------------------------------
+def busqueda_productos_AD(termino): #AD = ALL DESCRIPTION
+    resultados = []
+    tiendas = {
+    1: "Alsuper",
+    2: "Soriana",
+    3: "Bodega Aurrera",
+    4: "Walmart"
+    }
+    try:
+        query = "SELECT IdProducto, Descripcion, PActual, PNormal, IdTienda, Imagen FROM TProducto WHERE LOWER(Descripcion) LIKE ?"
+        with connection.cursor() as cursor:
+            # Ejecutar consulta con parámetros
+            cursor.execute(query, ('%' + termino.lower() + '%',))
+            productos = cursor.fetchall()
+        # Procesar resultados
+        for producto in productos:
+            tienda=tiendas.get(producto[2], " ")
+            resultados.append({
+                'id_producto': producto[0],
+                'descripcion': producto[1],
+                'precio': producto[2], #PRECIO ACTUAL SIEMPRE EXISTE, EL NORMAL ES CUANDO HAY OFERTA(PRECIO ACTRUAL) Y TIENE QUE SALIR EL PRECIO ORIGINAL DIFERENTE
+                'precio_oferta': producto[3],
+                'tienda': tienda,
+                'imagen': producto[5]
+            })
+        print(resultados)
+        return resultados
+    except Exception as e:
+        print(f"Error al buscar productos AD: {e}")
+        return resultados  # Devuelve lista vacía en caso de error
+    
+def busqueda_productos(termino): #BY DESCRIPTION ESTO ES PARA LA BARRA BUSCADORA
+    resultados = []
+    try:
+        query = "SELECT TOP 8 Descripcion FROM TProducto WHERE LOWER(Descripcion) LIKE ? "
+        with connection.cursor() as cursor:
+            # Ejecutar consulta con parámetros
+            cursor.execute(query, ('%' + termino.lower() + '%',))
+            productos = cursor.fetchall()
+        for producto in productos:
+            resultados.append({
+                'descripcion': producto[0]
+            })
+        print(resultados)
+        return resultados
+    except Exception as e:
+        print(f"Error al buscar productos en la barra: {e}")
+        return resultados  # Devuelve lista vacía en caso de error
+
   
     
     

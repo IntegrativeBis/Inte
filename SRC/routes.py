@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, j
 from flask_wtf.csrf import CSRFProtect 
 import secrets
 from datetime import timedelta
-from DbModels import login, register_user, modify_user, delete_user, busqueda_productos, modify_password
+from DbModels import login, register_user, modify_user, delete_user, busqueda_productos_AD, modify_password, busqueda_productos
 app = Flask('__name__', template_folder="SRC/templates", static_folder="SRC/static") 
  
 app.secret_key = secrets.token_hex(16) #ASIGNAMOS LA LLAVE SECRETA A LA APP E INVENTAMOS UNA LLAVE SECRETA ALEATORIA
