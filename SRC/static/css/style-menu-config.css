@@ -1,0 +1,72 @@
+.config{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+padding: 20px;
+} 
+
+.menu-config{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    background-color: #ffffff; 
+    border-radius: 30px;
+    box-shadow: 0 4px 8px #000000;
+    padding: 20px;
+}
+
+.card-title{
+    color: #8B8B8B;
+    text-align: center;
+    font-family: 'Jacques Francois, Regular'; 
+    font-size: 35px; 
+    padding-top: 15px;
+}
+
+.head{
+    font-family: 'Jacques Francois, Regular'; 
+    color: #8B8B8B; 
+    font-size: 20px;
+}
+
+.info{
+    font-family: 'Jacques Francois, Regular'; 
+    font-size: 18px;
+    border: 1px solid;
+    border-color: #8b8b8b;
+    border-radius: 15px;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+.inp{
+    border-radius: 15px;
+    font-family: 'Jacques Francois, Regular';
+    font-size: 18px;
+    border-color: #8B8B8B;
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+.actualizar{
+    background-color: #69b62c; 
+    padding: 5px 100px; 
+    border-radius: 15px; 
+    border-color: #69bc2c; 
+    cursor: pointer; 
+    color: #ffffff; 
+    font-size: 20px;
+    font-family: 'Jacques Francois, Regular';
+    margin-top: 20px;
+}
+.actualizar:hover {
+    background-color: #57a126;  /* Cambio de color al pasar el mouse */
+}
+
+.cambiar {
+    margin-bottom: 20px;
+}
