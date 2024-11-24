@@ -39,14 +39,18 @@
 
 <div class="producto">
   <div class="image">
-    <img src="/static/images/ND.jpeg" alt="Imagen del producto">
+    {% if not producto.imagen %}
+    <img src="/static/images/ND.jpeg" alt="">
+    {% else %}
+    <img src="{{ producto.imagen }}" alt="Imagen del producto">
+    {% endif %}
   </div>
   <div class="details">
-    <h2 class="nombre">Nombre producto</h2>
+    <h2 class="nombre">{{ producto.descripcion }}</h2>
     <br><br>
     <div class="precios">
-      <span class="p_actual">Precio actual</span>
-      <span class="p_original">Precio original</span>
+      <span class="p_actual"> {{ producto.precio_actual }} </span>
+      <span class="p_original">{{ producto.precio_normal }}</span>
       <br><br><br><br>
     </div>
     <div class="boton">
