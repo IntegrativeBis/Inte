@@ -31,17 +31,19 @@
             <h2 class="card-title">Perfil</h2>
             <br>
             <div class="informacion">                      
-                <label class="head">Usuario</label>
-                <p class="info">Omar Rodriguez</p>              <!--Ejemplo-->
+                <label class="head">Nombre</label>
+                <p class="info"> {{ session['nombre']}}</p>              <!--Ejemplo-->
+                <br>
+
+                <label class="head">Apellido</label> 
+                <p class="info">{{ session['apellido'] }}</p>        <!--Ejemplo-->
                 <br>
 
                 <label class="head">Celular</label> 
-                <p class="info">6141320311</p>                  <!--Ejemplo-->
+                <p class="info">{{ session['cel'] }}</p>                  <!--Ejemplo-->
                 <br>
 
-                <label class="head">Correo electrónico</label> 
-                <p class="info">omarbicho7@yahoo.com</p>        <!--Ejemplo-->
-                <br>
+
             </div>
         </div>
     </div><br>

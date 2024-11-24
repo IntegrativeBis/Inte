@@ -41,7 +41,6 @@ def modify_user (celular, nombre, apellido):
     except Exception as ex:
         print (f"Error al modificar el usuario: {str(ex)}")
         
-        
 def modify_password (celular, nuevacontrasena):
     try:
         with connection.cursor() as cursor:

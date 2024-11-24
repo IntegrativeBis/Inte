@@ -65,7 +65,7 @@ def iniciar_sesion():
             print("voy a usar la funcion LOGIN")
             usuario = login(celular, contrasena)
             session['cel'] = celular 
-            session['name'] = usuario[0]
+            session['nombre'] = usuario[0]
             session['apellido'] = usuario[1]
             print(session, usuario[0], usuario[1])
             mensaje = "Correct"
@@ -77,13 +77,14 @@ def iniciar_sesion():
     
 @app.route('/cuenta')
 def cuenta():
-    return render_template('cuenta.html')
+    if 'cel' in session:
+        return render_template('cuenta.html')
+    return pagina_no_encontrada(404)
 
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for('inicio'))
-
 
 #DE AQUI EN ADELANTE SE ENCUENTRA TODO LO RELACIONADO CON PRODUCTOSSS Y BUSQUEDA-------------------------------------------------------------
 
@@ -108,7 +109,7 @@ def producto(id_producto): #   DEBERIA DE TOMAR EL ID
     """termino = request.args.get('q', '').lower()
     print(termino)"""
     producto = busqueda_productos_by_id(id_producto)
-    print(producto)
+    print(producto) 
     if 'cel' in session:
         return render_template('producto_cs.html', producto=producto)
     return render_template('producto_ss.html', producto=producto)
