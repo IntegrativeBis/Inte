@@ -29,7 +29,9 @@ def delete_user (celular, contrasena):
     try:
         with connection.cursor() as cursor:
             cursor.execute("EXEC sp_DeleteUser ?, ?", (celular, contrasena))
-        print("El usuario ha sido eliminado con exito")
+        mensaje = "El usuario ha sido eliminado con exito"
+        print(mensaje)
+        return mensaje
     except Exception as ex:
         print (f"Error al eliminar el usuario: {str(ex)}")
         
@@ -37,7 +39,9 @@ def modify_user (celular, nombre, apellido):
     try:
         with connection.cursor() as cursor:
             cursor.execute("EXEC sp_UpdateUser ?, ?, ?", (celular, nombre, apellido))
-        print("El usuario ha sido modificado con exito")
+        mensaje ="El usuario ha sido modificado con exito"
+        print(mensaje)
+        return mensaje
     except Exception as ex:
         print (f"Error al modificar el usuario: {str(ex)}")
         
@@ -45,10 +49,11 @@ def modify_password (celular, nuevacontrasena):
     try:
         with connection.cursor() as cursor:
             cursor.execute("EXEC sp_UpdatePassword ?, ?", (celular, nuevacontrasena))
-        print("El usuario ha sido modificado con exito")
+        mensaje = "La contrasena ha sido modificado con exito"
+        return mensaje 
     except Exception as ex:
-        print (f"Error al modificar el usuario: {str(ex)}")
-        
+        print (f"Error al modificar la contrasena: {str(ex)}")
+   
 # A PARTIR DE AQUI COMIENZA TODO LO RELACIONADO CON LOS PRODUCTOS --------------------------------------------------------------------
 
 def busqueda_productos_AD(termino): #AD = ALL DESCRIPTION BY A DESCRIPTION

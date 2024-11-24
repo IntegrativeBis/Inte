@@ -67,6 +67,7 @@ def iniciar_sesion():
             session['cel'] = celular 
             session['nombre'] = usuario[0]
             session['apellido'] = usuario[1]
+            session['contrasena'] = contrasena
             print(session, usuario[0], usuario[1])
             mensaje = "Correct"
             return redirect(url_for('inicio', usuario=usuario))
@@ -81,6 +82,35 @@ def cuenta():
         return render_template('cuenta.html')
     return pagina_no_encontrada(404)
 
+@app.route('/cambiar_contrasena', methods=['GET', 'POST'])
+def cambiar_contrasena():
+    print("inicio con cambiar contrasena")
+    if 'cel' in session:
+        celular = session['cel']
+        if request.method == 'POST':
+            contrasena = request.form.get("contrasena")
+            nuevacontrasena = request.form.get("nuevacontrasena")
+            confirmar_nuevacontrasena = request.form.get("confirmar_nuevacontrasena")
+            if nuevacontrasena == confirmar_nuevacontrasena:
+                print(contrasena, nuevacontrasena)
+                if contrasena == session.get('contrasena'):
+                    try:
+                        print("voy a usar la funcion MODIFY PASSWORD")
+                        mensaje = modify_password(celular, nuevacontrasena)
+                        return redirect(url_for('cuenta', mensaje=mensaje)) 
+                    except Exception as e:
+                        print(f"Error al modificar la contraseña: {e}")
+                        mensaje = "No se logró modificar la contraseña"
+                else:
+                    mensaje = "La contraseña actual no es correcta."
+            else:
+                mensaje = "Las contraseñas nuevas no coinciden."
+            # Redirigir con el mensaje de error
+            return redirect(url_for('cambiar_contrasena', mensaje=mensaje))
+    # Si no hay un usuario 
+    return pagina_no_encontrada(404)
+
+    
 @app.route('/logout')
 def logout():
     session.clear()
