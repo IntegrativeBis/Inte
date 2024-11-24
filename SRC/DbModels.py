@@ -106,27 +106,49 @@ def busqueda_productos(termino): #BY DESCRIPTION ESTO ES PARA LA BARRA BUSCADORA
 def busqueda_productos_by_id(id_producto):
     producto = {} #lista vacia que se retorna cuando el query no funciono
     try:
-        query = "SELECT * FROM TProducto WHERE IdProducto LIKE ? "
+        query_producto = "SELECT * FROM TProducto WHERE IdProducto LIKE ? "
+        query_tienda = "SELECT DTienda FROM TTiendas WHERE IdTienda = ?"
+        query_recomendaciones = "SELECT TOP 4 * FROM TProducto WHERE IdSCategoria = ? AND IdProducto NOT LIKE ? "
         with connection.cursor() as cursor:
-            cursor.execute(query, ('%' + str(id_producto) + '%',))
+            cursor.execute(query_producto, ('%' + str(id_producto) + '%',))
             atributo = cursor.fetchone()
             id_tienda = atributo[4]
-            query_tienda = "SELECT DTienda FROM TTiendas WHERE IdTienda = ?"
-            cursor.execute(query_tienda, id_tienda)
+            
+            cursor.execute(query_tienda, (id_tienda,))
             tienda = cursor.fetchone()
-            print(f"imprimire: {tienda}")#SE IMPRIME EN PARENTESIS
+            print(f"imprimire: {tienda[0]}")#SE IMPRIME EN PARENTESIS
             #tienda = 1 EN UN RATO SE QUITA ESO SE NECESITA LA TABLA TIENDA 
-            producto = {
+            
+            cursor.execute(query_recomendaciones, ( atributo[2], atributo[0]))
+            productos_recomendados = cursor.fetchall()
+            
+            producto = { #creamos una lista para el producto
                 'id_producto': atributo[0],
                 'descripcion': atributo[1],
-                'id_categoria': atributo[2],
+                'id_subcategoria': atributo[2],
                 'imagen': atributo[3],
-                'tienda': tienda, 
+                'tienda': tienda[0], 
                 'precio_normal': atributo[5], #PRECIO NORMAL EN CASO QUE TENGA OFERTA SE OTORGA EL PRECIO BASE
                 'precio_actual': atributo[6], #PRECIO ACTUAL SIEMPRE EXISTE, EL NORMAL ES CUANDO HAY OFERTA(PRECIO ACTRUAL) Y TIENE QUE SALIR EL PRECIO ORIGINAL DIFERENTE
                 'URL': atributo[7]
             }
-        return producto
+            
+            recomendaciones = [
+                {
+                    'id_producto': producto_similar[0],
+                    'descripcion': producto_similar[1],
+                    'id_subcategoria': producto_similar[2],
+                    'imagen': producto_similar[3],
+                    'tienda': producto_similar[0], 
+                    'precio_normal': producto_similar[5], 
+                    'precio_actual': producto_similar[6], 
+                    'URL': producto_similar[7]
+                }
+                for producto_similar in productos_recomendados
+            ]
+            print(producto, recomendaciones)
+        return producto, recomendaciones
+        
     except Exception as e:
         print(f"Error al buscar productos por ID: {e}")
     

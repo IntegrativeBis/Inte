@@ -138,11 +138,12 @@ def busqueda():
 def producto(id_producto): #   DEBERIA DE TOMAR EL ID
     """termino = request.args.get('q', '').lower()
     print(termino)"""
-    producto = busqueda_productos_by_id(id_producto)
-    print(producto) 
+    productos = busqueda_productos_by_id(id_producto)
+    
+    print(productos) 
     if 'cel' in session:
-        return render_template('producto_cs.html', producto=producto)
-    return render_template('producto_ss.html', producto=producto)
+        return render_template('producto_cs.html', producto=productos[0], recomendaciones=productos[1])
+    return render_template('producto_ss.html', producto=productos[0], recomendaciones=productos[1]) #al ver otro producto el SQL no se vuelve a ejecutar
 
 @app.route ('/listas')
 def listas():
