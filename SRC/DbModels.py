@@ -51,55 +51,79 @@ def modify_password (celular, nuevacontrasena):
         print (f"Error al modificar el usuario: {str(ex)}")
         
 # A PARTIR DE AQUI COMIENZA TODO LO RELACIONADO CON LOS PRODUCTOS --------------------------------------------------------------------
-def busqueda_productos_AD(termino): #AD = ALL DESCRIPTION
+
+def busqueda_productos_AD(termino): #AD = ALL DESCRIPTION BY A DESCRIPTION
     resultados = []
-    tiendas = {
-    1: "Alsuper",
-    2: "Soriana",
-    3: "Bodega Aurrera",
-    4: "Walmart"
-    }
     try:
-        query = "SELECT IdProducto, Descripcion, PActual, PNormal, IdTienda, Imagen FROM TProducto WHERE LOWER(Descripcion) LIKE ?"
+        query = "SELECT TOP 6 IdProducto, Descripcion, PActual, PNormal, IdTienda, Imagen FROM TProducto WHERE LOWER(Descripcion) LIKE ?"
         with connection.cursor() as cursor:
-            # Ejecutar consulta con parámetros
             cursor.execute(query, ('%' + termino.lower() + '%',))
             productos = cursor.fetchall()
-        # Procesar resultados
-        for producto in productos:
-            tienda=tiendas.get(producto[2], " ")
-            resultados.append({
-                'id_producto': producto[0],
-                'descripcion': producto[1],
-                'precio': producto[2], #PRECIO ACTUAL SIEMPRE EXISTE, EL NORMAL ES CUANDO HAY OFERTA(PRECIO ACTRUAL) Y TIENE QUE SALIR EL PRECIO ORIGINAL DIFERENTE
-                'precio_oferta': producto[3],
-                'tienda': tienda,
-                'imagen': producto[5]
+            query = "SELECT Tienda FROM TTiendas WHERE Idtienda LIKE ?"
+            for producto in productos:
+                id_tienda = producto[4]
+                query_tienda = "SELECT DTienda FROM TTiendas WHERE IdTienda = ?"
+                cursor.execute(query_tienda, (id_tienda,))
+                tienda = cursor.fetchone()
+                #tienda = 1 EN UN RATO SE QUITA ESO SE NECESITA LA TABLA TIENDA
+                resultados.append({
+                    'id_producto': producto[0],
+                    'descripcion': producto[1],
+                    'precio': producto[2], #PRECIO ACTUAL SIEMPRE EXISTE, EL NORMAL ES CUANDO HAY OFERTA(PRECIO ACTRUAL) Y TIENE QUE SALIR EL PRECIO ORIGINAL DIFERENTE
+                    'precio_oferta': producto[3], #PRECIO NORMAL EN CASO QUE TENGA OFERTA SE OTORGA EL PRECIO BASE
+                    'tienda': tienda,
+                    'imagen': producto[5]
             })
-        print(resultados)
         return resultados
     except Exception as e:
         print(f"Error al buscar productos AD: {e}")
         return resultados  # Devuelve lista vacía en caso de error
     
+    
+    
 def busqueda_productos(termino): #BY DESCRIPTION ESTO ES PARA LA BARRA BUSCADORA
     resultados = []
     try:
-        query = "SELECT TOP 8 Descripcion FROM TProducto WHERE LOWER(Descripcion) LIKE ? "
+        query = "SELECT TOP 8 IdProducto, Descripcion FROM TProducto WHERE LOWER(Descripcion) LIKE ? "
         with connection.cursor() as cursor:
             # Ejecutar consulta con parámetros
             cursor.execute(query, ('%' + termino.lower() + '%',))
             productos = cursor.fetchall()
         for producto in productos:
             resultados.append({
-                'descripcion': producto[0]
+                'id_producto': producto[0],
+                'descripcion': producto[1]
             })
-        print(resultados)
         return resultados
     except Exception as e:
-        print(f"Error al buscar productos en la barra: {e}")
+        print(f"Error al buscar productos en la barra: {e}") #can only concatenate str (not "int") to str
         return resultados  # Devuelve lista vacía en caso de error
 
-  
+def busqueda_productos_by_id(id_producto):
+    producto = {} #lista vacia que se retorna cuando el query no funciono
+    try:
+        query = "SELECT * FROM TProducto WHERE IdProducto LIKE ? "
+        with connection.cursor() as cursor:
+            cursor.execute(query, ('%' + str(id_producto) + '%',))
+            atributo = cursor.fetchone()
+            id_tienda = atributo[4]
+            query_tienda = "SELECT DTienda FROM TTiendas WHERE IdTienda = ?"
+            cursor.execute(query_tienda, id_tienda)
+            tienda = cursor.fetchone()
+            print(f"imprimire: {tienda}")#SE IMPRIME EN PARENTESIS
+            #tienda = 1 EN UN RATO SE QUITA ESO SE NECESITA LA TABLA TIENDA 
+            producto = {
+                'id_producto': atributo[0],
+                'descripcion': atributo[1],
+                'id_categoria': atributo[2],
+                'imagen': atributo[3],
+                'tienda': tienda, 
+                'precio_normal': atributo[5], #PRECIO NORMAL EN CASO QUE TENGA OFERTA SE OTORGA EL PRECIO BASE
+                'precio_actual': atributo[6], #PRECIO ACTUAL SIEMPRE EXISTE, EL NORMAL ES CUANDO HAY OFERTA(PRECIO ACTRUAL) Y TIENE QUE SALIR EL PRECIO ORIGINAL DIFERENTE
+                'URL': atributo[7]
+            }
+        return producto
+    except Exception as e:
+        print(f"Error al buscar productos por ID: {e}")
     
-    
+#AQUI VA TODO LO RELACIONADO CON EL CARRIT0

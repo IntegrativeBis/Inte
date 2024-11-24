@@ -1,12 +1,14 @@
+#AQUI ESTAN LOS IMPORTS QUE REQUERIMOS
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
-from flask_wtf.csrf import CSRFProtect 
 import secrets
 from datetime import timedelta
-from DbModels import login, register_user, modify_user, delete_user, busqueda_productos_AD, modify_password, busqueda_productos
+from DbModels import login, register_user, modify_user, delete_user, busqueda_productos_AD, modify_password, busqueda_productos, busqueda_productos_by_id
+
+#AQUI DEFINIMOS LA APP Y LE INSERTAMOS LOS VALORES CORRECPONDIENTES PARA QUE RECONOZCA LAS CARPETAS
 app = Flask('__name__', template_folder="SRC/templates", static_folder="SRC/static") 
- 
-app.secret_key = secrets.token_hex(16) #ASIGNAMOS LA LLAVE SECRETA A LA APP E INVENTAMOS UNA LLAVE SECRETA ALEATORIA
-#csrf=CSRFProtect()
+
+#ASIGNAMOS LA LLAVE SECRETA A LA APP E INVENTAMOS UNA LLAVE SECRETA ALEATORIA
+app.secret_key = secrets.token_hex(16) 
 
 #AQUI SE ENCONTRARAN LAS RUTAS PRINCIPALES-------------------------------------------------------------------------------------
 """
@@ -25,6 +27,7 @@ def inicio():
         return render_template('inicio_cs.html', usuario=session)
     #return redirect(url_for('inicio_ss'))
     return render_template('inicio_ss.html')
+
 #AQUI EN ADELANTE SOLO SE VERA LO QUE TENGA QUE VER CON EL USUARIOOOOOO----------------------------------------------------------------
 
 @app.route ('/registrar', methods=['GET', 'POST'])
@@ -85,32 +88,35 @@ def logout():
 #DE AQUI EN ADELANTE SE ENCUENTRA TODO LO RELACIONADO CON PRODUCTOSSS Y BUSQUEDA-------------------------------------------------------------
 
 @app.route('/buscar_productos') #esta ruta la usa el JS realtime durante se esta buscando producto en la barra buscadora
-def buscar_productos():
+def buscar_productos():#aqui a medida que la barra se rellene se va a modificar todos los productos de abajo
     termino = request.args.get('q', '').lower()
     # Aquí debería buscar productos en la base de datos
-    resultados = busqueda_productos(termino)
+    resultados = busqueda_productos(termino) # HAY QUE MODIFICAR ESTO A BUSQUEDA_PRODUCTOS NORMAL
     print(resultados)
     return jsonify(resultados) #se envian en formato Jaison
 
 @app.route ('/busqueda', methods = ['GET']) #te redirecciona a alguna busqueda con el q que se le fue enviado desde el FORM inicio_ss.html
-def busqueda(): #aqui a medida que la barra se rellene se va a modificar todos los productos de abajo
+def busqueda(): 
     termino = request.args.get('q', '').lower() #agarra el argumento y lo hace minuscula
     print(termino)
     if 'cel' in session:
         return render_template('busqueda_cs.html')
     return render_template('busqueda_ss.html')
 
-@app.route ('/producto') #va a tomar el argumento buscado (aqui debe tomar el argumento del producto seleccionado en busqueda NO SE ACERLO) para que te aparezca el producto 
-def producto():
-    termino = request.args.get('q', '').lower()
-    print(termino)
+@app.route ('/producto/<int:id_producto>') #va a tomar el argumento buscado (aqui debe tomar el argumento del producto seleccionado en busqueda NO SE ACERLO) para que te aparezca el producto 
+def producto(id_producto): #   DEBERIA DE TOMAR EL ID
+    """termino = request.args.get('q', '').lower()
+    print(termino)"""
+    producto = busqueda_productos_by_id(id_producto)
+    print(producto)
     if 'cel' in session:
-        return render_template('producto_cs.html')
-    return render_template('producto_ss.html')
+        return render_template('producto_cs.html', producto=producto)
+    return render_template('producto_ss.html', producto=producto)
 
 @app.route ('/listas')
 def listas():
     return render_template("listas.html")
+
 
 
 #A PARTIT DE AQUI SON ERRORES Y DEMAS COSAS --------------------------------------------------------------------------------------------------
@@ -121,5 +127,5 @@ def pagina_no_encontrada(e):
     
 if (__name__)=='__main__':
     #csrf.init_app(app)
-    app.permanent_session_lifetime = timedelta(minutes=50)
+    app.permanent_session_lifetime = timedelta(minutes=30)
     app.run(debug=True) #aqui podrias agregar el host y el puerto al que se quiere conectar y no se que threaded
