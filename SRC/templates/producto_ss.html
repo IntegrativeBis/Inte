@@ -40,9 +40,9 @@
 <div class="producto">
   <div class="image">
     {% if not producto.imagen %}
-    <img src="/static/images/ND.jpeg" alt="">
+      <img src="/static/images/ND.jpeg" alt="">
     {% else %}
-    <img src="{{ producto.imagen }}" alt="Imagen del producto">
+      <img src="{{ producto.imagen }}" alt="Imagen del producto">
     {% endif %}
   </div>
   <div class="details">
@@ -61,17 +61,25 @@
 <br><br><br>
 <!--------------------------------------------------------------------------------------------------------------------------------------->
 <div class="recommendations">
-  <div class="card">
-      <div class="r-image">
-        <img src="/static/images/ND.jpeg" alt="">
-      </div>
-      <div class="r-details">
-          <span class="r-name">Nombre producto</span>
-          <span class="r-price">Precio</span>
-      </div>
-  </div>
-
-  <div class="card">
+    <!-- Cada producto similar se renderiza dentro de este div -->
+    <div class="producto-similar"> 
+  {% for similar in recomendaciones[:4] %}
+    <div class="card">
+        <div class="r-image">
+          {% if not similar.imagen %}
+            <img src="/static/images/ND.jpeg">
+            {% else %}
+            <img src="{{ similar.imagen }}" alt="">
+          {% endif %}
+        </div>
+        <div class="r-details">
+            <span class="r-name">{{ similar.descripcion }}</span>
+            <span class="r-price">{{ similar.precio_actual }}</span>
+            <a href="/producto/{{ similar.id_producto }}" class="boton-ver-mas">Ver más</a>
+        </div>
+    </div>
+  {% endfor %}
+  <div class="card"> <!--ANAAAAAAAA SUICIDIOOOOOOO borras los div de abajo pq ya estan en el FOR-->
     <div class="r-image">
       <img src="/static/images/ND.jpeg" alt="">
     </div>

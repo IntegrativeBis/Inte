@@ -31,17 +31,19 @@
             <h2 class="card-title">Perfil</h2>
             <br>
             <div class="informacion">                      
-                <label class="head">Usuario</label>
-                <p class="info">Omar Rodriguez</p>              <!--Ejemplo-->
+                <label class="head">Nombre</label>
+                <p class="info"> {{ session['nombre']}}</p>              <!--Ejemplo-->
+                <br>
+
+                <label class="head">Apellido</label> 
+                <p class="info">{{ session['apellido'] }}</p>        <!--Ejemplo-->
                 <br>
 
                 <label class="head">Celular</label> 
-                <p class="info">6141320311</p>                  <!--Ejemplo-->
+                <p class="info">{{ session['cel'] }}</p>                  <!--Ejemplo-->
                 <br>
 
-                <label class="head">Correo electrónico</label> 
-                <p class="info">omarbicho7@yahoo.com</p>        <!--Ejemplo-->
-                <br>
+
             </div>
         </div>
     </div><br>
@@ -51,7 +53,7 @@
         <div class="card-body">
             <h2 class="card-title">Cambiar perfil</h2>
             <br>
-            <form> 
+            <form action="/cambiar_contrasena" method="POST"> 
                 <div class="cambiar">              
                     <label class="head" for="InputUser">Cambiar nombre de usuario</label>
                     <input class="inp" type="text" id="InputUser" placeholder="Nuevo nombre de usuario">
@@ -65,16 +67,21 @@
                 <div class="cambiar">
                     <label class="head" for="InputCel">Cambiar número de celular</label>
                     <input class="inp" type="tel" id="InputCel" placeholder="Nuevo número de celular">
+                </div> 
+                <br>
+                <div class="cambiar">
+                    <label class="head" for="InputPass">Contraseña actual</label>
+                    <input class="inp" name="contrasena" type="password" id="InputPass" placeholder="Contraseña actual">
                 </div>
                 <br>
                 <div class="cambiar">
-                    <label class="head" for="InputPass">Cambiar contraseña</label>
-                    <input class="inp" type="password" id="InputPass" placeholder="Nueva contraseña">
+                    <label class="head" for="InputCPass">Contraseña nueva</label>
+                    <input class="inp" name="nuevacontrasena" type="password" id="InputCPass">
                 </div>
-                <br>
+                <br><br>
                 <div class="cambiar">
-                    <label class="head" for="InputCPass">Confirmar contraseña</label>
-                    <input class="inp" type="password" id="InputCPass">
+                    <label class="head" for="InputCPass">Confirmar contraseña nueva</label>
+                    <input class="inp" name="confirmar_nuevacontrasena" type="password" id="InputCPass">
                 </div>
                 <br><br>
                 <div style="text-align: center;">
