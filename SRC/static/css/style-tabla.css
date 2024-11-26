@@ -1,0 +1,35 @@
+/* Estilo para el contenedor */
+.tabla{
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  /* Estilo para la tabla */
+  .lista {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Jacques Francois, Regular';
+  }
+  
+  .lista thead {
+    text-align: center;
+  }
+  
+  .lista th {
+    text-align: center;
+    color: #8b8b8b;
+    font-size: 18px;
+    padding-left: 10px;
+  }
+  
+  .lista td{
+    padding: 10px 15px;
+    text-align: center;
+    color: #000000;
+    font-size: 16px;
+  }
+
+  .lista td:first-child {
+    text-align: left;
+  }
+  

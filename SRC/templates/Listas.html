@@ -3,46 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tus Listas</title>
-    <style>
-        body {
-            background-image: url('C:/Users/lalah/Documents/Universidad/PriceSeeker/BG 2.jpeg'); 
-            background-size:contain ;                                                   /*Poner una imagen de fondo*/
-            background-repeat:repeat-x;                                             /*Evita que la imagen se repita*/
-            height: 100px;                                                            /*La imagen cubre toda la ventana*/
-            margin: 0;
-        }
-    </style>
+    <title>Mis Listas|PriceSeeker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-banner.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-footer.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-menu-config.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-perfil.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-searcher.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-tabla.css')}}">
+    <style>body{background-color: #d9d9d9;}</style>
 </head>
 <body>
+    <!--Banner/menu de arriba-->
+    <div class="banner">
+        <div class="logo">
+            <img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Logo">
+            <span class="nombre_sitio"><a href="{{ url_for('inicio') }}" class="nombre_sitio">
+                PriceSeeker
+            </a>
+            </span>
+        </div>
 
-    <h1><a href="{{ url_for('inicio') }}">PriceSeeker</a></h1>
+    <!--Buscador-->
+    <div class="buscador" style="text-align: center; display: flex; padding-right: 5%;">
+        <input type="text" placeholder="Producto..."><button><a href="{{url_for('busqueda')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button></div>
+        
 
-    <form>
-        <input type="text" name="" id="" placeholder="Buscar producto"> <br><br><br>
-    </form>
-
-    <p><a href="{{ url_for('iniciar_sesion')}}">Iniciar Sesion</a></p> <br><br><br><br>
-
-    <h3>Lista Actual</h3>                                                              <!--Se muestra la lista actual junto con el precio y el subtotal-->
-    
-    <ul>
-        <li>Arroz "Esperanzita" 1kg...............................$2.50</li>
-        <li>Docena Bachoco........................................$3.00</li>
-        <li>Leche Nutrileche 1l...................................$1.20</li>
-        <li>Pan Bimbo chico.......................................$1.50</li>
-        <li>Pollo Bachoco 1kg.....................................$150</li>
-        <li>Manzana red Chihuahua 1kg.............................$30</li>
-        <br><br>
-        <p>Subtotal $188.20</p>
-    </ul>
+        <div class="perfil">
+            <button>                                                          
+              <i class="fa-solid fa-user fa-2xl" style="color: #ffffff; padding-right:15px;"></i>
+            </button>
+      
+            <!--Menu desplegable de la cuenta-->
+            <div class="content">
+              <a href="{{url_for('cuenta')}}" class="options" style="padding-right: 10px;">Cuenta</a>
+              <a href="{{url_for('logout')}}" class="options" style="padding-right: 10px;">Cerrar Sesión</a>
+            </div>
+          </div>  
+    </div>
     <br><br>
-    <p><u>Comprar en linea</u></p>      <!--Aqui en un futuro podra redireccionar hacia la pagina del supermercado seleccionado-->
-    
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>   <!--Dejar espacio entre el contenido y el pie de pagina-->
+
+    <!--Lista-->
+    <div class="config">
+        <div class="menu-config1">             
+            <div class="card-body">
+                <h2 class="card-title">Mi lista</h2>
+                <br>
+                <div class="tabla">                                                         <!--Para crear la tabla de la lista-->
+                    <table class="lista">
+                        <thead>
+                            <tr>
+                                <th style="text-align: left;">Productos</th>                              <!--Encabezados-->
+                                <th>Cant.</th>
+                                <th>Precio U.</th>
+                                <th>Precio T.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Plátano Chiapas Kg</td>                    <!--Informacion del producto/Ejemplos-->
+                                <td>.800kg</td>
+                                <td>$18.90</td>
+                                <td>$15.12</td>
+                            </tr>
+                            <tr>
+                                <td>Mini Sandía Extra Dulce</td>
+                                <td>1</td>
+                                <td>$35</td>
+                                <td>$35</td>
+                            </tr>
+                            <tr>
+                                <td>Jugo De Naranja Con Betabel</td>
+                                <td>1</td>
+                                <td>$99.90</td>
+                                <td>$99.90</td>
+                            </tr>
+                            <tr>
+                                <td>Papa Cambray Alsuper Pza</td>
+                                <td>3</td>
+                                <td>$29.90</td>
+                                <td>$89.70</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br><br><br>
+                <label class="head">Total</label>
+                <p class="info1">$239.72</p>              <!--Ejemplo-->
+                <br>
+
+                <label class="head">Supermercado:</label>
+                <p class="info1">Alsuper</p>              <!--Ejemplo-->
+                <br>
+            </div> 
+        </div>
+    </div>
+    <br><br><br><br><br> <!--Dejar espacio entre el contenido y el pie de pagina-->
 
     <footer>
-        Acerca de nosotros                  <!--Informacion sobre la empresa-->
+        <p>@PriceSeeker <br> Todos los derechos reservados 2024</p>                  <!--Informacion sobre la empresa-->
     </footer>
 </body>
 </html>

@@ -10,7 +10,7 @@
                     if (data.length > 0) {
                         data.forEach(producto => {
                             const item = document.createElement('div');
-                            item.classList.add('producto');
+                            item.classList.add('producto');      //Aplicar estilos desde CSS
                             item.textContent = `${producto.descripcion}`;
                             item.dataset.id = producto.id_producto; // Guardar el ID del producto en un atributo data-id
 
