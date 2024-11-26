@@ -56,32 +56,34 @@ def modify_password (celular, nuevacontrasena):
    
 # A PARTIR DE AQUI COMIENZA TODO LO RELACIONADO CON LOS PRODUCTOS --------------------------------------------------------------------
 
-def busqueda_productos_AD(termino): #AD = ALL DESCRIPTION BY A DESCRIPTION
+def busqueda_productos_AD(termino, pagina_actual, pagina_final): #AD = ALL DESCRIPTION BY A DESCRIPTION
     resultados = []
-    try:
-        query = "SELECT TOP 6 IdProducto, Descripcion, PActual, PNormal, IdTienda, Imagen FROM TProducto WHERE LOWER(Descripcion) LIKE ?"
-        with connection.cursor() as cursor:
-            cursor.execute(query, ('%' + termino.lower() + '%',))
-            productos = cursor.fetchall()
-            query = "SELECT Tienda FROM TTiendas WHERE Idtienda LIKE ?"
-            for producto in productos:
-                id_tienda = producto[4]
-                query_tienda = "SELECT DTienda FROM TTiendas WHERE IdTienda = ?"
-                cursor.execute(query_tienda, (id_tienda,))
-                tienda = cursor.fetchone()
-                #tienda = 1 EN UN RATO SE QUITA ESO SE NECESITA LA TABLA TIENDA
-                resultados.append({
-                    'id_producto': producto[0],
-                    'descripcion': producto[1],
-                    'precio': producto[2], #PRECIO ACTUAL SIEMPRE EXISTE, EL NORMAL ES CUANDO HAY OFERTA(PRECIO ACTRUAL) Y TIENE QUE SALIR EL PRECIO ORIGINAL DIFERENTE
-                    'precio_oferta': producto[3], #PRECIO NORMAL EN CASO QUE TENGA OFERTA SE OTORGA EL PRECIO BASE
-                    'tienda': tienda,
-                    'imagen': producto[5]
-            })
-        return resultados
-    except Exception as e:
-        print(f"Error al buscar productos AD: {e}")
+    query = "SELECT TOP 20 IdProducto, Descripcion, PActual, IdTienda, Imagen FROM TProducto WHERE LOWER(Descripcion) LIKE ?"
+    query_tienda = "SELECT DTienda FROM TTiendas WHERE IdTienda = ?"
+    while(pagina_actual <= pagina_final):
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute(query, ('%' + termino.lower() + '%',))
+                productos = cursor.fetchall()
+                for producto in productos:
+                    id_tienda = producto[3]
+                    cursor.execute(query_tienda, (id_tienda,))
+                    tienda = cursor.fetchone()
+                    #tienda = 1 EN UN RATO SE QUITA ESO SE NECESITA LA TABLA TIENDA
+                    resultados.append({
+                        'id_producto': producto[0],
+                        'descripcion': producto[1],
+                        'precio': producto[2], #PRECIO ACTUAL SIEMPRE EXISTE, EL NORMAL ES CUANDO HAY OFERTA(PRECIO ACTRUAL) Y TIENE QUE SALIR EL PRECIO ORIGINAL DIFERENTE
+                        'tienda': tienda[0],
+                        'imagen': producto[4]
+                    })
+            pagina_actual += 1
+            return resultados
+        except Exception as e:
+            print(f"Error al buscar productos AD: {e}")
         return resultados  # Devuelve lista vacía en caso de error
+        
+    
     
 def busqueda_productos(termino): #BY DESCRIPTION ESTO ES PARA LA BARRA BUSCADORA
     resultados = []
@@ -120,7 +122,7 @@ def busqueda_productos_by_id(id_producto):
             cursor.execute(query_recomendaciones, ( atributo[2], atributo[0]))
             productos_recomendados = cursor.fetchall()
             
-            producto = { #creamos una lista para el producto
+            producto = { #creamos un diccionario para el producto
                 'id_producto': atributo[0],
                 'descripcion': atributo[1],
                 'id_subcategoria': atributo[2],
@@ -148,4 +150,27 @@ def busqueda_productos_by_id(id_producto):
         
     except Exception as e:
         print(f"Error al buscar productos por ID: {e}")
+        
+def busqueda_categoria():
+    categoria = {}
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM TCategorias")
+            categorias = cursor.fetchmany(2)
+            print(categorias)
+            categoria = [
+                {
+                    'id_categoria' : category[0],
+                    'nombre_categoria': category[1]
+                } 
+                for category in categorias
+            ]
+        print(f"Las categorias son: {categoria}")
+        return  categoria
+    except Exception as e:
+        print(f"Error al buscar la categoria, Error: {e}")  
+        return categoria
+    
+        
+        
 #AQUI VA TODO LO RELACIONADO CON EL CARRIT0

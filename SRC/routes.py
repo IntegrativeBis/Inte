@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import secrets
 from datetime import timedelta
-from DbModels import login, register_user, modify_user, delete_user, busqueda_productos_AD, modify_password, busqueda_productos, busqueda_productos_by_id
+from DbModels import login, register_user, modify_user, delete_user, busqueda_productos_AD, modify_password, busqueda_productos, busqueda_productos_by_id, busqueda_categoria
 
 
 app = Flask('__name__', template_folder="SRC/templates", static_folder="SRC/static") 
@@ -23,10 +23,12 @@ def inicio_ss():
 
 @app.route('/') 
 def inicio(): 
+    categoria = busqueda_categoria()
+    
     if 'cel' in session :
         return render_template('inicio_cs.html', usuario=session)
     #return redirect(url_for('inicio_ss'))
-    return render_template('inicio_ss.html')
+    return render_template('inicio_ss.html', categoria = categoria)
 
 #AQUI EN ADELANTE SOLO SE VERA LO QUE TENGA QUE VER CON EL USUARIOOOOOO----------------------------------------------------------------
 
@@ -129,10 +131,12 @@ def buscar_productos():#aqui a medida que la barra se rellene se va a modificar 
 @app.route ('/busqueda', methods = ['GET']) #te redirecciona a alguna busqueda con el q que se le fue enviado desde el FORM inicio_ss.html
 def busqueda(): 
     termino = request.args.get('q', '').lower() #agarra el argumento y lo hace minuscula
-    print(termino)
+    pagina_actual = request.args.get('pagina_actual', 1)
+    pagina_final = request.args.get('pagina_final', 5)
+    resultados = busqueda_productos_AD(termino, pagina_actual, pagina_final)
     if 'cel' in session:
         return render_template('busqueda_cs.html')
-    return render_template('busqueda_ss.html')
+    return render_template('busqueda_ss.html', pagina_actual=pagina_actual, pagina_final=pagina_final, resultados = resultados)
 
 @app.route ('/producto/<int:id_producto>') #va a tomar el argumento buscado (aqui debe tomar el argumento del producto seleccionado en busqueda NO SE ACERLO) para que te aparezca el producto 
 def producto(id_producto): #   DEBERIA DE TOMAR EL ID
