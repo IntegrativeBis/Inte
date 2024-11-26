@@ -6,14 +6,14 @@ connection = dbconnection()  # Obtenemos la conexión
 def login(celular, contrasena):
     try:
         print("estoy realizando la confirmacion del login")
-        with connection.cursor() as cursor: #para que el cursor se cierre automaticamente
+        with connection.cursor() as cursor: 
             print("voy a usar el cursor")
             cursor.execute("EXEC sp_ReadUser ?, ?", (celular, contrasena))
             row_login = cursor.fetchone()
-        print(row_login) #intente meter los datos arrojados a un string para poder utilizarlos mas tarde e imprimirlos
+        print(row_login) 
         return row_login
     except Exception as ex:
-        raise Exception(f"Error al ejecutar Login para el celular: {celular}: {str(ex)}") #f es para poder colocar variables dentro del string mas facil
+        raise Exception(f"Error al ejecutar Login para el celular: {celular}: {str(ex)}") 
 
 def register_user(nombre, apellido, celular, contrasena):
     try:
@@ -83,8 +83,6 @@ def busqueda_productos_AD(termino): #AD = ALL DESCRIPTION BY A DESCRIPTION
         print(f"Error al buscar productos AD: {e}")
         return resultados  # Devuelve lista vacía en caso de error
     
-    
-    
 def busqueda_productos(termino): #BY DESCRIPTION ESTO ES PARA LA BARRA BUSCADORA
     resultados = []
     try:
@@ -132,7 +130,6 @@ def busqueda_productos_by_id(id_producto):
                 'precio_actual': atributo[6], #PRECIO ACTUAL SIEMPRE EXISTE, EL NORMAL ES CUANDO HAY OFERTA(PRECIO ACTRUAL) Y TIENE QUE SALIR EL PRECIO ORIGINAL DIFERENTE
                 'URL': atributo[7]
             }
-            
             recomendaciones = [
                 {
                     'id_producto': producto_similar[0],
@@ -151,5 +148,4 @@ def busqueda_productos_by_id(id_producto):
         
     except Exception as e:
         print(f"Error al buscar productos por ID: {e}")
-    
 #AQUI VA TODO LO RELACIONADO CON EL CARRIT0

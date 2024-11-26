@@ -1,13 +1,13 @@
-#AQUI ESTAN LOS IMPORTS QUE REQUERIMOS
+
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import secrets
 from datetime import timedelta
 from DbModels import login, register_user, modify_user, delete_user, busqueda_productos_AD, modify_password, busqueda_productos, busqueda_productos_by_id
 
-#AQUI DEFINIMOS LA APP Y LE INSERTAMOS LOS VALORES CORRECPONDIENTES PARA QUE RECONOZCA LAS CARPETAS
+
 app = Flask('__name__', template_folder="SRC/templates", static_folder="SRC/static") 
 
-#ASIGNAMOS LA LLAVE SECRETA A LA APP E INVENTAMOS UNA LLAVE SECRETA ALEATORIA
+
 app.secret_key = secrets.token_hex(16) 
 
 #AQUI SE ENCONTRARAN LAS RUTAS PRINCIPALES-------------------------------------------------------------------------------------
@@ -20,7 +20,7 @@ def inicio_ss():
     print (resultados)
     return render_template('inicio_ss.html')
 """
-#ya estamos iniciados
+
 @app.route('/') 
 def inicio(): 
     if 'cel' in session :
@@ -106,7 +106,7 @@ def cambiar_contrasena():
             else:
                 mensaje = "Las contraseñas nuevas no coinciden."
             # Redirigir con el mensaje de error
-            return redirect(url_for('cambiar_contrasena', mensaje=mensaje))
+            return redirect(url_for('cuenta', mensaje=mensaje))
     # Si no hay un usuario 
     return pagina_no_encontrada(404)
 
@@ -139,12 +139,12 @@ def producto(id_producto): #   DEBERIA DE TOMAR EL ID
     """termino = request.args.get('q', '').lower()
     print(termino)"""
     productos = busqueda_productos_by_id(id_producto)
-    
     print(productos) 
     if 'cel' in session:
         return render_template('producto_cs.html', producto=productos[0], recomendaciones=productos[1])
     return render_template('producto_ss.html', producto=productos[0], recomendaciones=productos[1]) #al ver otro producto el SQL no se vuelve a ejecutar
 
+# AQUI IRA TODO LO NECESARIO PARA LA LISTA
 @app.route ('/listas')
 def listas():
     return render_template("listas.html")
@@ -160,4 +160,4 @@ def pagina_no_encontrada(e):
 if (__name__)=='__main__':
     #csrf.init_app(app)
     app.permanent_session_lifetime = timedelta(minutes=30)
-    app.run(debug=True) #aqui podrias agregar el host y el puerto al que se quiere conectar y no se que threaded
+    app.run(debug=True) 

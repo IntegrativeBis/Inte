@@ -6,7 +6,7 @@ def dbconnection(): #esto es pa conectarse a la base datos
         print ("CONECTAMOS LA BSE")
         return connection
     except Exception as ex:
-        print(f"CANCEROIDE NO PUDE CONECTARLA, EL ERRORCITO ES: {ex} ") 
+        print(f"NO PUDE CONECTARLA, EL ERRORCITO ES: {ex} ") 
         return None
         
 
