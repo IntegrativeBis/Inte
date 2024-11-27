@@ -1,224 +1,110 @@
-<<<<<<< HEAD:SRC/templates/Inicio_CS.html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio-PriceSeeker</title>
-    <style>
-        body{
-            margin: 0;
-        }
-        .banner {
-            background-image: url('Img/BG 2.jpeg');
-            background-size: cover;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo img {
-            padding-top: 7px;
-            padding-bottom: 7px;
-            padding-left: 20px;
-            padding-right: 12px;
-            width: 50px;
-            height: 50px;
-            margin-right: 10px;
-        }
-
-        .nombre_sitio {
-            font-size: 40px;
-            color: white;
-            font-family: 'Italiana-Regular';
-        }
-
-        .perfil {
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            padding-right: 40px;
-        }
-    </style>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-</head>
-
-<body>
-<form action="{{ url_for('') }}">
-    <div class="banner">
-        <div class="logo">
-            <img src="Img/ND.jpeg" alt="Logo">
-            <span class="nombre_sitio">
-                PriceSeeker
-            </span>
-        </div>
-        <div class="lista">                             
-            <a href="Listas.html" style="padding-left: 1000px; font-size: 25px; color: white; font-family: Jacques Francois-Regular; text-decoration: none;">
-                    Mis listas
-            </a>
-        </div>
-        <div class="perfil">              <!--Crear html del perfil y enlace-->                                          
-                <i class="fa-solid fa-user fa-xl" style="color: #ffffff; "></i>
-        </div>
-    </div> 
-    <div id="carouselExampleIndicators" class="carousel slide">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="" class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="..." class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="..." class="d-block w-100" alt="...">
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-    <br><br>
-  </form>
-    <footer>
-        <p style="padding-top: 20px; padding-bottom: 20px; background-color: #357600; color: white; text-align: center;">
-            @PriceSeeker
-            Todos los derechos reservados 2024 
-        </p>   
-    </footer>
-</body>
-=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inicio|PriceSeeker</title>
-  <style>
-      body{
-        margin: 0;
-      }
-      .banner {
-        background-image: url('Img/BG 2.jpeg');
-        background-size: cover;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-      }
-
-      .logo {
-        display: flex;
-        align-items: center;
-        }
-
-      .logo img {
-        padding-top: 7px;
-        padding-bottom: 7px;
-        padding-left: 20px;
-        padding-right: 12px;
-        width: 90px;
-        height: 61px;
-        margin-right: 10px;
-      }
-
-      .nombre_sitio {
-        font-size: 40px;                    /*Buscar otra fuente*/
-        color: white;
-        font-family: 'Italiana, serif';
-      }
-
-      .perfil {
-        padding: 10px;
-        display: flex;
-        align-items: center;
-        padding-right: 40px;
-      }
-  </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-ads.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-banner.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-footer.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-menu.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-perfil.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-searcher.css')}}">
+
+  <style>body{background-color: #d9d9d9;}</style>
 </head>
 
 <body>
-
+  <!--Banner/menu de arriba-->
     <div class="banner">
         <div class="logo">
-            <img src="Img/ND.jpeg" alt="Logo">
+            <img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Logo">
             <span class="nombre_sitio">
                 PriceSeeker
             </span>
         </div>
-        <div class="lista">                             
-            <a href="Listas.html" style="padding-left: 1005px; font-size: 25px; color: white; font-family: Jacques Francois-Regular; text-decoration: none;">
-                    Mis listas
-            </a>
-        </div>
 
-        <div class="perfil"> 
-          <a href="Cuenta.html">                                                      
-                <i class="fa-solid fa-user fa-xl" style="color: #ffffff; "></i>
+  <!--Listas-->
+        <div class="lista" style="display: flex; width:65%">
+          <a href="{{url_for('listas')}}" style="margin-left: auto; font-size: 25px; color: white; font-family: Jacques Francois-Regular; text-decoration: none;">
+              Mis listas
           </a>
         </div>
+
+  <!--Perfil de usuario-->
+        <div class="perfil">
+          <button>                                                          
+            <i class="fa-solid fa-user fa-2xl" style="color: #ffffff; padding-right:15px;"></i>
+          </button>
+          
+  <!--Menu desplegable de la cuenta-->
+          <div class="content">
+            <a href="{{url_for('cuenta')}}" class="options" style="padding-right: 10px;">Cuenta</a>
+            <a href="{{url_for('logout')}}" class="options" style="padding-right: 10px;">Cerrar Sesión</a>
+          </div>
+        </div>
     </div> 
-<!----------------------------------------------------------------------------------------------------------------------------------------------> 
-    <div id="carouselAds" class="carousel slide" data-ride="carousel">
-      <ol class="carousel-indicators">
-        <li data-target="#carouselAds" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselAds" data-slide-to="1"></li>
-        <li data-target="#carouselAds" data-slide-to="2"></li>
-      </ol>
-      <div class="carousel-inner">
-        <div class="carousel-item active" data-interval="10000">
-          <img src="/templates/Img/ND.jpeg" class="d-block w-100" alt="Ad 1">
-        </div>
 
-        <div class="carousel-item" data-interval="2000">
-          <img src="/templates/Img/ND.jpeg" class="d-block w-100" alt="Ad 2">
-        </div>
-
-        <div class="carousel-item">
-          <img src="/templates/Img/ND.jpeg" class="d-block w-100" alt="Ad 3">
-        </div>
+<!--Menu desplegable de las categorias -->
+    <div class="menu">                      <!--arreglar el boton a solo mostrar con click-->
+      <button type="button" data-toggle="dropdown" aria-expanded="false">
+        <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>  
+      </button>
+      <div class="content">
+        <a href="{{url_for('busqueda')}}"class="cat">Frutas y verduras<i class="fa-solid fa-apple-whole fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda')}}"class="cat">Lácteos<i class="fa-solid fa-cheese fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda')}}"class="cat">Congelados<i class="fa-solid fa-ice-cream fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda')}}"class="cat">Carnes Frías<i class="fa-solid fa-drumstick-bite fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda')}}"class="cat">Artículos de limpieza<i class="fa-solid fa-broom fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda')}}"class="cat">No percederos<i class="fa-solid fa-jar fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda')}}"class="cat">Deli<i class="fa-solid fa-bacon fa-lg" style="padding-left: 50px;"></i></a>
       </div>
+    </div>
 
-      <button class="carousel-control-prev" type="button" data-target="#carouselAds" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">
-          Previous
-        </span>
-      </button>
+    <!--
+    <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+    Dropdown button
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>-->
 
-      <button class="carousel-control-next" type="button" data-target="#carouselAds" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">
-          Next
-        </span>
-      </button>
-    </div>  
     <br><br>
 
-    <footer>
-        <p style="padding-top: 20px; padding-bottom: 20px; background-color: #357600; color: white; text-align: center;">
-            @PriceSeeker
-            Todos los derechos reservados 2024 
-        </p>   
+  <!--Buscador-->
+    <div class="buscador" style="text-align: center;">
+      <form method="get" action="/busqueda">
+        <input type="text" placeholder="Buscar producto..." id="buscador" name="q" value="{{ termino }}" autocomplete="off">
+        <button type="submit"><a href="{{url_for('busqueda')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
+      </form>
+
+      <!--Mostrar los productos-->
+      <div id="resultados"></div>
+    </div>
+    <br><br>
+
+<!--Carrusel de anuncios--> 
+   <div class="ads">
+    <ul>
+      <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt=""></li>
+      <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt=""></li>
+      <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt=""></li>
+      <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt=""></li>
+      <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt=""></li>
+    </ul>
+   </div>
+    <br><br><br><br><br>
+
+    <!--Informacion de la empresa y el sitio web-->
+    <footer style="padding-top: 20px; padding-bottom: 10px; background-color: #357600; color: white; text-align: center; margin-bottom: 0;">
+      <p>@PriceSeeker <br> Todos los derechos reservados 2024</p>
     </footer>
+  
 </body>
->>>>>>> main:templates/Inicio_CS.html
 </html>

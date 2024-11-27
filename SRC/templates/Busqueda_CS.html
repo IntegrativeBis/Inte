@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Busqueda|PriceSeeker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-banner_cs.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-product.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-perfil.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-searcher.css')}}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+<body style="background-color: #d9d9d9;">
+
+  <!--Banner/menu de arriba-->
+<div class="banner">
+    <div class="logo">
+        <img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Logo">
+        <span class="nombre_sitio"><a href="{{url_for('inicio')}}" class="nombre_sitio">
+            PriceSeeker
+          </a>
+        </span>
+    </div>
+
+    <!--Buscador-->
+    <div class="buscador" style="text-align: center; display: flex; padding-left: 12%;">
+      <input type="text" placeholder="Producto..."><button><a href="{{url_for('busqueda')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
+    </div>
+
+    <!--Ver listas-->
+    <div class="lista" style="display: flex; width:65%">
+      <a href="{{url_for('listas')}}" style="margin-left: auto; font-size: 25px; color: white; font-family: Jacques Francois-Regular; text-decoration: none;padding-right:10%">
+          Mis listas
+      </a>
+    </div>
+
+    <div class="perfil">
+      <button>                                                          
+        <i class="fa-solid fa-user fa-2xl" style="color: #ffffff; padding-right:15px;"></i>
+      </button>
+
+      <!--Menu desplegable de la cuenta-->
+      <div class="content">
+        <a href="{{url_for('cuenta')}}" class="options" style="padding-right: 10px;">Cuenta</a>
+        <a href="{{url_for('logout')}}" class="options" style="padding-right: 10px;">Cerrar Sesión</a>
+      </div>
+    </div>  
+</div> 
+<br><br>
+
+<!--Grid para poner los productosd-->
+<div class="grid-container">
+  <div class="product1">
+      <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+      <div class="content">
+          <h5 class="title">Nombre producto</h5>
+          <p class="desc">Descripción</p>
+          <p class="pre">Precio</p>
+          <p class="text">Supermercado</p>
+      </div>
+  </div>
+
+  <div class="product2">
+    <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+    <div class="content">
+        <h5 class="title">Nombre producto</h5>
+        <p class="desc">Descripción</p>
+        <p class="pre">Precio</p>
+        <p class="text">Supermercado</p>
+    </div>
+</div>
+
+<div class="product3">
+  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <div class="content">
+      <h5 class="title">Nombre producto</h5>
+      <p class="desc">Descripción</p>
+      <p class="pre">Precio</p>
+      <p class="text">Supermercado</p>
+  </div>
+</div>
+
+<div class="product1">
+  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <div class="content">
+      <h5 class="title">Nombre producto</h5>
+      <p class="desc">Descripción</p>
+      <p class="pre">Precio</p>
+      <p class="text">Supermercado</p>
+  </div>
+</div>
+
+<div class="product2">
+  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <div class="content">
+      <h5 class="title">Nombre producto</h5>
+      <p class="desc">Descripción</p>
+      <p class="pre">Precio</p>
+      <p class="text">Supermercado</p>
+  </div>
+</div>
+
+<div class="product3">
+  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <div class="content">
+      <h5 class="title">Nombre producto</h5>
+      <p class="desc">Descripción</p>
+      <p class="pre">Precio</p>
+      <p class="text">Supermercado</p>
+  </div>
+</div>
+
+<div class="product1">
+  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <div class="content">
+      <h5 class="title">Nombre producto</h5>
+      <p class="desc">Descripción</p>
+      <p class="pre">Precio</p>
+      <p class="text">Supermercado</p>
+  </div>
+</div>
+
+<div class="product2">
+  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <div class="content">
+      <h5 class="title">Nombre producto</h5>
+      <p class="desc">Descripción</p>
+      <p class="pre">Precio</p>
+      <p class="text">Supermercado</p>
+  </div>
+</div>
+
+<div class="product3">
+  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <div class="content">
+      <h5 class="title">Nombre producto</h5>
+      <p class="desc">Descripción</p>
+      <p class="pre">Precio</p>
+      <p class="text">Supermercado</p>
+  </div>
+</div>
+
+<div class="product1">
+  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <div class="content">
+      <h5 class="title">Nombre producto</h5>
+      <p class="desc">Descripción</p>
+      <p class="pre">Precio</p>
+      <p class="text">Supermercado</p>
+  </div>
+</div>
+
+<div class="product2">
+  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <div class="content">
+      <h5 class="title">Nombre producto</h5>
+      <p class="desc">Descripción</p>
+      <p class="pre">Precio</p>
+      <p class="text">Supermercado</p>
+  </div>
+</div>
+
+<div class="product3">
+  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <div class="content">
+      <h5 class="title">Nombre producto</h5>
+      <p class="desc">Descripción</p>
+      <p class="pre">Precio</p>
+      <p class="text">Supermercado</p>
+  </div>
+</div>
+
+<div class="product1">
+  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <div class="content">
+      <h5 class="title">Nombre producto</h5>
+      <p class="desc">Descripción</p>
+      <p class="pre">Precio</p>
+      <p class="text">Supermercado</p>
+  </div>
+</div>
+
+<div class="product2">
+  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <div class="content">
+      <h5 class="title">Nombre producto</h5>
+      <p class="desc">Descripción</p>
+      <p class="pre">Precio</p>
+      <p class="text">Supermercado</p>
+  </div>
+</div>
+
+<div class="product3">
+  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
+  <div class="content">
+      <h5 class="title">Nombre producto</h5>
+      <p class="desc">Descripción</p>
+      <p class="pre">Precio</p>
+      <p class="text">Supermercado</p>
+  </div>
+</div>
+</div>  
+    <br><br>
+<!--Cambiar entre paginas-->
+  <div style="text-align: center;">
+    <button style="background-color: #d9d9d9; border: none;"><a href=""><i class="fa-solid fa-arrow-left fa-lg" style="padding-right: 15px; color: #000000"></i></a></button>
+    1/10
+    <button style="background-color: #d9d9d9; border: none;"><a href=""><i class="fa-solid fa-arrow-right fa-lg" style="padding-left: 15px; color: #000000"></i></a></button>
+  </div>            
+    <br><br>
+
+    <footer style="padding-top: 20px; padding-bottom: 10px; background-color: #357600; color: white; text-align: center; margin-bottom: 0;">
+      <p>@PriceSeeker <br> Todos los derechos reservados 2024</p>
+    </footer>
+</body>
+</html>

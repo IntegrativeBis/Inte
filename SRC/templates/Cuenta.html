@@ -1,0 +1,98 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Cuenta|PriceSeeker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-banner.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-footer.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-menu-config.css')}}">
+    <style>body{background-color: #d9d9d9;}</style>
+</head>
+
+<body>
+    <!--Banner/menu de arriba-->
+    <div class="banner">
+        <div class="logo">
+            <img src="/static/images/ND.jpeg" alt="Logo">
+            <span class="nombre_sitio"><a href="{{url_for('inicio')}}" class="nombre_sitio">
+                PriceSeeker
+            </a></span>
+        </div>
+    </div>
+    <br><br><br>
+
+    <!--Contenido-->
+    <!--Actual-->
+<div class="config">
+    <div class="menu-config">             
+        <div class="card-body">
+            <h2 class="card-title">Perfil</h2>
+            <br>
+            <div class="informacion">                      
+                <label class="head">Nombre</label>
+                <p class="info"> {{ session['nombre']}}</p>       
+                <br>
+
+                <label class="head">Apellido</label> 
+                <p class="info">{{ session['apellido'] }}</p>        
+                <br>
+
+                <label class="head">Celular</label> 
+                <p class="info">{{ session['cel'] }}</p>           
+                <br>
+
+
+            </div>
+        </div>
+    </div><br>
+
+<!--Cambiar-->        
+    <div class="menu-config">    
+        <div class="card-body">
+            <h2 class="card-title">Cambiar perfil</h2>
+            <br>
+            <form action="/cambiar_contrasena" method="POST"> 
+                <div class="cambiar">              
+                    <label class="head" for="InputUser">Cambiar nombre de usuario</label>
+                    <input class="inp" type="text" id="InputUser" placeholder="Nuevo nombre de usuario">
+                </div>
+                <br>
+                <div class="cambiar">
+                    <label class="head" for="InputCel">Cambiar número de celular</label>
+                    <input class="inp" type="tel" id="InputCel" placeholder="Nuevo número de celular">
+                </div> 
+                <br>
+                <div class="cambiar">
+                    <label class="head" for="InputPass">Contraseña actual</label>
+                    <input class="inp" name="contrasena" type="password" id="InputPass" placeholder="Contraseña actual">
+                </div>
+                <br>
+                <div class="cambiar">
+                    <label class="head" for="InputCPass">Contraseña nueva</label>
+                    <input class="inp" name="nuevacontrasena" type="password" id="InputCPass" placeholder="Contraseña nueva">
+                </div>
+                <br><br>
+                <div class="cambiar">
+                    <label class="head" for="InputCPass">Confirmar contraseña nueva</label>
+                    <input class="inp" name="confirmar_nuevacontrasena" type="password" id="InputCPass" placeholder="Contraseña nueva">
+                </div>
+                <br><br>
+                <div style="text-align: center;">
+                    <button type="submit" class="actualizar">
+                        Actualizar datos
+                    </button>
+                </div> 
+            </form>
+        </div>
+    </div>
+</div>
+    <br><br><br><br>
+
+    <!--Informacion de la empresa y el sitio web-->
+    <footer>
+        <p>@PriceSeeker <br> Todos los derechos reservados 2024</p>
+    </footer>
+</body>
+</html>

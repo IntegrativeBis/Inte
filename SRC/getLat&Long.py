@@ -1,4 +1,20 @@
 from geopy.geocoders import Nominatim
+
+# Inicializa el geocodificador Nominatim
+geolocator = Nominatim(user_agent="PriceSeeker")
+# Dirección que deseas geocodificar
+direccion = "Hospital Infantil de Especialidades de Chihuahua"
+# Geocodificar la dirección
+geodireccion = geolocator.geocode(direccion)
+# Extraer las coordenadas (latitud y longitud)
+if geodireccion:
+    coordenada = (geodireccion.latitude, geodireccion.longitude)
+    print(coordenada)
+else:
+    print("No se pudo obtener la geocodificación")
+    
+    
+    
 """
 df= pd.DataFrame({'direcc':
             ['2094 Valentine Avenue,Bronx,NY,10457',
@@ -20,18 +36,3 @@ cordenada=geodireccion.apply(lambda x: (x.latitude, x.longitude))
 print(cordenada)
 from geopy.geocoders import Nominatim
 """
-# Inicializa el geocodificador Nominatim
-geolocator = Nominatim(user_agent="PriceSeeker")
-
-# Dirección que deseas geocodificar
-direccion = "Hospital Infantil de Especialidades de Chihuahua"
-
-# Geocodificar la dirección
-geodireccion = geolocator.geocode(direccion)
-
-# Extraer las coordenadas (latitud y longitud)
-if geodireccion:
-    coordenada = (geodireccion.latitude, geodireccion.longitude)
-    print(coordenada)
-else:
-    print("No se pudo obtener la geocodificación")

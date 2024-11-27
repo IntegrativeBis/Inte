@@ -4,93 +4,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inicio|PriceSeeker</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-  <link rel="stylesheet" href="style-menu.css">
-  <link rel="stylesheet" href="style-ads.css">
-  <link rel="stylesheet" href="style-searcher.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-ads.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-banner.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-footer.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-menu.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-results.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-searcher.css')}}">
   
-  <style>
-    body{
-    margin: 0;
-    background-color: #D9D9D9;
-  }
-  .banner {
-    background-image: url('Img/BG 2.jpeg');
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .logo {
-    display: flex;
-    align-items: center;
-    }
-
-  .logo img {
-    padding-top: 7px;
-    padding-bottom: 7px;
-    padding-left: 20px;
-    padding-right: 12px;
-    width: 90px;
-    height: 61px;
-    margin-right: 10px;
-  }
-
-  .nombre_sitio {
-    font-size: 40px;                    /*Buscar otra fuente*/
-    color: white;
-    font-family: 'Italiana, regular';
-  }
-
-  .perfil a{
-    padding-right: 10px;
-    color: #ffffff;
-    user-select: none;
-    font-size: 25px;
-    font-family: Jacques Francois-Regular; 
-    text-decoration: none;
-  }
-  </style>
+  <style>body{background-color: #d9d9d9;}</style>            
 </head>
 
 <body>
   <!--Banner/menu de arriba-->
     <div class="banner">
         <div class="logo">
-            <img src="Img/ND.jpeg" alt="Logo">
+            <img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Logo">
             <span class="nombre_sitio">
                 PriceSeeker
             </span>
         </div>
-        <div class="lista">                             
-            <a href="Listas.html" style="padding-right: 0x; font-size: 25px; color: white; font-family: Jacques Francois-Regular; text-decoration: none;">
-              Mis listas  <!--corregir padding-->
-            </a>
-        </div>
 
-        <div class="perfil"> 
-          <a href="SRC/templates/Iniciar_Sesion.html">                                                      
+        <div class="perfil" style="display: flex;"> 
+          <a href= "{{ url_for('iniciar_sesion')}}" style="padding-right:15px;">                                                      
                 Iniciar Sesion
           </a>
         </div>
     </div> 
 
 <!--Menu desplegable de las categorias -->
-    <div class="menu">                      <!--arreglar el boton a solo mostrar con click-->
+    <div class="menu">                      
       <button>
         <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>  
       </button>
       <div class="content">
-        <a href="Producto.html"class="cat">Categoria 1<i class="fa-solid fa-question fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="Producto.html"class="cat">Categoria 2<i class="fa-solid fa-question fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="Producto.html"class="cat">Categoria 3<i class="fa-solid fa-question fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="Producto.html"class="cat">Categoria 4<i class="fa-solid fa-question fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="Producto.html"class="cat">Categoria 5<i class="fa-solid fa-question fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="Producto.html"class="cat">Categoria 6<i class="fa-solid fa-question fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="Producto.html"class="cat">Categoria 7<i class="fa-solid fa-question fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda')}}"class="cat">Frutas y verduras<i class="fa-solid fa-apple-whole fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda')}}"class="cat">Lácteos<i class="fa-solid fa-cheese fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda')}}"class="cat">Congelados<i class="fa-solid fa-ice-cream fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda')}}"class="cat">Carnes Frías<i class="fa-solid fa-drumstick-bite fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda')}}"class="cat">Artículos de limpieza<i class="fa-solid fa-broom fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda')}}"class="cat">No percederos<i class="fa-solid fa-jar fa-lg" style="padding-left: 50px;"></i></a>
+        <a href="{{url_for('busqueda')}}"class="cat">Deli<i class="fa-solid fa-bacon fa-lg" style="padding-left: 50px;"></i></a>
       </div>
     </div>
 
@@ -98,26 +53,34 @@
 
   <!--Buscador-->
     <div class="buscador" style="text-align: center;">
-      <input type="text" placeholder="Buscar producto..."><button><a href="Producto.html" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
+      <form method="get" action="/busqueda">
+        <input type="text" id="buscador" name="q" value="{{ termino }}" placeholder="Buscar productos" autocomplete="off">
+        <button type="submit"><a href="{{url_for('busqueda')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
+      </form>
+
+      <!--Mostrar los productos-->
+      <div id="resultados"></div>
     </div>
     <br><br>
 
 <!--Esta es la parte de los anuncios--> 
    <div class="ads">
     <ul>
-      <li><img src="Img/ND.jpeg" alt=""></li>
-      <li><img src="Img/ND.jpeg" alt=""></li>
-      <li><img src="Img/ND.jpeg" alt=""></li>
-      <li><img src="Img/ND.jpeg" alt=""></li>
-      <li><img src="Img/ND.jpeg" alt=""></li>
+      <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt=""></li>
+      <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt=""></li>
+      <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt=""></li>
+      <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt=""></li>
+      <li><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt=""></li>
     </ul>
    </div>
     <br><br><br><br><br>
 
     <!--Informacion de la empresa y el sitio web-->
-    <footer style="padding-top: 20px; padding-bottom: 10px; background-color: #357600; color: white; text-align: center; margin-bottom: 0;">
+    <footer>
       <p>@PriceSeeker <br> Todos los derechos reservados 2024</p>
     </footer>
-  
 </body>
+
+<!--Script para el buscador -->
+<script src="{{ url_for('static', filename='js/busquedaRealTime.js') }}"></script>
 </html>
