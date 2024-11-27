@@ -1,5 +1,5 @@
 import requests
-from PRIVATE import api_keymaps 
+from PYTHON.PRIVATE import api_keymaps 
 
 # Reemplaza con tu clave de API
 # Define los puntos de origen y destino
