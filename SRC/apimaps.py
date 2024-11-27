@@ -1,7 +1,7 @@
 import requests
+from PRIVATE import api_keymaps 
 
 # Reemplaza con tu clave de API
-api_keymaps = 'AIzaSyBpT4O929acaKiKmxevg9hl8sjanWnnOW0'
 # Define los puntos de origen y destino
 origen = 'Chihuahua, Mexico'
 destino = 'Juarez, Mexico'
