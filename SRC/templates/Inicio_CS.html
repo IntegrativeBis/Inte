@@ -28,19 +28,25 @@
         </div>
 
   <!--Listas-->
-        <div class="lista" style="display: flex; width:65%">
-          <a href="{{url_for('listas')}}" style="margin-left: auto; font-size: 25px; color: white; font-family: Jacques Francois-Regular; text-decoration: none;">
-            <i class="fa-solid fa-clipboard-list"></i>
-          </a>
+        <div class="perfil" style="display: flex; padding-left: 60%;">
+          <button>
+            <i class="fa-solid fa-clipboard-list fa-2xl" style="color: #ffffff"></i>
+          </button>
+          <!--Menu desplegable de las listas-->
+          <div class="content">
+            <a href="{{url_for('crear_lista', id_usuario)}}" class=""></a>
+            {{%for lista in listas}}
+              <a href="{{url_for('listas', id.lista)}}" class="options" style="padding-right: 10px;">{{id.lista}}</a>
+            {{%endfor%}}
+          </div>
         </div>
 
   <!--Perfil de usuario-->
-        <div class="perfil">
+        <div class="perfil" style="padding-right: 3%";>
           <button>                                                          
-            <i class="fa-solid fa-user fa-2xl" style="color: #ffffff; padding-right:15px;"></i>
+            <i class="fa-solid fa-user fa-2xl" style="color: #ffffff;"></i>
           </button>
-          
-  <!--Menu desplegable de la cuenta-->
+          <!--Menu desplegable de la cuenta-->
           <div class="content">
             <a href="{{url_for('cuenta')}}" class="options" style="padding-right: 10px;">Cuenta</a>
             <a href="{{url_for('logout')}}" class="options" style="padding-right: 10px;">Cerrar Sesión</a>
