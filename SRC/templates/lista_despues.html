@@ -25,9 +25,16 @@
             </span>
         </div>
 
-    <!--Buscador-->
-    <div class="buscador" style="text-align: center; display: flex; padding-right: 5%;">
-        <input type="text" placeholder="Producto..."><button><a href="{{url_for('busqueda')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button></div>
+        <!--Buscador-->
+        <div class="buscador" style="text-align: center; display: flex; padding-right: 5%;">
+            <form method="get" action="/busqueda">
+                <input type="text" id="buscador" name="q" value="{{ termino }}" placeholder="Buscar productos" autocomplete="off">
+                <button type="submit"><a href="{{url_for('busqueda')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
+            </form>
+    
+            <!--Mostrar los productos-->
+            <div id="resultados"></div>
+        </div>
         
 
         <div class="perfil">
@@ -40,7 +47,7 @@
               <a href="{{url_for('cuenta')}}" class="options" style="padding-right: 10px;">Cuenta</a>
               <a href="{{url_for('logout')}}" class="options" style="padding-right: 10px;">Cerrar Sesión</a>
             </div>
-          </div>  
+        </div>  
     </div>
   
     <!--Lista-->
@@ -55,45 +62,29 @@
                             <tr>
                                 <th style="text-align: left;">Productos</th>                              <!--Encabezados-->
                                 <th>Cant.</th>
-                                <th>Precio U.</th>
-                                <th>Precio T.</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Plátano Chiapas Kg</td>                    <!--Informacion del producto/Ejemplos-->
-                                <td>.800kg</td>
-                                <td>$18.90</td>
-                                <td>$15.12</td>
+                                <td>Jugo De Naranja Con Betabel</td>                    <!--Informacion del producto/Ejemplos-->
+                                <td>2</td>
                             </tr>
                             <tr>
-                                <td>Mini Sandía Extra Dulce</td>
-                                <td>1</td>
-                                <td>$35</td>
-                                <td>$35</td>
-                            </tr>
-                            <tr>
-                                <td>Jugo De Naranja Con Betabel</td>
-                                <td>1</td>
-                                <td>$99.90</td>
-                                <td>$99.90</td>
                             </tr>
                             <tr>
                                 <td>Papa Cambray Alsuper Pza</td>
                                 <td>3</td>
-                                <td>$29.90</td>
-                                <td>$89.70</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
                 <label class="head">Total</label>
-                <p class="info1">$239.72</p>              <!--Ejemplo-->
+                <p class="info1">$---</p>              <!--Ejemplo-->
                 <br>
 
                 <label class="head">Supermercado:</label>
-                <p class="info1">Alsuper</p>              <!--Ejemplo-->
+                <p class="info1">---</p>              <!--Ejemplo-->
                 <br>
             </div> 
         </div>

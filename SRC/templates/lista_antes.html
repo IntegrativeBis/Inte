@@ -27,7 +27,14 @@
 
     <!--Buscador-->
     <div class="buscador" style="text-align: center; display: flex; padding-right: 5%;">
-        <input type="text" placeholder="Producto..."><button><a href="{{url_for('busqueda')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button></div>
+        <form method="get" action="/busqueda">
+            <input type="text" id="buscador" name="q" value="{{ termino }}" placeholder="Buscar productos" autocomplete="off">
+            <button type="submit"><a href="{{url_for('busqueda')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
+        </form>
+
+        <!--Mostrar los productos-->
+        <div id="resultados"></div>
+    </div>
         
 
         <div class="perfil">
@@ -77,6 +84,7 @@
     </div>
     <br><br>
     <button type="submit">Comparar</button>
+    <br><br>
 
  <!--Dejar espacio entre el contenido y el pie de pagina-->
     <footer>

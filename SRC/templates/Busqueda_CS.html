@@ -35,10 +35,19 @@
     </div>
 
     <!--Ver listas-->
-    <div class="lista" style="display: flex; width:65%">
-      <a href="{{url_for('listas')}}" style="margin-left: auto; font-size: 25px; color: white; font-family: Jacques Francois-Regular; text-decoration: none;padding-right:10%">
-          Mis listas
-      </a>
+    <div class="perfil" style="display: flex;">
+      <button>
+        <i class="fa-solid fa-clipboard-list fa-2xl" style="color:#ffffff;"></i>
+      </button>
+      <!-- Crear una lista -->
+      <div class="content">
+        {% if mensaje %}
+          {{mensaje}}
+        {% endif %}
+        <form action="/crear_lista" method="post">
+        <input type="text" required name="nombre_lista" placeholder="Nombre de la lista">
+        <button type="submit">Crear lista</button></form>
+      </div>
     </div>
 
     <div class="perfil">

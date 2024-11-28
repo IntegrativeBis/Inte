@@ -26,13 +26,28 @@
 
     <!--Buscador-->
     <div class="buscador" style="text-align: center; display: flex; padding-left: 12%;">
-      <input type="text" placeholder="Producto..."><button><a href="{{url_for('busqueda')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
+      <form method="get" action="/busqueda">
+        <input type="text" id="buscador" name="q" value="{{ termino }}" placeholder="Buscar productos" autocomplete="off">
+        <button type="submit"><a href="{{url_for('busqueda')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
+      </form>
+  
+      <!--Mostrar los productos-->
+      <div id="resultados"></div>
     </div>
 
-    <div class="lista" style="display: flex; width:65%">
-      <a href="{{url_for('listas')}}" style="margin-left: auto; font-size: 25px; color: white; font-family: Jacques Francois-Regular; text-decoration: none;padding-right:10%">
-          Mis listas
-      </a>
+    <div class="lista" style="display: flex;">
+      <button>
+        <i class="fa-solid fa-clipboard-list fa-2xl" style="color:#ffffff;"></i>
+      </button>
+      <!-- Crear una lista -->
+      <div class="content">
+        {% if mensaje %}
+          {{mensaje}}
+        {% endif %}
+        <form action="/crear_lista" method="post">
+        <input type="text" required name="nombre_lista" placeholder="Nombre de la lista">
+        <button type="submit">Crear lista</button></form>
+      </div>
     </div>
 
     <div class="perfil">
