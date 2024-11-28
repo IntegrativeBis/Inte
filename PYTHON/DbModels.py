@@ -284,7 +284,7 @@ def ver_lista(id_usuario, id_lista):
         print (f"Error al modificar el usuario: {str(ex)}")
         return False
 
-def obtener_listas(id_usuario):
+def obtener_listas(id_usuario): #se obtiene la cantidad
     listas = {}
     try:
         with connection.cursor() as cursor:
@@ -299,6 +299,8 @@ def obtener_listas(id_usuario):
     except Exception as ex:
         print (f"Error al modificar el usuario: {str(ex)}")
         return False
+    
+
         
 def hacer_lista(id_usuario, nombre_lista):
     try:

@@ -170,11 +170,12 @@ def lista_despues(id_lista):
         productos_lista = busqueda_productos_cantidad_by_idXlista(id_producto) #te da toda la dscripcion de los productos
         return render_template("lista_antes.html", productos_lista = productos_lista)
 
-@app.route ('/crear_lista') #ya esta creado
+@app.route ('/crear_lista', methods = ['get', 'post']) #ya esta creado
 def crear_lista():
     if 'cel' in session:
         id_usuario = session['id']
-        salio = hacer_lista(id_usuario)
+        nombre_lista = request.form.get['nombre_lista']
+        salio = hacer_lista(id_usuario, nombre_lista)
         if salio == True:
             mensaje = "Lista Creada"
         mensaje = "error al crear"
