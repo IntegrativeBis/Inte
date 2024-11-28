@@ -183,6 +183,36 @@ def busqueda_productos_by_id(id_producto):
     except Exception as e:
         print(f"Error al buscar productos por ID: {e}")
         
+def busqueda_productos_cantidad_by_idXlista(id_producto):
+    producto = {} #lista vacia que se retorna cuando el query no funciono
+    try:
+        query_producto = "SELECT * FROM TProducto WHERE IdProducto LIKE ? "
+        query_tienda = "SELECT DTienda FROM TTiendas WHERE IdTienda = ?"
+        with connection.cursor() as cursor:
+            cursor.execute(query_producto, ('%' + str(id_producto) + '%',))
+            atributo = cursor.fetchone()
+            id_tienda = atributo[4]
+            
+            cursor.execute(query_tienda, (id_tienda,))
+            tienda = cursor.fetchone()
+            print(f"imprimire: {tienda[0]}")#SE IMPRIME EN PARENTESIS
+            
+            producto = { #creamos un diccionario para el producto
+                'id_producto': atributo[0],
+                'descripcion': atributo[1],
+                'id_subcategoria': atributo[2],
+                'imagen': atributo[3],
+                'tienda': tienda[0], 
+                'precio_normal': atributo[5], #PRECIO NORMAL EN CASO QUE TENGA OFERTA SE OTORGA EL PRECIO BASE
+                'precio_actual': atributo[6], #PRECIO ACTUAL SIEMPRE EXISTE, EL NORMAL ES CUANDO HAY OFERTA(PRECIO ACTRUAL) Y TIENE QUE SALIR EL PRECIO ORIGINAL DIFERENTE
+                'URL': atributo[7]
+            }
+            print(producto)
+        return producto
+        
+    except Exception as e:
+        print(f"Error al buscar productos por ID: {e}")
+
 def busqueda_categoria(): #se buscan todas las categorias de manera que puedan aparecer en inicio  
     categoria = {}
     try:
@@ -270,3 +300,18 @@ def obtener_listas(id_usuario):
         print (f"Error al modificar el usuario: {str(ex)}")
         return False
         
+def hacer_lista(id_usuario):
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(f"EXEC sp_CrearCarrito ? ", ())
+            listas_info = cursor.fetchall()
+        print("la obtencion de las listas ha sido un exito")
+        listas = {
+            'id_lista': listas_info[0],
+            'cantidad': listas_info[1]
+        }
+        return listas
+    except Exception as ex:
+        print (f"Error al modificar el usuario: {str(ex)}")
+        return False
+    

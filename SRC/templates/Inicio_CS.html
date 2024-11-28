@@ -29,8 +29,12 @@
 
   <!--Listas-->
         <div class="lista" style="display: flex; width:65%">
-          <a href="{{url_for('listas')}}" style="margin-left: auto; font-size: 25px; color: white; font-family: Jacques Francois-Regular; text-decoration: none;">
-              Mis listas
+          Mis listas
+          <!-- CREAR UNA LISTA -->
+          <a href="{{url_for('crear_lista', lista.id_lista )}}"
+          {% for lista in listas %}
+            <a href="{{url_for('lista', lista.id_lista )}}" style="margin-left: auto; font-size: 25px; color: white; font-family: Jacques Francois-Regular; text-decoration: none;"><span>{{ lista.id_lista }}</span>
+          {% endfor %}
           </a>
         </div>
 
