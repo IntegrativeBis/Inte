@@ -48,7 +48,7 @@ def registrar():
     return render_template('registrar.html', mensaje = mensaje)   
 
 #INICIARSESION RUTA
-@app.route ('/iniciar_sesion', methods=['GET', 'POST'])
+@app.route ('/iniciar_sesion', methods=[ 'POST'])
 def iniciar_sesion():
     mensaje = "Introduce celular y contraseña"
     celular=request.form.get ("celular")
@@ -58,14 +58,15 @@ def iniciar_sesion():
         try:
             print("voy a usar la funcion LOGIN")
             usuario_info = login(celular, contrasena)
-            session['id'] = usuario_info[0]
+            print("login depositado")
+            print(f"el id es: {usuario_info['id_usuario']}")
+            session['id'] = usuario_info['id_usuario']
             session['cel'] = celular 
-            session['contrasena'] = contrasena
-            session['nombre'] = usuario_info[1]
-            session['apellido'] = usuario_info[2]
+            session['nombre'] = usuario_info['nombre']
+            session['apellido'] = usuario_info['apellido']
             print(session)
             mensaje = "Correct"
-            return redirect(url_for('inicio', usuario=usuario_info))
+            return redirect(url_for('inicio', usuario_info = {usuario_info['nombre'], usuario_info['apellido']} ))
         except Exception as e:
                 print(f"Error de login (routes): {e}" )
                 mensaje = "Celular o Contraseña incorrectas"
@@ -116,8 +117,7 @@ def logout():
 @app.route('/buscar_productos') #esta ruta la usa el JS realtime durante se esta buscando producto en la barra buscadora
 def buscar_productos():#aqui a medida que la barra se rellene se va a modificar todos los productos de abajo
     termino = request.args.get('q', '').lower()
-    # Aquí debería buscar productos en la base de datos
-    resultados = busqueda_productos(termino) # HAY QUE MODIFICAR ESTO A BUSQUEDA_PRODUCTOS NORMAL
+    resultados = busqueda_productos(termino) 
     print(resultados)
     return jsonify(resultados) #se envian en formato Jaison
 

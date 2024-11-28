@@ -4,14 +4,14 @@ connection = dbconnection()  # Obtenemos la conexión
 
 #AQUI ESTAN TODOS LOS QUERYS QUE REFERENCIAN AL USUARIO
 def login(celular, contrasena):
-    query = "SELECT IdUsuario FROM Usuarios WHERE Celular = ?"
+    query = "SELECT IdUsuario FROM TUsuarios WHERE Celular = ?"
     try:
         print("estoy realizando la confirmacion del login")
         with connection.cursor() as cursor: 
             print("voy a usar el cursor")
             cursor.execute("EXEC sp_ReadUser ?, ?", (celular, contrasena))
             row_login = cursor.fetchone()
-            cursor.execute(query, (celular))
+            cursor.execute(query, (celular,))
             id_usuario = cursor.fetchone()
         usuario_info = {
             'id_usuario': id_usuario[0],
