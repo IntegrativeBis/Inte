@@ -156,18 +156,29 @@ def producto(id_producto): #   DEBERIA DE TOMAR EL ID
 def lista_antes(id_lista):
     if 'cel' in session:
         id_usuario = session['id']
-        listas = ver_lista(id_usuario, id_lista)
-        id_producto = listas[0]
-        productos_lista = busqueda_productos_cantidad_by_idXlista(id_producto)
+        lista_producto = ver_lista(id_usuario, id_lista)
+        id_producto = lista_producto[0]
+        productos_lista = busqueda_productos_cantidad_by_idXlista(id_producto) #te da toda la dscripcion de los productos
+        return render_template("lista_antes.html", productos_lista = productos_lista)
+    
+@app.route ('/lista_despues') #te redirige a la lista before comparar
+def lista_despues(id_lista):
+    if 'cel' in session:
+        id_usuario = session['id']
+        lista_producto = ver_lista(id_usuario, id_lista)
+        id_producto = lista_producto[0]
+        productos_lista = busqueda_productos_cantidad_by_idXlista(id_producto) #te da toda la dscripcion de los productos
         return render_template("lista_antes.html", productos_lista = productos_lista)
 
-@app.route ('/crear_lista')
+@app.route ('/crear_lista') #ya esta creado
 def crear_lista():
     if 'cel' in session:
         id_usuario = session['id']
-        hacer_lista(id_usuario)
-        mensaje = "Lista Creada"
-        return redirect(url_for('inicio', mensaje))
+        salio = hacer_lista(id_usuario)
+        if salio == True:
+            mensaje = "Lista Creada"
+        mensaje = "error al crear"
+        return redirect(url_for('inicio', mensaje = mensaje))
         
 #A PARTIT DE AQUI SON ERRORES Y DEMAS COSAS --------------------------------------------------------------------------------------------------
 
