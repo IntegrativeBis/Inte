@@ -288,14 +288,11 @@ def obtener_listas(id_usuario): #se obtiene la cantidad
     listas = {}
     try:
         with connection.cursor() as cursor:
-            cursor.execute(f"SELECT IdCarritos, Costo FROM TCarritos WHERE IdUsuario = {id_usuario}")
+            cursor.execute(f"SELECT IdCarritos, Detalle FROM TCarritos WHERE IdUsuario = {id_usuario}")
             listas_info = cursor.fetchall()
-        print("la obtencion de las listas ha sido un exito")
-        listas = {
-            'id_lista': listas_info[0],
-            'cantidad': listas_info[1]
-        }
-        return listas
+        print("la obtencion de la id_lista ha sido un exito")
+        id_lista = listas_info[0]
+        return id_lista
     except Exception as ex:
         print (f"Error al modificar el usuario: {str(ex)}")
         return False

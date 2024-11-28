@@ -180,6 +180,7 @@ def crear_lista():
             mensaje = "Lista Creada"
         mensaje = "error al crear"
         return redirect(url_for('inicio', mensaje = mensaje))
+    return pagina_no_encontrada(404)
         
 #A PARTIT DE AQUI SON ERRORES Y DEMAS COSAS --------------------------------------------------------------------------------------------------
 
