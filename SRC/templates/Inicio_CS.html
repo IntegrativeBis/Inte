@@ -28,14 +28,19 @@
         </div>
 
   <!--Listas-->
-        <div class="lista" style="display: flex; width:65%">
-          Mis listas
-          <!-- CREAR UNA LISTA -->
-          <a href="{{url_for('crear_lista', lista.id_lista )}}"
-          {% for lista in listas %}
-            <a href="{{url_for('lista', lista.id_lista )}}" style="margin-left: auto; font-size: 25px; color: white; font-family: Jacques Francois-Regular; text-decoration: none;"><span>{{ lista.id_lista }}</span>
-          {% endfor %}
-          </a>
+        <div class="perfil" style=" padding-left: 65%">
+          <button>
+            <i class="fa-solid fa-clipboard-list fa-2xl" style="color:#ffffff;"></i>
+          </button>
+          <!-- Crear una lista -->
+          <div class="content">
+            {% if mensaje %}
+              {{mensaje}}
+            {% endif %}
+            <form action="/crear_lista" method="get">
+            <input type="text" required name="nombre_lista" placeholder="Nombre de la lista">
+            <button type="submit">Crear listas</button></form>
+          </div>
         </div>
 
   <!--Perfil de usuario-->
@@ -43,8 +48,7 @@
           <button>                                                          
             <i class="fa-solid fa-user fa-2xl" style="color: #ffffff; padding-right:15px;"></i>
           </button>
-          
-  <!--Menu desplegable de la cuenta-->
+          <!--Menu desplegable de la cuenta-->
           <div class="content">
             <a href="{{url_for('cuenta')}}" class="options" style="padding-right: 10px;">Cuenta</a>
             <a href="{{url_for('logout')}}" class="options" style="padding-right: 10px;">Cerrar Sesión</a>
@@ -57,14 +61,10 @@
       <button id="hamburguer">
         <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>  
       </button>
-<<<<<<< Updated upstream
-      <div class="content">
-=======
       <div id="meat"  class="content">
->>>>>>> Stashed changes
         <form method="get" action="/busqueda_categorias">
           {% for categoria in categorias %}
-            <button type="submit"><a href="{{ url_for('busqueda_categorias', id_categoria = categoria.id_categoria) }}"class="cat">{{ categoria.descripcion }}<i class="fa-solid fa-apple-whole fa-lg" style="padding-left: 50px;"></i></a></button>
+            <button type="submit"><a href="{{ url_for('busqueda_categorias', id_categoria = categoria.id_categoria) }}"class="cat">{{ categoria.descripcion }}</a></button>
           {% endfor %}
         </form>
       </div>
