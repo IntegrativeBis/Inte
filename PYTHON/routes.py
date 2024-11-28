@@ -18,7 +18,7 @@ def inicio():
         id_usuario = session['id']
         listas = obtener_listas(id_usuario)
         categorias = busqueda_categoria()
-        return render_template('inicio_cs.html', usuario=session, categorias=categorias, listas=listas)
+        return render_template('inicio_cs.html', usuario=session, categorias=categorias, listas=listas, id_usuario=id_usuario)
     return render_template('inicio_ss.html', categorias = categorias)
 
 #AQUI EN ADELANTE SOLO SE VERA LO QUE TENGA QUE VER CON EL USUARIOOOOOO----------------------------------------------------------------
@@ -151,15 +151,24 @@ def producto(id_producto): #   DEBERIA DE TOMAR EL ID
     return render_template('producto_ss.html', producto=productos[0], recomendaciones=productos[1]) #al ver otro producto el SQL no se vuelve a ejecutar
 
 # AQUI IRA TODO LO NECESARIO PARA LA LISTA
-@app.route ('/listas')
-def listas(id_lista):
+
+@app.route ('/lista_antes') #te redirige a la lista before comparar
+def lista_antes(id_lista):
     if 'cel' in session:
         id_usuario = session['id']
+        listas = ver_lista(id_usuario, id_lista)
+        id_producto = listas[0]
+        productos_lista = busqueda_productos_cantidad_by_idXlista(id_producto)
+        return render_template("lista_antes.html", productos_lista = productos_lista)
+
+@app.route ('/crear_lista')
+def crear_lista():
+    if 'cel' in session:
+        id_usuario = session['id']
+        hacer_lista(id_usuario)
+        mensaje = "Lista Creada"
+        return redirect(url_for('inicio', mensaje))
         
-        ver_lista(id_usuario, id_lista)
-    return render_template("listas.html")
-
-
 #A PARTIT DE AQUI SON ERRORES Y DEMAS COSAS --------------------------------------------------------------------------------------------------
 
 @app.errorhandler(404)
