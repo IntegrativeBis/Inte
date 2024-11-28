@@ -2,8 +2,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import secrets
 from datetime import timedelta
-#from DbModels import (login, register_user, modify_user, delete_user, busqueda_productos_AD, modify_password, busqueda_productos_AD_by_category, 
-#busqueda_productos, busqueda_productos_by_id, busqueda_categoria, ver_lista, modificar_producto, borrar_producto, integrar_producto)
 from DbModels import *
 
 app = Flask('__name__', template_folder="SRC/templates", static_folder="SRC/static") 
@@ -19,6 +17,7 @@ def inicio():
     if 'cel' in session :
         id_usuario = session['id']
         listas = obtener_listas(id_usuario)
+        categorias = busqueda_categoria()
         return render_template('inicio_cs.html', usuario=session, categorias=categorias, listas=listas)
     return render_template('inicio_ss.html', categorias = categorias)
 
