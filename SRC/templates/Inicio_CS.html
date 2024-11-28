@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-footer.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-menu.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-perfil.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-results.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-searcher.css')}}">
 
   <style>body{background-color: #d9d9d9;}</style>
@@ -53,13 +54,11 @@
         <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>  
       </button>
       <div class="content">
-        <a href="{{url_for('busqueda')}}"class="cat">Frutas y verduras<i class="fa-solid fa-apple-whole fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="{{url_for('busqueda')}}"class="cat">Lácteos<i class="fa-solid fa-cheese fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="{{url_for('busqueda')}}"class="cat">Congelados<i class="fa-solid fa-ice-cream fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="{{url_for('busqueda')}}"class="cat">Carnes Frías<i class="fa-solid fa-drumstick-bite fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="{{url_for('busqueda')}}"class="cat">Artículos de limpieza<i class="fa-solid fa-broom fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="{{url_for('busqueda')}}"class="cat">No percederos<i class="fa-solid fa-jar fa-lg" style="padding-left: 50px;"></i></a>
-        <a href="{{url_for('busqueda')}}"class="cat">Deli<i class="fa-solid fa-bacon fa-lg" style="padding-left: 50px;"></i></a>
+        <form method="get" action="/busqueda_categorias">
+          {% for categoria in categorias %}
+            <button type="submit"><a href="{{ url_for('busqueda_categorias', id_categoria = categoria.id_categoria) }}"class="cat">{{ categoria.descripcion }}<i class="fa-solid fa-apple-whole fa-lg" style="padding-left: 50px;"></i></a></button>
+          {% endfor %}
+        </form>
       </div>
     </div>
 
@@ -77,17 +76,18 @@
 
     <br><br>
 
-  <!--Buscador-->
-    <div class="buscador" style="text-align: center;">
-      <form method="get" action="/busqueda">
-        <input type="text" placeholder="Buscar producto..." id="buscador" name="q" value="{{ termino }}" autocomplete="off">
-        <button type="submit"><a href="{{url_for('busqueda')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
-      </form>
+  <!--Buscador.-->
+  <div class="buscador" style="text-align: center;">
+    <form method="get" action="/busqueda">
+      <input type="text" id="buscador" name="q" value="{{ termino }}" placeholder="Buscar productos" autocomplete="off">
+      <button type="submit"><a href="{{url_for('busqueda')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
+    </form>
 
-      <!--Mostrar los productos-->
-      <div id="resultados"></div>
-    </div>
-    <br><br>
+    <!--Mostrar los productos-->
+    <div id="resultados"></div>
+  </div>
+  <br><br>
+
 
 <!--Carrusel de anuncios--> 
    <div class="ads">
@@ -107,4 +107,6 @@
     </footer>
   
 </body>
+<!--Script para el buscador -->
+<script src="{{ url_for('static', filename='js/busquedaRealTime.js') }}"></script>
 </html>

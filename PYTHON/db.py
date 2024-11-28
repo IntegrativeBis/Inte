@@ -1,8 +1,9 @@
 import pyodbc
+from PRIVATE import USER, PASSWORD, DATABASE, SERVER, DRIVER
 def dbconnection(): #esto es pa conectarse a la base datos
     try:
         print ("CONECTANDO BASE DE DATITOS...")
-        connection = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=priceseekerbis.ddns.net; DATABASE=PriceSeeker; UID=readeruser; PWD=1234;')
+        connection = pyodbc.connect(f"DRIVER={DRIVER};SERVER={SERVER}; DATABASE={DATABASE}; UID={USER}; PWD={PASSWORD};")
         print ("CONECTAMOS LA BSE")
         return connection
     except Exception as ex:
