@@ -16,9 +16,10 @@ def inicio():
     categorias = busqueda_categoria()
     if 'cel' in session :
         id_usuario = session['id']
-        listas = obtener_listas(id_usuario)
+        listas_descripcion = obtener_listas(id_usuario) #id_lista y nombre
+        lista_con_productos = ver_lista(listas_descripcion[0]) #id_producto y cantidad
         categorias = busqueda_categoria()
-        return render_template('inicio_cs.html', usuario=session, categorias=categorias, listas=listas, id_usuario=id_usuario)
+        return render_template('inicio_cs.html', usuario=session, categorias=categorias, listas_descripcion=listas_descripcion, lista_con_productos=lista_con_productos)
     return render_template('inicio_ss.html', categorias = categorias)
 
 #AQUI EN ADELANTE SOLO SE VERA LO QUE TENGA QUE VER CON EL USUARIOOOOOO----------------------------------------------------------------

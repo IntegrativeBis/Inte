@@ -268,38 +268,41 @@ def modificar_producto (): #faltan las variables que necesitamos
         print (f"Error al modificar el usuario: {str(ex)}")
         return False
     
-def ver_lista(id_usuario, id_lista):
-    lista_producto = {}
+def ver_lista(id_lista):
+    lista_con_productos = {}
     try:
         with connection.cursor() as cursor:
-            cursor.execute(f"SELECT * FROM TDCarritos WHERE IdUsuario = {id_usuario}, AND IdCarrito = {id_lista}")
+            cursor.execute(f"SELECT IdProducto, Cantidad FROM TDCarritos WHERE IdCarrito = {id_lista}")
             lista = cursor.fetchall()
         print("la obtencion de la lista ha sido un exito")
-        lista_producto = {
+        lista_con_productos = {
             'id_producto': lista[0],
             'cantidad': lista[1]
         }
-        return lista_producto
+        return lista_con_productos
     except Exception as ex:
         print (f"Error al modificar el usuario: {str(ex)}")
-        return False
+        return lista_con_productos
 
-def obtener_listas(id_usuario): #se obtiene la cantidad
+def obtener_listas(id_usuario): #se obtiene la cantidad YA ESTA
     listas = {}
     try:
         with connection.cursor() as cursor:
             cursor.execute(f"SELECT IdCarritos, Detalle FROM TCarritos WHERE IdUsuario = {id_usuario}")
             listas_info = cursor.fetchall()
         print("la obtencion de la id_lista ha sido un exito")
-        id_lista = listas_info[0]
-        return id_lista
+        listas = {
+            'id_lista': listas_info[0],
+            'nombre_lista': listas_info[1]  
+        }
+        return listas
     except Exception as ex:
         print (f"Error al modificar el usuario: {str(ex)}")
         return False
     
 
         
-def hacer_lista(id_usuario, nombre_lista):
+def hacer_lista(id_usuario, nombre_lista): #YA ESTA HECHOOOOOO
     try:
         with connection.cursor() as cursor:
             cursor.execute(f"EXEC sp_CrearCarrito ?, ? ", (id_usuario, nombre_lista))
