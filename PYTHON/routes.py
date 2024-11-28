@@ -2,8 +2,9 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import secrets
 from datetime import timedelta
-from DbModels import login, register_user, modify_user, delete_user, busqueda_productos_AD, modify_password, busqueda_productos, busqueda_productos_by_id, busqueda_categoria
-
+#from DbModels import (login, register_user, modify_user, delete_user, busqueda_productos_AD, modify_password, busqueda_productos_AD_by_category, 
+#busqueda_productos, busqueda_productos_by_id, busqueda_categoria, ver_lista, modificar_producto, borrar_producto, integrar_producto)
+from DbModels import *
 
 app = Flask('__name__', template_folder="SRC/templates", static_folder="SRC/static") 
 
@@ -11,24 +12,15 @@ app = Flask('__name__', template_folder="SRC/templates", static_folder="SRC/stat
 app.secret_key = secrets.token_hex(16) 
 
 #AQUI SE ENCONTRARAN LAS RUTAS PRINCIPALES-------------------------------------------------------------------------------------
-"""
-@app.route ('/') #, methods = ['GET']
-def inicio_ss():
-    termino = request.args.get('q', '').lower()  # Toma el parámetro 'q' de la URL
-    print(termino)
-    resultados = buscar_productos(termino)
-    print (resultados)
-    return render_template('inicio_ss.html')
-"""
 
 @app.route('/') 
 def inicio(): 
-    categoria = busqueda_categoria()
-    
+    categorias = busqueda_categoria()
     if 'cel' in session :
-        return render_template('inicio_cs.html', usuario=session)
-    #return redirect(url_for('inicio_ss'))
-    return render_template('inicio_ss.html', categoria = categoria)
+        id_usuario = session['id']
+        listas = obtener_listas(id_usuario)
+        return render_template('inicio_cs.html', usuario=session, categorias=categorias, listas=listas)
+    return render_template('inicio_ss.html', categorias = categorias)
 
 #AQUI EN ADELANTE SOLO SE VERA LO QUE TENGA QUE VER CON EL USUARIOOOOOO----------------------------------------------------------------
 
@@ -65,14 +57,15 @@ def iniciar_sesion():
     if celular and contrasena is not None:
         try:
             print("voy a usar la funcion LOGIN")
-            usuario = login(celular, contrasena)
+            usuario_info = login(celular, contrasena)
+            session['id'] = usuario_info[0]
             session['cel'] = celular 
-            session['nombre'] = usuario[0]
-            session['apellido'] = usuario[1]
             session['contrasena'] = contrasena
-            print(session, usuario[0], usuario[1])
+            session['nombre'] = usuario_info[1]
+            session['apellido'] = usuario_info[2]
+            print(session)
             mensaje = "Correct"
-            return redirect(url_for('inicio', usuario=usuario))
+            return redirect(url_for('inicio', usuario=usuario_info))
         except Exception as e:
                 print(f"Error de login (routes): {e}" )
                 mensaje = "Celular o Contraseña incorrectas"
@@ -138,6 +131,16 @@ def busqueda():
         return render_template('busqueda_cs.html')
     return render_template('busqueda_ss.html', pagina_actual=pagina_actual, pagina_final=pagina_final, resultados = resultados)
 
+@app.route ('/busqueda_categorias/<int:id_categoria>', methods = ['GET']) #te redirecciona a alguna busqueda con el q que se le fue enviado desde el FORM inicio_ss.html
+def busqueda_categorias(id_categoria): 
+    #termino = request.args.get('q', '').lower() #NO SE SI SEA MEDIANTE ARGS O FORM
+    pagina_actual = request.args.get('pagina_actual', 1)
+    pagina_final = request.args.get('pagina_final', 5)
+    resultados = busqueda_productos_AD_by_category(id_categoria, pagina_actual, pagina_final)
+    if 'cel' in session:
+        return render_template('busqueda_cs.html', pagina_actual=pagina_actual, pagina_final=pagina_final, resultados = resultados)
+    return render_template('busqueda_ss.html', pagina_actual=pagina_actual, pagina_final=pagina_final, resultados = resultados)
+
 @app.route ('/producto/<int:id_producto>') #va a tomar el argumento buscado (aqui debe tomar el argumento del producto seleccionado en busqueda NO SE ACERLO) para que te aparezca el producto 
 def producto(id_producto): #   DEBERIA DE TOMAR EL ID
     """termino = request.args.get('q', '').lower()
@@ -150,9 +153,12 @@ def producto(id_producto): #   DEBERIA DE TOMAR EL ID
 
 # AQUI IRA TODO LO NECESARIO PARA LA LISTA
 @app.route ('/listas')
-def listas():
+def listas(id_lista):
+    if 'cel' in session:
+        id_usuario = session['id']
+        
+        ver_lista(id_usuario, id_lista)
     return render_template("listas.html")
-
 
 
 #A PARTIT DE AQUI SON ERRORES Y DEMAS COSAS --------------------------------------------------------------------------------------------------
