@@ -35,10 +35,10 @@
 
 <!--Menu desplegable de las categorias -->
     <div class="menu">                      
-      <button>
+      <button id="hamburguer">
         <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>  
       </button>
-      <div class="content">
+      <div id="meat" class="content">
         <a href="{{url_for('busqueda')}}"class="cat">Frutas y verduras<i class="fa-solid fa-apple-whole fa-lg" style="padding-left: 50px;"></i></a>
         <a href="{{url_for('busqueda')}}"class="cat">Lácteos<i class="fa-solid fa-cheese fa-lg" style="padding-left: 50px;"></i></a>
         <a href="{{url_for('busqueda')}}"class="cat">Congelados<i class="fa-solid fa-ice-cream fa-lg" style="padding-left: 50px;"></i></a>
@@ -83,4 +83,6 @@
 
 <!--Script para el buscador -->
 <script src="{{ url_for('static', filename='js/busquedaRealTime.js') }}"></script>
+<!--Script para arreglar la coso de las categorias-->
+<script src="{{ url_for('static', filename='js/fix-category.js')}}"></script>
 </html>

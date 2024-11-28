@@ -11,6 +11,8 @@
     display: flex;
     background-color: #ffffff;
     padding: 20px;
+    border: 10px solid;
+    border-color: #000000;
     border-radius: 8px;
     width: 242px; /* Ajusta el ancho según sea necesario */
     align-items: center;
