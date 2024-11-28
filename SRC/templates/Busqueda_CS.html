@@ -24,8 +24,14 @@
     </div>
 
     <!--Buscador-->
-    <div class="buscador" style="text-align: center; display: flex; padding-left: 12%;">
-      <input type="text" placeholder="Producto..."><button><a href="{{url_for('busqueda')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
+    <div class="buscador" style="text-align: center;">
+      <form method="get" action="/busqueda">
+        <input type="text" id="buscador" name="q" value="{{ termino }}" placeholder="Buscar productos" autocomplete="off">
+        <button type="submit"><a href="{{url_for('busqueda')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
+      </form>
+  
+      <!--Mostrar los productos-->
+      <div id="resultados"></div>
     </div>
 
     <!--Ver listas-->
@@ -214,4 +220,5 @@
       <p>@PriceSeeker <br> Todos los derechos reservados 2024</p>
     </footer>
 </body>
+<script src="{{ url_for('static', filename='js/busquedaRealTime.js') }}"></script>
 </html>

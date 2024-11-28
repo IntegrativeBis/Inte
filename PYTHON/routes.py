@@ -48,7 +48,7 @@ def registrar():
     return render_template('registrar.html', mensaje = mensaje)   
 
 #INICIARSESION RUTA
-@app.route ('/iniciar_sesion', methods=[ 'POST'])
+@app.route ('/iniciar_sesion', methods=['GET', 'POST'])
 def iniciar_sesion():
     mensaje = "Introduce celular y contraseña"
     celular=request.form.get ("celular")
