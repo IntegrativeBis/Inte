@@ -53,11 +53,15 @@
     </div> 
 
 <!--Menu desplegable de las categorias -->
-    <div class="menu">                      <!--arreglar el boton a solo mostrar con click-->
-      <button type="button" data-toggle="dropdown" aria-expanded="false">
+    <div class="menu">                     
+      <button id="hamburguer">
         <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>  
       </button>
+<<<<<<< Updated upstream
       <div class="content">
+=======
+      <div id="meat"  class="content">
+>>>>>>> Stashed changes
         <form method="get" action="/busqueda_categorias">
           {% for categoria in categorias %}
             <button type="submit"><a href="{{ url_for('busqueda_categorias', id_categoria = categoria.id_categoria) }}"class="cat">{{ categoria.descripcion }}<i class="fa-solid fa-apple-whole fa-lg" style="padding-left: 50px;"></i></a></button>
@@ -65,19 +69,10 @@
         </form>
       </div>
     </div>
+    <br><br>
 
-    <!--
-    <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-    Dropdown button
-  </button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-</div>-->
-
+    <!--Bienvenida-->
+    <h1 class="bienvenue">Hola {{usuario.nombre, usuario.apellido}}<span></span></h1>
     <br><br>
 
   <!--Buscador.-->
@@ -106,10 +101,13 @@
     <br><br><br><br><br>
 
     <!--Informacion de la empresa y el sitio web-->
-    <footer style="padding-top: 20px; padding-bottom: 10px; background-color: #357600; color: white; text-align: center; margin-bottom: 0;">
+    <footer>
       <p>@PriceSeeker <br> Todos los derechos reservados 2024</p>
     </footer>
-  
+
+  <!--Script para arreglar la coso de las categorias-->
+  <script src="{{ url_for('static', filename='js/fix-category.js')}}"></script>
+
 </body>
 <!--Script para el buscador -->
 <script src="{{ url_for('static', filename='js/busquedaRealTime.js') }}"></script>

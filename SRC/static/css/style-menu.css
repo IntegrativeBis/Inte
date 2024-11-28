@@ -24,10 +24,6 @@
     box-shadow: 2px 2px 5px #000;
 }
 
-.menu:hover .content{
-    display:block;
-}
-
 .cat {
     outline: none;
     color: inherit;
