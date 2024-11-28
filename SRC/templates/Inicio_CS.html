@@ -34,10 +34,10 @@
           </button>
           <!--Menu desplegable de las listas-->
           <div class="content">
-            <a href="{{url_for('crear_lista', id_usuario)}}" class=""></a>
-            {{%for lista in listas}}
-              <a href="{{url_for('listas', id.lista)}}" class="options" style="padding-right: 10px;">{{id.lista}}</a>
-            {{%endfor%}}
+            <a href="{{url_for('crear_lista', id_usuario[0])}}" class=""></a>
+            {% for lista in listas %}
+              <a href="{{url_for('listas_antes', id.lista)}}" class="options" style="padding-right: 10px;">{{id.lista}}</a>
+            {% endfor %}
           </div>
         </div>
 

@@ -219,8 +219,8 @@
 </html>
 
 <div>
-	<ahref="/busqueda?q={{ termino }}&pagina_actual={{ pagina_actual - 1 if pagina_actual > 1 else 1 }}&pagina_final={{ pagina_final }}">Página anterior</a>
-	<ahref="/busqueda?q={{ termino }}&pagina_actual={{ pagina_actual + 1 if pagina_actual < pagina_final else pagina_final }}&pagina_final={{ pagina_final }}">Página siguiente</a>
+	<a href="/busqueda?q={{ termino }}&pagina_actual={{ pagina_actual - 1 if pagina_actual > 1 else 1 }}&pagina_final={{ pagina_final }}">Página anterior</a>
+	<a href="/busqueda?q={{ termino }}&pagina_actual={{ pagina_actual + 1 if pagina_actual < pagina_final else pagina_final }}&pagina_final={{ pagina_final }}">Página siguiente</a>
 </div>
 
 <p>Mostrando página {{ pagina_actual }} de {{ pagina_final }}</p>
