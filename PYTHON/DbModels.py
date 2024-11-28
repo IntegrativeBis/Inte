@@ -4,16 +4,25 @@ connection = dbconnection()  # Obtenemos la conexión
 
 #AQUI ESTAN TODOS LOS QUERYS QUE REFERENCIAN AL USUARIO
 def login(celular, contrasena):
+    query = "SELECT IdUsuario FROM TUsuarios WHERE Celular = ?"
     try:
         print("estoy realizando la confirmacion del login")
         with connection.cursor() as cursor: 
             print("voy a usar el cursor")
             cursor.execute("EXEC sp_ReadUser ?, ?", (celular, contrasena))
             row_login = cursor.fetchone()
-        print(row_login) 
-        return row_login
+            cursor.execute(query, (celular,))
+            id_usuario = cursor.fetchone()
+        usuario_info = {
+            'id_usuario': id_usuario[0],
+            'nombre': row_login[0],
+            'apellido': row_login[1]
+        }
+        print(usuario_info) 
+        return usuario_info
     except Exception as ex:
-        raise Exception(f"Error al ejecutar Login para el celular: {celular}: {str(ex)}") 
+        print(f"Error al ejecutar Login para el celular: {celular}: {str(ex)}") 
+        return None
 
 def register_user(nombre, apellido, celular, contrasena):
     try:
@@ -69,7 +78,6 @@ def busqueda_productos_AD(termino, pagina_actual, pagina_final): #AD = ALL DESCR
                     id_tienda = producto[3]
                     cursor.execute(query_tienda, (id_tienda,))
                     tienda = cursor.fetchone()
-                    #tienda = 1 EN UN RATO SE QUITA ESO SE NECESITA LA TABLA TIENDA
                     resultados.append({
                         'id_producto': producto[0],
                         'descripcion': producto[1],
@@ -83,7 +91,31 @@ def busqueda_productos_AD(termino, pagina_actual, pagina_final): #AD = ALL DESCR
             print(f"Error al buscar productos AD: {e}")
         return resultados  # Devuelve lista vacía en caso de error
         
-    
+def busqueda_productos_AD_by_category(id_categoria, pagina_actual, pagina_final): #AD = ALL DESCRIPTION BY category 
+    resultados = []
+    query = "SELECT TOP 20 IdProducto, Descripcion, PActual, IdTienda, Imagen FROM TProducto WHERE Categoria = ?"
+    query_tienda = "SELECT DTienda FROM TTiendas WHERE IdTienda = ?"
+    while(pagina_actual <= pagina_final):
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute(query, ('%' + id_categoria + '%',))
+                productos = cursor.fetchall()
+                for producto in productos:
+                    id_tienda = producto[3]
+                    cursor.execute(query_tienda, (id_tienda,))
+                    tienda = cursor.fetchone()
+                    resultados.append({
+                        'id_producto': producto[0],
+                        'descripcion': producto[1],
+                        'precio': producto[2], 
+                        'tienda': tienda[0],
+                        'imagen': producto[4]
+                    })
+            pagina_actual += 1
+            return resultados
+        except Exception as e:
+            print(f"Error al buscar productos AD: {e}")
+        return resultados  # Devuelve lista vacía en caso de error
     
 def busqueda_productos(termino): #BY DESCRIPTION ESTO ES PARA LA BARRA BUSCADORA
     resultados = []
@@ -151,7 +183,7 @@ def busqueda_productos_by_id(id_producto):
     except Exception as e:
         print(f"Error al buscar productos por ID: {e}")
         
-def busqueda_categoria():
+def busqueda_categoria(): #se buscan todas las categorias de manera que puedan aparecer en inicio  
     categoria = {}
     try:
         with connection.cursor() as cursor:
@@ -172,5 +204,69 @@ def busqueda_categoria():
         return categoria
     
         
-        
 #AQUI VA TODO LO RELACIONADO CON EL CARRIT0
+
+def integrar_producto():
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("EXEC sp_AddProduct ?", ()) #faltan las variables que necesitamos
+        print("Se agrego correctamente el producto")
+        return True 
+    except Exception as ex:
+        print(f"Error al ingresar producto: {str(ex)}")
+        return False
+
+def borrar_producto ():#faltan las variables que necesitamos
+    mensaje = "se borro puro aire"
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("EXEC sp_DeleteProduct ?, ?", ())
+        mensaje = "El producto ha sido eliminado con exito"
+        print(mensaje)
+        return mensaje
+    except Exception as ex:
+        print (f"Error al eliminar el usuario: {str(ex)}")
+        return mensaje
+        
+def modificar_producto (): #faltan las variables que necesitamos
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("EXEC sp_UpdateUser ?, ?, ?", ())
+        print("El usuario ha sido modificado con exito")
+        return True
+    except Exception as ex:
+        print (f"Error al modificar el usuario: {str(ex)}")
+        return False
+    
+def ver_lista(id_usuario, id_lista):
+    productos_lista = {}
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(f"SELECT * FROM TDCarritos WHERE IdUsuario = {id_usuario}, AND IdCarrito = {id_lista}")
+            lista = cursor.fetchall()
+        print("la obtencion de la lista ha sido un exito")
+        productos_lista = {
+            'id_producto': lista[0],
+            'cantidad': lista[1]
+        }
+        return productos_lista
+    except Exception as ex:
+        print (f"Error al modificar el usuario: {str(ex)}")
+        return False
+
+def obtener_listas(id_usuario):
+    listas = {}
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(f"SELECT IdCarritos, Costo FROM TCarritos WHERE IdUsuario = {id_usuario}")
+            listas_info = cursor.fetchall()
+        print("la obtencion de las listas ha sido un exito")
+        listas = {
+            'id_lista': listas_info[0],
+            'cantidad': listas_info[1]
+        }
+        return listas
+    except Exception as ex:
+        print (f"Error al modificar el usuario: {str(ex)}")
+        return False
+        
