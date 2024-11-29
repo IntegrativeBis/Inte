@@ -128,11 +128,11 @@ def buscar_productos():#aqui a medida que la barra se rellene se va a modificar 
 @app.route ('/busqueda', methods = ['GET']) #te redirecciona a alguna busqueda con el q que se le fue enviado desde el FORM inicio_ss.html
 def busqueda(): 
     termino = request.args.get('q', '').lower() #agarra el argumento y lo hace minuscula
-    pagina_actual = request.args.get('pagina_actual', 1)
-    pagina_final = request.args.get('pagina_final', 5)
+    pagina_actual = int(request.args.get('pagina_actual', 1))
+    pagina_final = int(request.args.get('pagina_final', 5))
     resultados = busqueda_productos_AD(termino, pagina_actual, pagina_final)
     if 'cel' in session:
-        return render_template('busqueda_cs.html')
+        return render_template('busqueda_cs.html', pagina_actual=pagina_actual, pagina_final=pagina_final, resultados = resultados)
     return render_template('busqueda_ss.html', pagina_actual=pagina_actual, pagina_final=pagina_final, resultados = resultados)
 
 @app.route ('/busqueda_categorias/<int:id_categoria>', methods = ['GET']) #te redirecciona a alguna busqueda con el q que se le fue enviado desde el FORM inicio_ss.html

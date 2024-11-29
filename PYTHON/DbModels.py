@@ -67,28 +67,26 @@ def modify_password (celular, nuevacontrasena):
 
 def busqueda_productos_AD(termino, pagina_actual, pagina_final): #AD = ALL DESCRIPTION BY A DESCRIPTION
     resultados = []
-    query = "SELECT TOP 20 IdProducto, Descripcion, PActual, IdTienda, Imagen FROM TProducto WHERE LOWER(Descripcion) LIKE ?"
-    query_tienda = "SELECT DTienda FROM TTiendas WHERE IdTienda = ?"
-    while(pagina_actual <= pagina_final):
-        try:
+    query = "SELECT p.IdProducto, p.Descripcion, p.PActual, p.IdTienda, p.Imagen, t.DTienda FROM TProducto p JOIN TTiendas t ON p.IdTienda = t.IdTienda WHERE LOWER(p.Descripcion) LIKE ? ORDER BY p.IdProducto OFFSET ? ROWS FETCH NEXT ? ROWS ONLY"
+    try:
+        while(pagina_actual <= pagina_final):
+            offset = (pagina_actual - 1) * 20 # son los resultados por pagina
             with connection.cursor() as cursor:
-                cursor.execute(query, ('%' + termino.lower() + '%',))
+                cursor.execute(query, ('%' + termino.lower() + '%', offset, 20))
                 productos = cursor.fetchall()
+                
                 for producto in productos:
-                    id_tienda = producto[3]
-                    cursor.execute(query_tienda, (id_tienda,))
-                    tienda = cursor.fetchone()
                     resultados.append({
                         'id_producto': producto[0],
                         'descripcion': producto[1],
                         'precio': producto[2], #PRECIO ACTUAL SIEMPRE EXISTE, EL NORMAL ES CUANDO HAY OFERTA(PRECIO ACTRUAL) Y TIENE QUE SALIR EL PRECIO ORIGINAL DIFERENTE
-                        'tienda': tienda[0],
+                        'tienda': producto[5],
                         'imagen': producto[4]
                     })
             pagina_actual += 1
             return resultados
-        except Exception as e:
-            print(f"Error al buscar productos AD: {e}")
+    except Exception as e:
+        print(f"Error al buscar productos AD: {e}")
         return resultados  # Devuelve lista vacía en caso de error
         
 def busqueda_productos_AD_by_category(id_categoria, pagina_actual, pagina_final): #AD = ALL DESCRIPTION BY category 

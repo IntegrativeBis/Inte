@@ -47,162 +47,34 @@
 <!--Grid para poner los productosd-->
 <!---->
 <div class="grid-container">
-  <div class="product1">
-    <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
-      <div class="content">
-          <h5 class="title">Nombre producto</h5>
+  {% for resultado in resultados %}
+    <div class="product1">
+      <a href="/producto/{{ resultado.id_producto }}">
+        {% if not resultado.imagen %}
+          <img src="/static/images/ND.jpeg">
+        {% else %}
+          <img src="{{ resultado.imagen }}" alt="" class="img">
+        {% endif %}
+      </a>
+        <div class="content">
+          <h5 class="title">{{resultado.descripcion}}</h5>
           <p class="desc">Descripción</p>
-          <p class="pre">Precio</p>
-          <p class="text">Supermercado</p>
-      </div>
-  </div>
-
-  <div class="product2">
-    <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
-    <div class="content">
-        <h5 class="title">Nombre producto</h5>
-        <p class="desc">Descripción</p>
-        <p class="pre">Precio</p>
-        <p class="text">Supermercado</p>
+          <p class="pre">{{resultado.precio}}</p>
+          <p class="text">{{resultado.tienda}}</p>
+        </div>
     </div>
+  {% endfor %}
+
+
 </div>
 
-<div class="product3">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
-  <div class="content">
-      <h5 class="title">Nombre producto</h5>
-      <p class="desc">Descripción</p>
-      <p class="pre">Precio</p>
-      <p class="text">Supermercado</p>
-  </div>
-</div>
-
-<div class="product1">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
-  <div class="content">
-      <h5 class="title">Nombre producto</h5>
-      <p class="desc">Descripción</p>
-      <p class="pre">Precio</p>
-      <p class="text">Supermercado</p>
-  </div>
-</div>
-
-<div class="product2">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
-  <div class="content">
-      <h5 class="title">Nombre producto</h5>
-      <p class="desc">Descripción</p>
-      <p class="pre">Precio</p>
-      <p class="text">Supermercado</p>
-  </div>
-</div>
-
-<div class="product3">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
-  <div class="content">
-      <h5 class="title">Nombre producto</h5>
-      <p class="desc">Descripción</p>
-      <p class="pre">Precio</p>
-      <p class="text">Supermercado</p>
-  </div>
-</div>
-
-<div class="product1">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
-  <div class="content">
-      <h5 class="title">Nombre producto</h5>
-      <p class="desc">Descripción</p>
-      <p class="pre">Precio</p>
-      <p class="text">Supermercado</p>
-  </div>
-</div>
-
-<div class="product2">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
-  <div class="content">
-      <h5 class="title">Nombre producto</h5>
-      <p class="desc">Descripción</p>
-      <p class="pre">Precio</p>
-      <p class="text">Supermercado</p>
-  </div>
-</div>
-
-<div class="product3">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
-  <div class="content">
-      <h5 class="title">Nombre producto</h5>
-      <p class="desc">Descripción</p>
-      <p class="pre">Precio</p>
-      <p class="text">Supermercado</p>
-  </div>
-</div>
-
-<div class="product1">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
-  <div class="content">
-      <h5 class="title">Nombre producto</h5>
-      <p class="desc">Descripción</p>
-      <p class="pre">Precio</p>
-      <p class="text">Supermercado</p>
-  </div>
-</div>
-
-<div class="product2">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
-  <div class="content">
-      <h5 class="title">Nombre producto</h5>
-      <p class="desc">Descripción</p>
-      <p class="pre">Precio</p>
-      <p class="text">Supermercado</p>
-  </div>
-</div>
-
-<div class="product3">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
-  <div class="content">
-      <h5 class="title">Nombre producto</h5>
-      <p class="desc">Descripción</p>
-      <p class="pre">Precio</p>
-      <p class="text">Supermercado</p>
-  </div>
-</div>
-
-<div class="product1">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
-  <div class="content">
-      <h5 class="title">Nombre producto</h5>
-      <p class="desc">Descripción</p>
-      <p class="pre">Precio</p>
-      <p class="text">Supermercado</p>
-  </div>
-</div>
-
-<div class="product2">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
-  <div class="content">
-      <h5 class="title">Nombre producto</h5>
-      <p class="desc">Descripción</p>
-      <p class="pre">Precio</p>
-      <p class="text">Supermercado</p>
-  </div>
-</div>
-
-<div class="product3">
-  <a href="{{url_for('producto')}}"><img src="{{url_for('static', filename= 'images/ND.jpeg')}}" alt="Imagen del producto" class="img"></a>
-  <div class="content">
-      <h5 class="title">Nombre producto</h5>
-      <p class="desc">Descripción</p>
-      <p class="pre">Precio</p>
-      <p class="text">Supermercado</p>
-  </div>
-</div>
-</div>  
     <br><br>
 
 <!--Cambiar de pagina-->
   <div style="text-align: center;">
-    <a href="/busqueda?q={{ termino }} & pagina_actual = {{ pagina_actual - 1 if pagina_actual > 1 else 1 }} &pagina_final={{ pagina_final }}"> Página anterior</a>
-	  <a href="/busqueda?q={{ termino }}&pagina_actual={{ pagina_actual + 1 if pagina_actual < pagina_final else pagina_final }}&pagina_final={{ pagina_final }}">Página siguiente</a>
+    <a href="/busqueda?q={{ termino }}&pagina_actual={{ pagina_actual - 1 if pagina_actual > 1 else 1 }}&pagina_final={{ pagina_final }}">Página anterior</a>
+	  <a href="/busqueda?q={{ termino }}&pagina_actual={{ pagina_actual + 1 if pagina_actual < pagina_final else pagina_actual }}&pagina_final={{ pagina_final }}">Página siguiente</a>
+
 
     <button style="background-color: #d9d9d9; border: none;"><i class="fa-solid fa-arrow-left fa-lg" style="padding-right: 15px; color: #000000"></i></button>
     1/10
@@ -217,10 +89,3 @@
 </body>
 <script src="{{ url_for('static', filename='js/busquedaRealTime.js') }}"></script>
 </html>
-
-<div>
-	<a href="/busqueda?q={{ termino }}&pagina_actual={{ pagina_actual - 1 if pagina_actual > 1 else 1 }}&pagina_final={{ pagina_final }}">Página anterior</a>
-	<a href="/busqueda?q={{ termino }}&pagina_actual={{ pagina_actual + 1 if pagina_actual < pagina_final else pagina_final }}&pagina_final={{ pagina_final }}">Página siguiente</a>
-</div>
-
-<p>Mostrando página {{ pagina_actual }} de {{ pagina_final }}</p>
