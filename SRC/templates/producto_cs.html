@@ -5,17 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Producto|PriceSeeker</title>
     <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-banner.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-footer.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-searcher.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-product.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-characteristics.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-recommendation.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-menu.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-perfil.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 </head>
 <body style="background-color: #d9d9d9;">
     
     <!--Banner/menu de arriba-->
-<div class="banner">
+  <div class="banner">
     <div class="logo">
       <img src="/static/images/logo.png" alt="Logo">
       <span class="nombre_sitio"><a href="{{url_for('inicio')}}" class="nombre_sitio">
@@ -27,15 +30,15 @@
     <!--Buscador-->
     <div class="buscador" style="text-align: center; display: flex; padding-left: 12%;">
       <form method="get" action="/busqueda">
-        <input type="text" id="buscador" name="q" value="{{ termino }}" placeholder="Buscar productos" autocomplete="off">
-        <button type="submit"><a href="{{url_for('busqueda')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
+        <input type="text" id="buscador" name="q" value="{{ termino }}" placeholder="Buscar producto" autocomplete="off">
+        <button type="submit" class="icono"><a href="{{url_for('busqueda')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
       </form>
   
       <!--Mostrar los productos-->
       <div id="resultados"></div>
     </div>
 
-    <div class="lista" style="display: flex;">
+    <div class="perfil" ><!--cMBIE lista por perfil style="display: flex;"-->
       <button>
         <i class="fa-solid fa-clipboard-list fa-2xl" style="color:#ffffff;"></i>
       </button>
@@ -75,15 +78,16 @@
     <div class="details">
       <h2 class="nombre">{{ producto.descripcion }}</h2>
       <br><br>
-        <div class="precios">
-          <span class="p_actual"> {{ producto.precio_actual }} </span>
-          <span class="p_original">{{ producto.precio_normal }}</span>
-          <br><br><br><br>
-        </div>
-        <div class="boton">
-          <button class="add">Añadir a lista</button>
-        </div>
+      <div class="precios">
+        <span class="p_actual"> {{ producto.precio_actual }} </span>
+        <span class="p_original">{{ producto.precio_normal }}</span>
+        <br><br><br><br>
+      </div>
+      <div class="boton">
+        <button class="add">Añadir a lista</button>
+      </div>
     </div>
+  </div>
 <br><br><br>
 
 <div class="recommendations">
@@ -110,6 +114,6 @@
 <footer style="padding-top: 20px; padding-bottom: 10px; background-color: #357600; color: white; text-align: center; margin-bottom: 0;">
 <p>@PriceSeeker <br> Todos los derechos reservados 2024</p>
 </footer>
-
+<script src="{{ url_for('static', filename='js/busquedaRealTime.js') }}"></script>
 </body>
 </html>

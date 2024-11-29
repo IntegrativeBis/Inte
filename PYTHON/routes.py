@@ -14,7 +14,6 @@ app.secret_key = secrets.token_hex(16)
 @app.route('/') 
 def inicio(): 
     categorias = busqueda_categoria()
-    print(categorias[0]) #imprime un disccionario con su id y nombre
     if 'cel' in session :
         id_usuario = session['id']
         print(f"imprimo ID usuario: {id_usuario}")
@@ -26,7 +25,7 @@ def inicio():
         mensaje = request.args.get('mensaje')
         if mensaje is not None and listas_descripcion is not None:
             return render_template('inicio_cs.html', mensaje=mensaje, usuario=usuario, categorias=categorias, listas_descripcion=listas_descripcion, lista_con_productos=lista_con_productos)
-        print("algo es nulo y no devuelvo puro aire")
+        print("algo es nulo y no devuelvo puro aire inicio route")
         return render_template('inicio_cs.html', usuario=usuario, categorias=categorias, listas_descripcion=listas_descripcion, lista_con_productos=lista_con_productos)
     return render_template('inicio_ss.html', categorias = categorias)
 
@@ -68,7 +67,6 @@ def iniciar_sesion():
             session['cel'] = celular 
             session['nombre'] = usuario_info['nombre']
             session['apellido'] = usuario_info['apellido']
-            print(session)
             mensaje = "Correct"
             return redirect(url_for('inicio', usuario_info = {usuario_info['nombre'], usuario_info['apellido']} ))
         except Exception as e:
@@ -150,7 +148,6 @@ def producto(id_producto): #   DEBERIA DE TOMAR EL ID
     """termino = request.args.get('q', '').lower()
     print(termino)"""
     productos = busqueda_productos_by_id(id_producto)
-    print(productos) 
     if 'cel' in session:
         return render_template('producto_cs.html', producto=productos[0], recomendaciones=productos[1])
     return render_template('producto_ss.html', producto=productos[0], recomendaciones=productos[1]) #al ver otro producto el SQL no se vuelve a ejecutar

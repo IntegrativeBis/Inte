@@ -27,10 +27,10 @@
 
     <!--Buscador-->
     <div class="buscador" style="text-align: center; display: flex; padding-right: 5%;">
-        <form method="get" action="/busqueda">
-          <input type="text" id="buscador" name="q" value="{{termino}}" placeholder="Buscar producto" autocomplete="off">
-          <button type="submit" class="icono"><a href="{{url_for('busqueda')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
-        </form>
+      <form method="get" action="/busqueda">
+        <input type="text" id="buscador" name="q" value="{{termino}}" placeholder="Buscar producto" autocomplete="off">
+        <button type="submit" class="icono"><a href="{{url_for('busqueda')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
+      </form>
 
         <!--Mostrar resultados-->
         <div id="resultados"></div>
@@ -55,14 +55,14 @@
     <div class="details">
       <h2 class="nombre">{{ producto.descripcion }}</h2>
       <br><br>
-        <div class="precios">
-          <span class="p_actual"> {{ producto.precio_actual }} </span>
-          <span class="p_original">{{ producto.precio_normal }}</span>
-          <br><br><br><br>
-        </div>
-        <div class="boton">
-          <button class="add">Añadir a lista</button>
-        </div>
+      <div class="precios">
+        <span class="p_actual"> {{ producto.precio_actual }} </span>
+        <span class="p_original">{{ producto.precio_normal }}</span>
+        <br><br><br><br>
+      </div>
+      <div class="boton">
+        <button class="add">Añadir a lista</button>
+      </div>
     </div>
   </div>
 <br><br><br>

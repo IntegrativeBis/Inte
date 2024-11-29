@@ -6,9 +6,7 @@ connection = dbconnection()  # Obtenemos la conexión
 def login(celular, contrasena):
     query = "SELECT IdUsuario FROM TUsuarios WHERE Celular = ?"
     try:
-        print("estoy realizando la confirmacion del login")
         with connection.cursor() as cursor: 
-            print("voy a usar el cursor")
             cursor.execute("EXEC sp_ReadUser ?, ?", (celular, contrasena))
             row_login = cursor.fetchone()
             cursor.execute(query, (celular,))
@@ -74,7 +72,6 @@ def busqueda_productos_AD(termino, pagina_actual, pagina_final): #AD = ALL DESCR
             with connection.cursor() as cursor:
                 cursor.execute(query, ('%' + termino.lower() + '%', offset, 20))
                 productos = cursor.fetchall()
-                
                 for producto in productos:
                     resultados.append({
                         'id_producto': producto[0],
@@ -175,7 +172,6 @@ def busqueda_productos_by_id(id_producto):
                 }
                 for producto_similar in productos_recomendados
             ]
-            print(producto, recomendaciones)
         return producto, recomendaciones
         
     except Exception as e:
@@ -205,7 +201,6 @@ def busqueda_productos_cantidad_by_idXlista(id_producto):
                 'precio_actual': atributo[6], #PRECIO ACTUAL SIEMPRE EXISTE, EL NORMAL ES CUANDO HAY OFERTA(PRECIO ACTRUAL) Y TIENE QUE SALIR EL PRECIO ORIGINAL DIFERENTE
                 'URL': atributo[7]
             }
-            print(producto)
         return producto
         
     except Exception as e:
@@ -217,7 +212,6 @@ def busqueda_categoria(): #se buscan todas las categorias de manera que puedan a
         with connection.cursor() as cursor:
             cursor.execute("SELECT * FROM TCategorias")
             categorias = cursor.fetchmany(2)
-            print(categorias)
             categoria = [
                 {
                     'id_categoria' : category[0],
@@ -294,7 +288,6 @@ def obtener_listas(id_usuario): #se obtiene la cantidad YA ESTA
             'id_lista': listas_info[0],
             'nombre_lista': listas_info[1]  
         }
-        
         return listas
     except Exception as ex:
         print (f"Error al obtener lista: {str(ex)}")
