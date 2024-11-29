@@ -164,6 +164,7 @@ def lista_antes(id_lista):
 @app.route('/lista_antes')
 def lista_antes():
     return render_template ("lista_antes.html")
+"""
 @app.route ('/lista_despues') #te redirige a la lista before comparar
 def lista_despues(id_lista):
     if 'cel' in session:
@@ -172,6 +173,10 @@ def lista_despues(id_lista):
         id_producto = lista_producto[0]
         productos_lista = busqueda_productos_cantidad_by_idXlista(id_producto) #te da toda la dscripcion de los productos
         return render_template("lista_antes.html", productos_lista = productos_lista)
+"""
+@app.route('/lista_despues')
+def lista_despues():
+    return render_template ("lista_despues.html")
 
 @app.route ('/crear_lista', methods = ['get', 'post']) #ya esta creado
 def crear_lista():

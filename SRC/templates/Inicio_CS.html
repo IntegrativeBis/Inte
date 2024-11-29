@@ -39,9 +39,15 @@
             <form action="/crear_lista" method="post">
             <input type="text" required name="nombre_lista" placeholder="Nombre de la lista">
             <button type="submit">Crear lista</button></form>
-            {%for lista in listas_descripcion%}
-              <a href="/lista_antes/{{ lista.id_lista }}"></a>{{lista.nombre_lista}}
-            {% endfor %}
+            {% if listas_description %}
+              <ul>
+                {% for lista in listas_description %}
+                  <li>{{ lista.nombre_lista }} (ID: {{ lista.id_lista }})</li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p>No hay listas disponibles.</p>
+            {% endif %}
           </div>
         </div>
 
