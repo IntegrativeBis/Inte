@@ -7,28 +7,7 @@
 }
 
 /* Tarjeta individual en formato horizontal */
-.product1 {
-    grid-column: 2;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px #8b8b8b;
-}
-
-.product2 {
-    grid-column: 3;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px #8b8b8b;
-}
-
-.product3 {
-    grid-column: 4;
+.product {
     display: flex;
     align-items: center;
     padding: 10px;
@@ -38,9 +17,10 @@
 }
 
 /* Imagen en la tarjeta */
-.img {
-    width: 100px;
-    height: 100px;
+.image {
+    width: 100%;
+    max-width: 100px;
+    height: auto;
     object-fit: cover;
     margin-right: 20px;
     border-radius: 5px;
@@ -60,14 +40,6 @@
     color: #000000;
 }
 
-.desc {
-    font-size: 14px;
-    margin: 4px 0;
-    color: #333;
-    font-family: 'Jacques Francois, regular';
-    color: #000000
-}
-
 .pre {
     font-size: 14px;
     margin: 4px 0;
@@ -82,4 +54,10 @@
     color: #333;
     font-family: 'Jacques Francois, regular';
     color: #69b62c;
+}
+
+@media(max-width: 600px){
+    .grid-container{
+        gap: 20px;
+    }
 }

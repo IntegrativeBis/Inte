@@ -6,6 +6,7 @@
   <title>Busqueda|PriceSeeker</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-banner.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-footer.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-product.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-perfil.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-searcher.css')}}">
@@ -36,54 +37,45 @@
   </div>
   <br><br>
 
+  <!--Iniciar sesion-->
   <div class="perfil" style="display: flex; padding-right:4%;"> 
-    <a href= "{{ url_for('iniciar_sesion')}}">                                                      
-          Iniciar Sesion
+    <a href= "{{ url_for('iniciar_sesion')}}" style="color: #ffffff; text-decoration: none">                                                      
+      Iniciar Sesion
     </a>
   </div>
 </div> 
 <br><br>
 
-<!--Grid para poner los productosd-->
-<!---->
-<div class="grid-container">
-  {% for resultado in resultados %}
-    <div class="product1">
-      <a href="/producto/{{ resultado.id_producto }}">
-        {% if not resultado.imagen %}
-          <img src="/static/images/ND.jpeg">
-        {% else %}
-          <img src="{{ resultado.imagen }}" alt="" class="img">
-        {% endif %}
-      </a>
+<!--Grid para poner los productos-->
+  <div class="grid-container">
+    {% for resultado in resultados %}
+      <div class="product">
+        <a href="/producto/{{ resultado.id_producto }}">
+          {% if not resultado.imagen %}
+            <img src="/static/images/ND.jpeg" class="image">
+          {% else %}
+            <img src="{{ resultado.imagen }}" alt="" class="img">
+          {% endif %}
+        </a>
         <div class="content">
           <h5 class="title">{{resultado.descripcion}}</h5>
-          <p class="desc">Descripción</p>
           <p class="pre">{{resultado.precio}}</p>
           <p class="text">{{resultado.tienda}}</p>
         </div>
     </div>
-  {% endfor %}
-
-
-</div>
-
-    <br><br>
+    {% endfor %}
+  </div>
+  <br><br>
 
 <!--Cambiar de pagina-->
   <div style="text-align: center;">
-    <a href="/busqueda?q={{ termino }}&pagina_actual={{ pagina_actual - 1 if pagina_actual > 1 else 1 }}&pagina_final={{ pagina_final }}">Página anterior</a>
-	  <a href="/busqueda?q={{ termino }}&pagina_actual={{ pagina_actual + 1 if pagina_actual < pagina_final else pagina_actual }}&pagina_final={{ pagina_final }}">Página siguiente</a>
-
-
-    <button style="background-color: #d9d9d9; border: none;"><i class="fa-solid fa-arrow-left fa-lg" style="padding-right: 15px; color: #000000"></i></button>
-    1/10
-    <button style="background-color: #d9d9d9; border: none;"><i class="fa-solid fa-arrow-right fa-lg" style="padding-left: 15px; color: #000000"></i></button>
+    <a href="/busqueda?q={{ termino }}&pagina_actual={{ pagina_actual - 1 if pagina_actual > 1 else 1 }}&pagina_final={{ pagina_final }}"><i class="fa-solid fa-arrow-left fa-xl" style="color: #000000;"></i></a>
+    <span style="font-family: Jacques Francois, Regular; font-size: 18px; color: #000000">{{ pagina_actual }} de {{ pagina_final }}</span>
+	  <a href="/busqueda?q={{ termino }}&pagina_actual={{ pagina_actual + 1 if pagina_actual < pagina_final else pagina_actual }}&pagina_final={{ pagina_final }}"><i class="fa-solid fa-arrow-right fa-xl" style="color: #000000;"></i></a>
   </div>    
-  <p>Mostrando página {{ pagina_actual }} de {{ pagina_final }}</p>        
     <br><br>
 
-    <footer style="padding-top: 20px; padding-bottom: 10px; background-color: #357600; color: white; text-align: center; margin-bottom: 0;">
+    <footer>
       <p>@PriceSeeker <br> Todos los derechos reservados 2024</p>
     </footer>
 </body>
