@@ -151,7 +151,7 @@ def producto(id_producto): #   DEBERIA DE TOMAR EL ID
     return render_template('producto_ss.html', producto=productos[0], recomendaciones=productos[1]) #al ver otro producto el SQL no se vuelve a ejecutar
 
 # AQUI IRA TODO LO NECESARIO PARA LA LISTA
-
+"""
 @app.route ('/lista_antes/<int:id_lista>') #te redirige a la lista before comparar
 def lista_antes(id_lista):
     if 'cel' in session:
@@ -160,7 +160,10 @@ def lista_antes(id_lista):
         id_producto = lista_con_productos[0]
         productos_lista = busqueda_productos_cantidad_by_idXlista(id_producto) #te da toda la dscripcion de los productos
         return render_template("lista_antes.html", productos_lista = productos_lista)
-    
+"""  
+@app.route('/lista_antes')
+def lista_antes():
+    return render_template ("lista_antes.html")
 @app.route ('/lista_despues') #te redirige a la lista before comparar
 def lista_despues(id_lista):
     if 'cel' in session:
