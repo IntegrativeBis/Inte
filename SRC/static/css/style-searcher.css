@@ -1,3 +1,8 @@
+.buscador{
+    display: flex;
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* Alinea los elementos verticalmente */
+}
 
 .buscador input{
     border-radius: 15px 0 0 15px;

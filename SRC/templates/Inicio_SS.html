@@ -12,65 +12,59 @@
   <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-menu.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-results.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-searcher.css')}}">
-  
   <style>body{background-color: #d9d9d9;}</style>            
 </head>
 
 <body>
   <!--Banner/menu de arriba-->
     <div class="banner">
-        <div class="logo">
-            <img src="{{url_for('static', filename= 'images/logo.png')}}" alt="Logo">
-            <span class="nombre_sitio">
-                PriceSeeker
-            </span>
+      <div class="logo">
+        <img src="{{url_for('static', filename= 'images/logo.png')}}" alt="Logo">
+        <span class="nombre_sitio">PriceSeeker</span>
         </div>
-
+        <!--Iniciar Sesion-->
         <div class="perfil" style="display: flex; padding-right:4%;"> 
-          <a href= "{{ url_for('iniciar_sesion')}}">                                                      
-                Iniciar Sesion
-          </a>
+          <a href= "{{ url_for('iniciar_sesion')}}">Iniciar Sesion</a>
         </div>
     </div> 
 
-<!--Menu desplegable de las categorias -->
-<div class="menu">                     
-  <button id="hamburguer">
-    <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>  
-  </button>
-  <div id="meat"  class="content">
-    <form method="get" action="/busqueda_categorias">
-      {% for categoria in categorias %}
-        <button type="submit"><a href="{{ url_for('busqueda_categorias', id_categoria = categoria['id_categoria']) }}"class="cat">{{ categoria.nombre_categoria }}</a></button>
-      {% endfor %}
-    </form>
+  <!--Menu desplegable de las categorias -->
+  <div class="menu">                     
+    <button id="hamburguer" class="hamburguer">
+      <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>  
+    </button>
+    <div id="meat"  class="content">
+      <form method="get" action="/busqueda_categorias">
+        {% for categoria in categorias %}
+          <button type="submit" class="cate"><a href="{{ url_for('busqueda_categorias', id_categoria = categoria['id_categoria']) }}"class="cat">{{ categoria.nombre_categoria }}</a></button><br>
+        {% endfor %}
+      </form>
+    </div>
   </div>
-</div>
-    <br><br>
+  <br><br>
 
   <!--Buscador-->
-    <div class="buscador" style="text-align: center;">
-      <form method="get" action="/busqueda">
-        <input type="text" id="buscador" name="q" value="{{ termino }}" placeholder="Buscar productos" autocomplete="off">
-        <button type="submit"><a href="{{url_for('busqueda')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
-      </form>
-
-      <!--Mostrar los productos-->
-      <div id="resultados"></div>
-    </div>
-    <br><br>
+  <div class="buscador">
+    <form method="get" action="/busqueda">
+      <input type="text" id="buscador" name="q" value="{{ termino }}" placeholder="Buscar productos" autocomplete="off">
+      <button type="submit"><a href="{{url_for('busqueda')}}" class="icon"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></button>
+    </form>
+    <!--Mostrar los productos-->
+    <div id="resultados"></div>
+  </div>
+  <br><br>
 
 <!--Esta es la parte de los anuncios--> 
    <div class="ads">
     <ul>
-      <li><img src="{{url_for('static', filename= 'images/ad1.jpg')}}" alt=""></li>
-      <li><img src="{{url_for('static', filename= 'images/ad2.jpg')}}" alt=""></li>
+      <li><img src="{{url_for('static', filename= 'images/ad1.png')}}" alt=""></li>
+      <li><img src="{{url_for('static', filename= 'images/ad2.png')}}" alt=""></li>
       <li><img src="{{url_for('static', filename= 'images/ad3.jpg')}}" alt=""></li>
       <li><img src="{{url_for('static', filename= 'images/ad4.jpg')}}" alt=""></li>
       <li><img src="{{url_for('static', filename= 'images/ad5.jpg')}}" alt=""></li>
     </ul>
    </div>
-    <br><br><br><br><br>
+    <br><br><br>
 
     <!--Informacion de la empresa y el sitio web-->
     <footer>
@@ -82,4 +76,5 @@
 <script src="{{ url_for('static', filename='js/busquedaRealTime.js') }}"></script>
 <!--Script para arreglar la coso de las categorias-->
 <script src="{{ url_for('static', filename='js/fix-category.js')}}"></script>
+
 </html>
