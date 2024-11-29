@@ -13,20 +13,18 @@ app.secret_key = secrets.token_hex(16)
 
 @app.route('/') 
 def inicio(): 
-    categorias = busqueda_categoria()
+    categorias = busqueda_categoria() #COMPLETADOOOOOO
     if 'cel' in session :
         id_usuario = session['id']
-        print(f"imprimo ID usuario: {id_usuario}")
         usuario = {'nombre': session['nombre'], 'apellido':session['apellido']}
         listas_descripcion = obtener_listas(id_usuario) #id_lista y nombre
-        lista_con_productos = ver_lista(listas_descripcion) #id_producto y cantidad
-        print(lista_con_productos)
+        print(f"imrpimo lista descripcion {listas_descripcion}")
         categorias = busqueda_categoria()
         mensaje = request.args.get('mensaje')
-        if mensaje is not None and listas_descripcion is not None:
-            return render_template('inicio_cs.html', mensaje=mensaje, usuario=usuario, categorias=categorias, listas_descripcion=listas_descripcion, lista_con_productos=lista_con_productos)
-        print("algo es nulo y no devuelvo puro aire inicio route")
-        return render_template('inicio_cs.html', usuario=usuario, categorias=categorias, listas_descripcion=listas_descripcion, lista_con_productos=lista_con_productos)
+        if mensaje is not None:
+            return render_template('inicio_cs.html', mensaje=mensaje, usuario=usuario, categorias=categorias, listas_descripcion=listas_descripcion)
+        print("no hay mensaje de creacion de carrito")
+        return render_template('inicio_cs.html', usuario=usuario, categorias=categorias, listas_descripcion=listas_descripcion)
     return render_template('inicio_ss.html', categorias = categorias)
 
 #AQUI EN ADELANTE SOLO SE VERA LO QUE TENGA QUE VER CON EL USUARIOOOOOO----------------------------------------------------------------
@@ -154,12 +152,12 @@ def producto(id_producto): #   DEBERIA DE TOMAR EL ID
 
 # AQUI IRA TODO LO NECESARIO PARA LA LISTA
 
-@app.route ('/lista_antes') #te redirige a la lista before comparar
+@app.route ('/lista_antes/<int:id_lista>') #te redirige a la lista before comparar
 def lista_antes(id_lista):
     if 'cel' in session:
-        id_usuario = session['id']
-        lista_producto = ver_lista(id_usuario, id_lista)
-        id_producto = lista_producto[0]
+        lista_con_productos = ver_lista(id_lista) #id_producto y cantidad
+        print(f"imorimo lista con prodicto{lista_con_productos}")
+        id_producto = lista_con_productos[0]
         productos_lista = busqueda_productos_cantidad_by_idXlista(id_producto) #te da toda la dscripcion de los productos
         return render_template("lista_antes.html", productos_lista = productos_lista)
     
@@ -185,7 +183,18 @@ def crear_lista():
             mensaje = "Lista Creada"
         return redirect(url_for('inicio', mensaje = mensaje))
     return pagina_no_encontrada(404)
-        
+
+@app.route ('/insertar_producto/<int:id_producto>')
+def insertar_producto(id_producto):
+    mensaje = "no se consigio insertar"
+    productos = busqueda_productos_cantidad_by_idXlista(id_producto)
+    
+    descripcion = productos['descripcion']
+    result = integrar_producto(3, descripcion, 1) #se anade producto, los numeros dberian ser variables
+    if result is not None:
+        mensaje = "se logro insertar producto"
+    return redirect(url_for('inicio', mensaje = mensaje))
+                
 #A PARTIT DE AQUI SON ERRORES Y DEMAS COSAS --------------------------------------------------------------------------------------------------
 
 @app.errorhandler(404)

@@ -115,7 +115,7 @@ def busqueda_productos_AD_by_category(id_categoria, pagina_actual, pagina_final)
 def busqueda_productos(termino): #BY DESCRIPTION ESTO ES PARA LA BARRA BUSCADORA
     resultados = []
     try:
-        query = "SELECT TOP 8 IdProducto, Descripcion FROM TProducto WHERE LOWER(Descripcion) LIKE ? "
+        query = "SELECT TOP 8 IdProducto, Descripcion FROM TProducto WHERE LOWER(REPLACE(REPLACE(REPLACE(Descripcion, 'á', 'a'), 'é', 'e'), 'í', 'i')) LIKE ? " #replace para que le quite los acentos
         with connection.cursor() as cursor:
             # Ejecutar consulta con parámetros
             cursor.execute(query, ('%' + termino.lower() + '%',))
@@ -228,10 +228,10 @@ def busqueda_categoria(): #se buscan todas las categorias de manera que puedan a
         
 #AQUI VA TODO LO RELACIONADO CON EL CARRIT0
 
-def integrar_producto():
+def integrar_producto(id_carrito, descripcion, cantidad):
     try:
         with connection.cursor() as cursor:
-            cursor.execute("EXEC sp_AddProduct ?", ()) #faltan las variables que necesitamos
+            cursor.execute(f"EXEC sp_AgregarProductosACarrito {id_carrito}, {descripcion}, {cantidad}") #faltan las variables que necesitamos
         print("Se agrego correctamente el producto")
         return True 
     except Exception as ex:
@@ -266,36 +266,50 @@ def ver_lista(id_lista):
         with connection.cursor() as cursor:
             cursor.execute(f"SELECT IdProducto, Cantidad FROM TDCarritos WHERE IdCarrito = {id_lista}")
             lista = cursor.fetchall()
-        print("la obtencion de la lista ha sido un exito")
-        lista_con_productos = {
-            'id_producto': lista[0],
-            'cantidad': lista[1]
-        }
+        if lista:
+            lista_con_productos = [
+                {'id_producto': fila[0], 
+                 'cantidad': fila[1]
+                } for fila in lista
+            ]
+            print("La obtención de la lista ha sido un éxito")
+        else:
+            print(f"No se encontraron productos para la lista con ID {id_lista}")
+        
         return lista_con_productos
     except Exception as ex:
         print (f"Error al dar la lista: {str(ex)}")
         return lista_con_productos
 
-def obtener_listas(id_usuario): #se obtiene la cantidad YA ESTA
-    listas = {}
+def obtener_listas(id_usuario):
+    listas = []  # Inicializamos como lista vacía
     try:
         with connection.cursor() as cursor:
+            # Consulta para obtener las listas del usuario
             cursor.execute(f"SELECT IdCarritos, Detalle FROM TCarritos WHERE IdUsuario = {id_usuario}")
             listas_info = cursor.fetchall()
-            print(listas_info)
-        print("la obtencion de la id_lista ha sido un exito")
-        listas = {
-            'id_lista': listas_info[0],
-            'nombre_lista': listas_info[1]  
-        }
+            print("Resultados obtenidos:", listas_info)
+        
+        print("La obtención de las listas ha sido un éxito")
+        
+        # Crear lista de diccionarios con los resultados
+        listas = [
+            {
+                'id_lista': lista_info[0],  # Primer elemento de la tupla (IdCarritos)
+                'nombre_lista': lista_info[1]  # Segundo elemento de la tupla (Detalle)
+            } for lista_info in listas_info
+        ]
+        
         return listas
+
     except Exception as ex:
-        print (f"Error al obtener lista: {str(ex)}")
+        print(f"Error al obtener lista: {str(ex)}")
         return None
+
     
 
         
-def hacer_lista(id_usuario, nombre_lista): #YA ESTA HECHO SOLO QUE EL STORE PROCEDURE NO HACE NADA
+def hacer_lista(id_usuario, nombre_lista): #YA ESTA HECHO 
     try:
         with connection.cursor() as cursor:
             cursor.execute(f"EXEC CrearCarrito {id_usuario}, {nombre_lista}")

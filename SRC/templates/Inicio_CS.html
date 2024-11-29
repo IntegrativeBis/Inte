@@ -40,6 +40,9 @@
             <form action="/crear_lista" method="post">
             <input type="text" required name="nombre_lista" placeholder="Nombre de la lista">
             <button type="submit">Crear lista</button></form>
+            {%for lista in listas_descripcion%}
+              <a href="/lista_antes/{{ lista.id_lista }}"></a>{{lista.nombre_lista}}
+            {% endfor %}
           </div>
         </div>
 
