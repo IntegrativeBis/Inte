@@ -64,65 +64,46 @@
   </div> 
   <br><br>
 
-<div class="producto">
-  <div class="image">
-    <img src="/static/images/ND.jpeg" alt="Imagen del producto">
-  </div>
-  <div class="details">
-    <h2 class="nombre">Nombre producto</h2>
-    <br><br>
-    <div class="precios">
-      <span class="p_actual">Precio actual</span>
-      <span class="p_original">Precio original</span>
-      <br><br><br><br>
+  <div class="producto">
+    <div class="image">
+      {% if not producto.imagen %}
+        <img src="/static/images/ND.jpeg" alt="">
+      {% else %}
+        <img src="{{ producto.imagen }}" alt="Imagen del producto">
+      {% endif %}
     </div>
-    <div class="boton">
-    <button class="add">Añadir a lista</button>
+    <div class="details">
+      <h2 class="nombre">{{ producto.descripcion }}</h2>
+      <br><br>
+        <div class="precios">
+          <span class="p_actual"> {{ producto.precio_actual }} </span>
+          <span class="p_original">{{ producto.precio_normal }}</span>
+          <br><br><br><br>
+        </div>
+        <div class="boton">
+          <button class="add">Añadir a lista</button>
+        </div>
     </div>
-  </div>
-</div>
 <br><br><br>
 
 <div class="recommendations">
-  <div class="card">
-      <div class="r-image">
-        <img src="/static/images/ND.jpeg" alt="">
-      </div>
-      <div class="r-details">
-          <span class="r-name">Nombre producto</span>
-          <span class="r-price">Precio</span>
-      </div>
-  </div>
-
-  <div class="card">
-    <div class="r-image">
-      <img src="/static/images/ND.jpeg" alt="">
+  <!-- Cada producto similar se renderiza dentro de este div --> 
+  {% for similar in recomendaciones[:4] %}
+    <div class="card">
+        <div class="r-image">
+          {% if not similar.imagen %}
+            <img src="/static/images/ND.jpeg">
+            {% else %}
+            <img src="{{ similar.imagen }}" alt="">
+          {% endif %}
+        </div>
+        <div class="r-details">
+          <span class="r-name">{{ similar.descripcion }}</span>
+          <span class="r-price">{{ similar.precio_actual }}</span>
+          <a href="/producto/{{ similar.id_producto }}" class="boton-ver-mas">Ver más</a>
+        </div>
     </div>
-    <div class="r-details">
-        <span class="r-name">Nombre producto</span>
-        <span class="r-price">Precio</span>
-    </div>
-</div>
-
-<div class="card">
-  <div class="r-image">
-    <img src="/static/images/ND.jpeg" alt="">
-  </div>
-  <div class="r-details">
-      <span class="r-name">Nombre producto</span>
-      <span class="r-price">Precio</span>
-  </div>
-</div>
-
-<div class="card">
-  <div class="r-image">
-    <img src="/static/images/ND.jpeg" alt="">
-  </div>
-  <div class="r-details">
-      <span class="r-name">Nombre producto</span>
-      <span class="r-price">Precio</span>
-  </div>
-</div>
+  {% endfor %}
 </div>
 <br><br><br><br>
 

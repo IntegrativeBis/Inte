@@ -34,7 +34,7 @@
           </button>
           <!-- Crear una lista -->
           <div class="content">
-            {% if mensaje %}
+            {% if mensaje  %}
               {{mensaje}}
             {% endif %}
             <form action="/crear_lista" method="post">
@@ -64,7 +64,7 @@
       <div id="meat"  class="content">
         <form method="get" action="/busqueda_categorias">
           {% for categoria in categorias %}
-            <button type="submit"><a href="{{ url_for('busqueda_categorias', id_categoria = categoria.id_categoria) }}"class="cat">{{ categoria.descripcion }}</a></button>
+            <button type="submit"><a href="{{ url_for('busqueda_categorias', id_categoria = categoria.id_categoria) }}"class="cat">{{ categoria.nombre_categoria }}</a></button>
           {% endfor %}
         </form>
       </div>
@@ -72,7 +72,7 @@
     <br><br>
 
     <!--Bienvenida-->
-    <h1 class="bienvenue">Hola {{usuario.nombre, usuario.apellido}}<span></span></h1>
+    <h1 class="bienvenue">Hola {{usuario.nombre }} {{ usuario.apellido }}<span></span></h1>
     <br><br>
 
   <!--Buscador.-->

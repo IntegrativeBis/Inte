@@ -41,7 +41,7 @@
   <div id="meat"  class="content">
     <form method="get" action="/busqueda_categorias">
       {% for categoria in categorias %}
-        <button type="submit"><a href="{{ url_for('busqueda_categorias', id_categoria = categoria.id_categoria) }}"class="cat">{{ categoria.descripcion }}</a></button>
+        <button type="submit"><a href="{{ url_for('busqueda_categorias', id_categoria = categoria['id_categoria']) }}"class="cat">{{ categoria.nombre_categoria }}</a></button>
       {% endfor %}
     </form>
   </div>

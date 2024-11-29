@@ -14,12 +14,20 @@ app.secret_key = secrets.token_hex(16)
 @app.route('/') 
 def inicio(): 
     categorias = busqueda_categoria()
+    print(categorias[0]) #imprime un disccionario con su id y nombre
     if 'cel' in session :
         id_usuario = session['id']
+        print(f"imprimo ID usuario: {id_usuario}")
+        usuario = {'nombre': session['nombre'], 'apellido':session['apellido']}
         listas_descripcion = obtener_listas(id_usuario) #id_lista y nombre
-        lista_con_productos = ver_lista(listas_descripcion[0]) #id_producto y cantidad
+        lista_con_productos = ver_lista(listas_descripcion) #id_producto y cantidad
+        print(lista_con_productos)
         categorias = busqueda_categoria()
-        return render_template('inicio_cs.html', usuario=session, categorias=categorias, listas_descripcion=listas_descripcion, lista_con_productos=lista_con_productos)
+        mensaje = request.args.get('mensaje')
+        if mensaje is not None and listas_descripcion is not None:
+            return render_template('inicio_cs.html', mensaje=mensaje, usuario=usuario, categorias=categorias, listas_descripcion=listas_descripcion, lista_con_productos=lista_con_productos)
+        print("algo es nulo y no devuelvo puro aire")
+        return render_template('inicio_cs.html', usuario=usuario, categorias=categorias, listas_descripcion=listas_descripcion, lista_con_productos=lista_con_productos)
     return render_template('inicio_ss.html', categorias = categorias)
 
 #AQUI EN ADELANTE SOLO SE VERA LO QUE TENGA QUE VER CON EL USUARIOOOOOO----------------------------------------------------------------
@@ -53,13 +61,9 @@ def iniciar_sesion():
     mensaje = "Introduce celular y contraseña"
     celular=request.form.get ("celular")
     contrasena=request.form.get ("contrasena")
-    print(celular, contrasena)
     if celular and contrasena is not None:
         try:
-            print("voy a usar la funcion LOGIN")
             usuario_info = login(celular, contrasena)
-            print("login depositado")
-            print(f"el id es: {usuario_info['id_usuario']}")
             session['id'] = usuario_info['id_usuario']
             session['cel'] = celular 
             session['nombre'] = usuario_info['nombre']
@@ -174,12 +178,14 @@ def lista_despues(id_lista):
 @app.route ('/crear_lista', methods = ['get', 'post']) #ya esta creado
 def crear_lista():
     if 'cel' in session:
+        
         id_usuario = session['id']
-        nombre_lista = request.form.get['nombre_lista']
+        print(f'el id usuario para crear lsita es: {id_usuario}')
+        nombre_lista = request.form.get('nombre_lista')
         salio = hacer_lista(id_usuario, nombre_lista)
-        if salio == True:
+        mensaje = "Error al crear, o ya existe"
+        if salio is not None:
             mensaje = "Lista Creada"
-        mensaje = "error al crear"
         return redirect(url_for('inicio', mensaje = mensaje))
     return pagina_no_encontrada(404)
         

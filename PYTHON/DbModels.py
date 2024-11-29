@@ -281,7 +281,7 @@ def ver_lista(id_lista):
         }
         return lista_con_productos
     except Exception as ex:
-        print (f"Error al modificar el usuario: {str(ex)}")
+        print (f"Error al dar la lista: {str(ex)}")
         return lista_con_productos
 
 def obtener_listas(id_usuario): #se obtiene la cantidad YA ESTA
@@ -290,25 +290,27 @@ def obtener_listas(id_usuario): #se obtiene la cantidad YA ESTA
         with connection.cursor() as cursor:
             cursor.execute(f"SELECT IdCarritos, Detalle FROM TCarritos WHERE IdUsuario = {id_usuario}")
             listas_info = cursor.fetchall()
+            print(listas_info)
         print("la obtencion de la id_lista ha sido un exito")
         listas = {
             'id_lista': listas_info[0],
             'nombre_lista': listas_info[1]  
         }
+        
         return listas
     except Exception as ex:
-        print (f"Error al modificar el usuario: {str(ex)}")
-        return False
+        print (f"Error al obtener lista: {str(ex)}")
+        return None
     
 
         
-def hacer_lista(id_usuario, nombre_lista): #YA ESTA HECHOOOOOO
+def hacer_lista(id_usuario, nombre_lista): #YA ESTA HECHO SOLO QUE EL STORE PROCEDURE NO HACE NADA
     try:
         with connection.cursor() as cursor:
-            cursor.execute(f"EXEC sp_CrearCarrito ?, ? ", (id_usuario, nombre_lista))
+            cursor.execute(f"EXEC CrearCarrito {id_usuario}, {nombre_lista}")
         print("la lista ha sido creada un exito")
-        return True
+        return "si"
     except Exception as ex:
-        print (f"Error al modificar el usuario: {str(ex)}")
-        return False
+        print (f"Error al craear lista: {str(ex)}")
+        return None
     
