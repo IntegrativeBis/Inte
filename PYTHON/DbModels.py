@@ -1,6 +1,6 @@
-from db import dbconnection
+from db import connectionDB
 from flask import jsonify
-connection = dbconnection()  # Obtenemos la conexión
+connection = connectionDB()  # Obtenemos la conexión
 
 #AQUI ESTAN TODOS LOS QUERYS QUE REFERENCIAN AL USUARIO
 def login(celular, contrasena):

@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import secrets
 from datetime import timedelta
@@ -7,7 +6,6 @@ from datetime import timedelta
 from DbModels import *
 
 app = Flask('__name__', template_folder="SRC/templates", static_folder="SRC/static") 
-
 
 app.secret_key = secrets.token_hex(16) 
 
