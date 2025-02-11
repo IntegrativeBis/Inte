@@ -1,38 +1,74 @@
-from db import connectionDB
+from db import connectionDB, supabase
 from flask import jsonify
 connection = connectionDB()  # Obtenemos la conexión
 
 #AQUI ESTAN TODOS LOS QUERYS QUE REFERENCIAN AL USUARIO
 def login(celular, contrasena):
-    query = "SELECT IdUsuario FROM TUsuarios WHERE Celular = ?"
+    
     try:
         print("estoy realizando la confirmacion del login")
-        with connection.cursor() as cursor: 
-            print("voy a usar el cursor")
-            cursor.execute("EXEC sp_ReadUser ?, ?", (celular, contrasena))
-            row_login = cursor.fetchone()
-            cursor.execute(query, (celular,))
-            id_usuario = cursor.fetchone()
+        responseCel = supabase.table("tusuarios").select("*idusuario, nombreusuario, apellidousuario", "").eq("celular", celular).eq("contrasena", contrasena).execute() 
+        responseID = supabase.table("tusuarios").select("idusuario").eq("celular", celular).execute()
+        print("Ejecute el response de login")
         usuario_info = {
-            'id_usuario': id_usuario[0],
-            'nombre': row_login[0],
-            'apellido': row_login[1]
+            'id_usuario': responseCel[0],
+            'nombre': responseCel[1],
+            'apellido': responseCel[2]
         }
         print(usuario_info) 
         return usuario_info
     except Exception as ex:
         print(f"Error al ejecutar Login para el celular: {celular}: {str(ex)}") 
         return None
-
+    
+    #query = "SELECT IdUsuario FROM TUsuarios WHERE Celular = ?"
+    # try:
+    #     print("estoy realizando la confirmacion del login")
+    #     with connection.cursor() as cursor: 
+    #         print("voy a usar el cursor")
+    #         cursor.execute("EXEC sp_ReadUser ?, ?", (celular, contrasena))
+    #         row_login = cursor.fetchone()
+    #         cursor.execute(query, (celular,))
+    #         id_usuario = cursor.fetchone()
+    #     usuario_info = {
+    #         'id_usuario': id_usuario[0],
+    #         'nombre': row_login[0],
+    #         'apellido': row_login[1]
+    #     }
+    #     print(usuario_info) 
+    #     return usuario_info
+    # except Exception as ex:
+    #     print(f"Error al ejecutar Login para el celular: {celular}: {str(ex)}") 
+    #     return None
 def register_user(nombre, apellido, celular, contrasena):
-    try:
-        with connection.cursor() as cursor:
-            cursor.execute("EXEC sp_CreateUser ?, ?, ?, ?, ?", (nombre, apellido, 1, celular, contrasena))
-        print("Registro completado con éxito")
-        return True  # Indica que el registro fue exitoso
-    except Exception as ex:
-        print(f"Error al registrar usuario: {str(ex)}")
-        return False  
+    data = {
+            "nombre": nombre,
+            "apellido": apellido,
+            "rol": 1,  # Suponiendo que este campo es equivalente al parámetro faltante en la SP
+            "celular": celular,
+            "contrasena": contrasena  # Considera encriptarla antes de guardarla
+        }
+        
+    response = supabase_client.table("usuarios").insert(data).execute()
+        
+    if response.get("status_code") in [200, 201]:
+            print("Registro completado con éxito")
+            return True
+    else:
+            print(f"Error al registrar usuario: {response.get('error')}")
+            return False
+    # except Exception as ex:
+    #     print(f"Error al registrar usuario: {str(ex)}")
+       # return False
+# def register_user(nombre, apellido, celular, contrasena):
+#     try:
+#         with connection.cursor() as cursor:
+#             cursor.execute("EXEC sp_CreateUser ?, ?, ?, ?, ?", (nombre, apellido, 1, celular, contrasena))
+#         print("Registro completado con éxito")
+#         return True  # Indica que el registro fue exitoso
+#     except Exception as ex:
+#         print(f"Error al registrar usuario: {str(ex)}")
+#         return False  
 
 def delete_user (celular, contrasena):
     try:
