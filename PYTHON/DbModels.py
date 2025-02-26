@@ -1,24 +1,24 @@
-from db import connectionDB, supabase
+from db import connectionDB
 from flask import jsonify
-connection = connectionDB()  # Obtenemos la conexión
-
-#AQUI ESTAN TODOS LOS QUERYS QUE REFERENCIAN AL USUARIO
+supabase = connectionDB()
+#AQUI ESTAN TODOS LOS QUERYS QUE REFERENCIAN AL USUARIO----------------------------------------------------------------------------------------------------------------
 def login(celular, contrasena):
-    
     try:
         print("estoy realizando la confirmacion del login")
-        responseCel = supabase.table("tusuarios").select("*idusuario, nombreusuario, apellidousuario", "").eq("celular", celular).eq("contrasena", contrasena).execute() 
-        responseID = supabase.table("tusuarios").select("idusuario").eq("celular", celular).execute()
+        responseCel = supabase.table("tusuarios").select("idusuario, nombreusuario, apellidousuario").eq("celular", celular).eq("contraseña", contrasena).execute() 
         print("Ejecute el response de login")
+        usuario = responseCel.data[0]
+        print(usuario)
         usuario_info = {
-            'id_usuario': responseCel[0],
-            'nombre': responseCel[1],
-            'apellido': responseCel[2]
+            'id_usuario': usuario['idusuario'],
+            'nombre': usuario['nombreusuario'],
+            'apellido': usuario['apellidousuario']
         }
         print(usuario_info) 
+        print("termine la funcion login")
         return usuario_info
     except Exception as ex:
-        print(f"Error al ejecutar Login para el celular: {celular}: {str(ex)}") 
+        print(f"Error al ejecutar Login para el celular: {celular}, error: {ex}") 
         return None
     
     #query = "SELECT IdUsuario FROM TUsuarios WHERE Celular = ?"
@@ -42,24 +42,19 @@ def login(celular, contrasena):
     #     return None
 def register_user(nombre, apellido, celular, contrasena):
     data = {
-            "nombre": nombre,
-            "apellido": apellido,
-            "rol": 1,  # Suponiendo que este campo es equivalente al parámetro faltante en la SP
-            "celular": celular,
-            "contrasena": contrasena  # Considera encriptarla antes de guardarla
-        }
+        "nombreusuario": nombre,
+        "apellidousuario": apellido,
+        "celular": celular,
+        "contraseña": contrasena
+    }
+    print(f"Voy a imprimir los datos que seran ingresados{data}")
+    response = supabase.table("tusuarios").insert(data).execute()
+    print(f"ingrese estos datos{response.data}")
+    if response.error :
+        print(f"error en registrar usuario {response.error}")
+        return False
+    return True, "User registered successfully"
         
-    response = supabase_client.table("usuarios").insert(data).execute()
-        
-    if response.get("status_code") in [200, 201]:
-            print("Registro completado con éxito")
-            return True
-    else:
-            print(f"Error al registrar usuario: {response.get('error')}")
-            return False
-    # except Exception as ex:
-    #     print(f"Error al registrar usuario: {str(ex)}")
-       # return False
 # def register_user(nombre, apellido, celular, contrasena):
 #     try:
 #         with connection.cursor() as cursor:
@@ -70,34 +65,94 @@ def register_user(nombre, apellido, celular, contrasena):
 #         print(f"Error al registrar usuario: {str(ex)}")
 #         return False  
 
-def delete_user (celular, contrasena):
+
+def delete_user(celular, contrasena):
     try:
-        with connection.cursor() as cursor:
-            cursor.execute("EXEC sp_DeleteUser ?, ?", (celular, contrasena))
-        mensaje = "El usuario ha sido eliminado con exito"
-        print(mensaje)
-        return mensaje
+        response = supabase.table("tusuarios") \
+            .delete() \
+            .eq("celular", celular) \
+            .eq("contraseña", contrasena) \
+            .execute()
+
+        if len(response.data) > 0:
+            mensaje = "El usuario ha sido eliminado con éxito"
+            print(mensaje)
+            return mensaje
+        else:
+            mensaje = "No se encontró el usuario o la contraseña es incorrecta"
+            print(mensaje)
+            return mensaje
+
     except Exception as ex:
-        print (f"Error al eliminar el usuario: {str(ex)}")
+        print(f"Error al eliminar el usuario: {str(ex)}")
+        return f"Error al eliminar el usuario: {str(ex)}"
+# def delete_user (celular, contrasena):
+#     try:
+#         with connection.cursor() as cursor:
+#             cursor.execute("EXEC sp_DeleteUser ?, ?", (celular, contrasena))
+#         mensaje = "El usuario ha sido eliminado con exito"
+#         print(mensaje)
+#         return mensaje
+#     except Exception as ex:
+#         print (f"Error al eliminar el usuario: {str(ex)}")
         
-def modify_user (celular, nombre, apellido):
+
+def modify_user(celular, nombre, apellido):
     try:
-        with connection.cursor() as cursor:
-            cursor.execute("EXEC sp_UpdateUser ?, ?, ?", (celular, nombre, apellido))
-        mensaje ="El usuario ha sido modificado con exito"
-        print(mensaje)
-        return mensaje
+        response = supabase.table("tusuarios") \
+            .update({"nombreusuario": nombre, "apellidousuario": apellido}) \
+            .eq("celular", celular) \
+            .execute()
+
+        if len(response.data) > 0:
+            mensaje = "El usuario ha sido modificado con éxito"
+            print(mensaje)
+            return mensaje
+        else:
+            mensaje = "No se encontró el usuario"
+            print(mensaje)
+            return mensaje
+
     except Exception as ex:
-        print (f"Error al modificar el usuario: {str(ex)}")
+        print(f"Error al modificar el usuario: {str(ex)}")
+        return f"Error al modificar el usuario: {str(ex)}"
+# def modify_user (celular, nombre, apellido):
+#     try:
+#         with connection.cursor() as cursor:
+#             cursor.execute("EXEC sp_UpdateUser ?, ?, ?", (celular, nombre, apellido))
+#         mensaje ="El usuario ha sido modificado con exito"
+#         print(mensaje)
+#         return mensaje
+#     except Exception as ex:
+#         print (f"Error al modificar el usuario: {str(ex)}")
         
-def modify_password (celular, nuevacontrasena):
+
+def modify_password(celular, nuevacontrasena):
     try:
-        with connection.cursor() as cursor:
-            cursor.execute("EXEC sp_UpdatePassword ?, ?", (celular, nuevacontrasena))
-        mensaje = "La contrasena ha sido modificado con exito"
-        return mensaje 
+        response = supabase.table("tusuarios") \
+            .update({"contraseña": nuevacontrasena}) \
+            .eq("celular", celular) \
+            .execute()
+        if len(response.data) > 0:
+            mensaje = "La contraseña ha sido modificada con éxito"
+            print(mensaje)
+            return mensaje
+        else:
+            mensaje = "No se encontró el usuario"
+            print(mensaje)
+            return mensaje
+
     except Exception as ex:
-        print (f"Error al modificar la contrasena: {str(ex)}")
+        print(f"Error al modificar la contraseña: {str(ex)}")
+        return f"Error al modificar la contraseña: {str(ex)}"
+# def modify_password (celular, nuevacontrasena):
+#     try:
+#         with connection.cursor() as cursor:
+#             cursor.execute("EXEC sp_UpdatePassword ?, ?", (celular, nuevacontrasena))
+#         mensaje = "La contrasena ha sido modificado con exito"
+#         return mensaje 
+#     except Exception as ex:
+#         print (f"Error al modificar la contrasena: {str(ex)}")
    
 # A PARTIR DE AQUI COMIENZA TODO LO RELACIONADO CON LOS PRODUCTOS --------------------------------------------------------------------
 

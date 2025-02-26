@@ -1,9 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import secrets
 from datetime import timedelta
-#from DbModels import (login, register_user, modify_user, delete_user, busqueda_productos_AD, modify_password, busqueda_productos_AD_by_category, 
-#busqueda_productos, busqueda_productos_by_id, busqueda_categoria, ver_lista, modificar_producto, borrar_producto, integrar_producto)
-from DbModels import *
+from DbModels import (login, register_user, modify_user, delete_user, busqueda_productos_AD, modify_password, busqueda_productos_AD_by_category, 
+busqueda_productos, busqueda_productos_by_id, busqueda_categoria, ver_lista, modificar_producto, borrar_producto, integrar_producto, obtener_listas)
 
 app = Flask('__name__', template_folder="SRC/templates", static_folder="SRC/static") 
 
@@ -37,12 +36,16 @@ def registrar():
             mensaje = "Las contraseñas no coinciden"
             return render_template('registrar.html', mensaje = mensaje)   
         try:
+            print("Estoy llamando a la funcion registrar usuario")  
             register_user(nombre, apellido, celular, contrasena)
             mensaje = "REGISTRO EXITOSO"
             return render_template('iniciar_sesion.html', mensaje = mensaje)
         except Exception as e:
-            print(e)
-            mensaje = "ERROR AL REGISTRAR. POR FAVOR INTENTA DE NUEVO."
+            print(f"error en la route registrar{e}")
+            if hasattr(e, 'code'):
+                mensaje = "Eror al registrar, celular ya registrado."
+            else: 
+                mensaje = "ERROR AL REGISTRAR. POR FAVOR INTENTA DE NUEVO."
     return render_template('registrar.html', mensaje = mensaje)   
 
 #INICIARSESION RUTA
@@ -51,7 +54,7 @@ def iniciar_sesion():
     mensaje = "Introduce celular y contraseña"
     celular=request.form.get ("celular")
     contrasena=request.form.get ("contrasena")
-    print(celular, contrasena)
+    print(f"Cel y contra de routes {celular, contrasena}")
     if celular and contrasena is not None:
         try:
             print("voy a usar la funcion LOGIN")
@@ -63,7 +66,6 @@ def iniciar_sesion():
             session['nombre'] = usuario_info['nombre']
             session['apellido'] = usuario_info['apellido']
             print(session)
-            mensaje = "Correct"
             return redirect(url_for('inicio', usuario_info = {usuario_info['nombre'], usuario_info['apellido']} ))
         except Exception as e:
                 print(f"Error de login (routes): {e}" )
@@ -75,6 +77,8 @@ def cuenta():
     if 'cel' in session:
         return render_template('cuenta.html')
     return pagina_no_encontrada(404)
+
+#falta modificar user, delete user
 
 @app.route('/cambiar_contrasena', methods=['GET', 'POST'])
 def cambiar_contrasena():

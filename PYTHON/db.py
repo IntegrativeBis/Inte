@@ -10,15 +10,17 @@
 #         print(f"NO PUDE CONECTARLA, EL ERRORCITO ES: {ex} ") 
 #         return None
         
-import supabase
+from supabase import create_client, Client
 from PRIVATE import url, key
 def connectionDB():
     try:
         print("accediendo a la DB")
-        supabase.Client(url, key)
+        supabase: Client = create_client(url, key)
         print("Se accedio a la DB")
+        return supabase
     except Exception as err:
         print(f"no se logro conectar a la DB {err}")
+        return None
     
 
 
